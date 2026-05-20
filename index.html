@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sebastian Black Portfolio</title>
+  <link rel="preconnect" href="https://api.fontshare.com">
+  <link href="https://api.fontshare.com/v2/css?f[]=switzer@400,500,700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0f0e0e;
+      --white: #ffffff;
+      --white-50: rgba(255,255,255,0.5);
+    }
+
+    html, body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: 'Switzer', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ── NAV ──────────────────────────── */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px 40px;
+    }
+
+    .nav-logo {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: -0.13px;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: -0.13px;
+      text-transform: uppercase;
+    }
+
+    .nav-links a { transition: opacity 0.2s; }
+    .nav-links a:hover { opacity: 0.5; }
+
+    .nav-year {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--white-50);
+      letter-spacing: -0.13px;
+    }
+
+    /* ── HERO ─────────────────────────── */
+    .hero {
+      position: relative;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      justify-content: center;
+      padding: 0 40px;
+      cursor: none;
+    }
+
+    /* trail images: exact production params (245×170, no radius) */
+    .hero-trail {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 245px;
+      height: 170px;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 10;
+      will-change: transform, opacity;
+    }
+
+    .hero-trail img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* small cursor dot visible when mouse enters hero */
+    .hero-cursor-dot {
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.85);
+      pointer-events: none;
+      z-index: 20;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      transform: translate(-50%, -50%);
+    }
+
+    /* BLACK logo image */
+    .hero-logo {
+      position: relative;
+      z-index: 5;
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    /* tagline at absolute bottom */
+    .hero-tagline {
+      position: absolute;
+      bottom: 52px;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      font-size: 16px;
+      font-weight: 500;
+      letter-spacing: 0.32px;
+      line-height: 19.2px;
+      text-transform: uppercase;
+      color: var(--white-50);
+      white-space: nowrap;
+      z-index: 5;
+    }
+
+    /* ── SELECTED WORK ────────────────── */
+    .work-section {
+      padding: 72px 40px 0;
+    }
+
+    .section-header {
+      font-size: 80px;
+      font-weight: 500;
+      font-style: normal;
+      letter-spacing: -2.4px;
+      line-height: 72px;
+      margin-bottom: 32px;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3px;
+    }
+
+    /* hide default cursor only on cards — custom cursor takes over */
+    .project-card {
+      display: block;
+      overflow: hidden;
+      cursor: none;
+    }
+
+    .project-img-wrap {
+      overflow: hidden;
+    }
+
+    .project-img-wrap img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .project-card:hover .project-img-wrap img {
+      transform: scale(1.04);
+    }
+
+    .project-meta {
+      padding: 14px 0 24px;
+    }
+
+    .project-title {
+      font-size: 28px;
+      font-weight: 500;
+      font-style: normal;
+      letter-spacing: -0.84px;
+      line-height: 28px;
+    }
+
+    .project-category {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.36px;
+      line-height: 14.4px;
+      text-transform: uppercase;
+      color: var(--white-50);
+      margin-top: 8px;
+    }
+
+    .see-all-wrap {
+      display: flex;
+      justify-content: center;
+      padding: 52px 0 80px;
+    }
+
+    .btn-pill {
+      display: inline-flex;
+      align-items: center;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.24px;
+      line-height: 14.4px;
+      text-transform: uppercase;
+      border: 1px solid rgba(255,255,255,0.25);
+      padding: 13px 28px;
+      border-radius: 100px;
+      transition: background 0.25s, color 0.25s, border-color 0.25s;
+    }
+
+    .btn-pill:hover {
+      background: var(--white);
+      color: var(--bg);
+      border-color: var(--white);
+    }
+
+    /* ── CUSTOM CURSOR (work section only) ── */
+    .cursor-ring {
+      position: fixed;
+      top: 0; left: 0;
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      background: var(--white);
+      pointer-events: none;
+      z-index: 9999;
+      /* anchor: bottom-center at mouse position */
+      transform: translate(-50%, -50%) scale(0.1);
+      opacity: 0;
+      transition:
+        opacity  0.3s ease,
+        transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+      will-change: transform, opacity;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .cursor-ring.is-active {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    /* arrow inside cursor */
+    .cursor-ring svg {
+      width: 38px;
+      height: 38px;
+      opacity: 0;
+      transform: scale(0.5);
+      transition: opacity 0.25s 0.15s ease, transform 0.3s 0.15s ease;
+    }
+
+    .cursor-ring.is-active svg {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* ── ABOUT ────────────────────────── */
+    .about-section {
+      padding: 0 40px 100px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    .about-title {
+      font-size: 80px;
+      font-weight: 500;
+      font-style: normal;
+      line-height: 72px;
+      letter-spacing: -2.4px;
+    }
+
+    .about-details-group { margin-top: 52px; }
+
+    .about-label {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: -0.13px;
+      line-height: 15.6px;
+      text-transform: uppercase;
+      color: var(--white-50);
+      margin-bottom: 12px;
+    }
+
+    .about-list {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: -0.13px;
+      line-height: 15.6px;
+      text-transform: uppercase;
+    }
+
+    .about-right {
+      position: sticky;
+      top: 80px;
+    }
+
+    .about-right img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+      border-radius: 2px;
+    }
+
+    /* ── CONTACT ──────────────────────── */
+    .contact-section {
+      padding: 0 40px 100px;
+    }
+
+    .contact-inner {
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 4px;
+      padding: 80px;
+      display: flex;
+      flex-direction: column;
+      gap: 52px;
+    }
+
+    .contact-eyebrow {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: -0.13px;
+      line-height: 15.6px;
+      text-transform: uppercase;
+      color: var(--white-50);
+    }
+
+    .contact-title {
+      font-size: 80px;
+      font-weight: 500;
+      font-style: normal;
+      line-height: 72px;
+      letter-spacing: -2.4px;
+    }
+
+    /* ── FOOTER ───────────────────────── */
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding: 40px 40px 48px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      align-items: end;
+      gap: 40px;
+    }
+
+    .footer-address {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.24px;
+      line-height: 14.4px;
+      text-transform: uppercase;
+      color: var(--white-50);
+    }
+
+    .footer-social {
+      margin-top: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .footer-social a {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: -0.13px;
+      line-height: 15.6px;
+      text-transform: uppercase;
+      transition: opacity 0.2s;
+    }
+
+    .footer-social a:hover { opacity: 0.5; }
+
+    .footer-center {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .footer-cta-title {
+      font-size: 28px;
+      font-weight: 500;
+      font-style: normal;
+      line-height: 28px;
+      letter-spacing: -0.84px;
+    }
+
+    .footer-copy {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.24px;
+      text-transform: uppercase;
+      color: var(--white-50);
+      margin-top: 2px;
+    }
+
+    /* ── RESPONSIVE ───────────────────── */
+    @media (max-width: 768px) {
+      .nav { padding: 18px 20px; }
+      .nav-year { display: none; }
+      .hero { padding: 0 20px; }
+      .hero-tagline { font-size: 11px; letter-spacing: 0.2px; white-space: normal; width: 90%; text-align: center; }
+      .work-section { padding: 60px 20px 0; }
+      .section-header { font-size: 40px; line-height: 38px; letter-spacing: -1.2px; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .project-title { font-size: 20px; line-height: 20px; letter-spacing: -0.6px; }
+      .see-all-wrap { padding: 40px 0 60px; }
+      .about-section { padding: 0 20px 80px; grid-template-columns: 1fr; gap: 40px; }
+      .about-title { font-size: 40px; line-height: 38px; letter-spacing: -1.2px; }
+      .about-right { position: static; }
+      .contact-section { padding: 0 20px 80px; }
+      .contact-inner { padding: 48px 32px; }
+      .contact-title { font-size: 40px; line-height: 38px; letter-spacing: -1.2px; }
+      footer { padding: 40px 20px 48px; grid-template-columns: 1fr; gap: 48px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- CUSTOM CURSOR (work section) -->
+  <div class="cursor-ring" id="cursorRing" aria-hidden="true">
+    <!-- Arrow ↗ inline SVG — black on white circle -->
+    <svg viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M10 28 L28 10 M28 10 H14 M28 10 V24"
+            stroke="#0f0e0e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
+
+  <!-- NAV -->
+  <header class="nav">
+    <a href="/" class="nav-logo">Sebastian Black</a>
+    <nav class="nav-links">
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <span class="nav-year">®2026</span>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <!-- trail images injected by JS -->
+
+    <img
+      class="hero-logo"
+      src="images/tDVzmPOME9mpSVJfDy4QuMbSk.png"
+      alt="BLACK®"
+      draggable="false"
+    >
+
+    <p class="hero-tagline">
+      Diseñador e ilustrador con base en Perú,<br>
+      especializado en branding y desarrollo de productos.
+    </p>
+  </section>
+
+  <!-- SELECTED WORK -->
+  <section class="work-section" id="work">
+    <h3 class="section-header">Selected work</h3>
+
+    <div class="projects-grid">
+
+      <a href="#" class="project-card">
+        <div class="project-img-wrap">
+          <img src="images/hlr5PPXXSqoc1cs0qjmcnkbF6g.jpg" alt="Gaston" loading="lazy">
+        </div>
+        <div class="project-meta">
+          <div class="project-title">Gaston: Lighting under a new light</div>
+          <div class="project-category">Rebranding</div>
+        </div>
+      </a>
+
+      <a href="#" class="project-card">
+        <div class="project-img-wrap">
+          <img src="images/7cSqYps8BdZ7wsFmZKZEtqVpr5o.png" alt="Gastro App" loading="lazy">
+        </div>
+        <div class="project-meta">
+          <div class="project-title">Gastro App</div>
+          <div class="project-category">Rebranding — Diseño App Mobile</div>
+        </div>
+      </a>
+
+      <a href="#" class="project-card">
+        <div class="project-img-wrap">
+          <img src="images/4lYpKB46sdM5HOrJZDIaevqwAM.jpg" alt="LeBlink" loading="lazy">
+        </div>
+        <div class="project-meta">
+          <div class="project-title">LeBlink: Skincare for the modern age</div>
+          <div class="project-category">Rebranding</div>
+        </div>
+      </a>
+
+      <a href="#" class="project-card">
+        <div class="project-img-wrap">
+          <img src="images/pgazYd7NgpB7WFK6HYii2oy2DY.jpg" alt="Sensaya" loading="lazy">
+        </div>
+        <div class="project-meta">
+          <div class="project-title">Sensaya: Beauty for everyone</div>
+          <div class="project-category">Rebranding</div>
+        </div>
+      </a>
+
+      <a href="#" class="project-card">
+        <div class="project-img-wrap">
+          <img src="images/NiTxUhPz9ZVe0YMcWCwuRjGOTw4.jpg" alt="Vintage Everything" loading="lazy">
+        </div>
+        <div class="project-meta">
+          <div class="project-title">Vintage Everything: Fashion Hunters</div>
+          <div class="project-category">Rebranding</div>
+        </div>
+      </a>
+
+      <a href="#" class="project-card">
+        <div class="project-img-wrap">
+          <img src="images/DXc8HbrxINYvsJq758hZB934HSk.jpg" alt="Schlong" loading="lazy">
+        </div>
+        <div class="project-meta">
+          <div class="project-title">Schlong: The subtle art of fine living</div>
+          <div class="project-category">Rebranding</div>
+        </div>
+      </a>
+
+    </div>
+
+    <div class="see-all-wrap">
+      <a href="#" class="btn-pill">see them all</a>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about-section" id="about">
+    <div>
+      <h2 class="about-title">Hello there<br>I'm Sebastian<br>Black</h2>
+
+      <div class="about-details-group">
+        <div class="about-label">Services</div>
+        <div class="about-list">
+          Graphic Design<br>Packaging<br>Art Direction<br>
+          Brand Strategy<br>Naming<br>Digital Design<br>UX/UI Design
+        </div>
+      </div>
+
+      <div class="about-details-group">
+        <div class="about-label">Clients</div>
+        <div class="about-list">
+          Kanto<br>Freeda<br>Chef Kari Jeri<br>
+          ALAZ<br>Soul TV<br>Smart Doctor<br>Peru Tourism
+        </div>
+      </div>
+    </div>
+
+    <div class="about-right">
+      <img src="images/fd5kD2cCcSCbDOldwf36KzORgM.png" alt="Sebastian Black">
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact-section" id="contact">
+    <div class="contact-inner">
+      <div class="contact-eyebrow">Contact</div>
+      <h2 class="contact-title">Let's<br>talk</h2>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div>
+      <div class="footer-address">
+        costanera av. 980<br>
+        Lima, San Miguel 15087<br>
+        Peru
+      </div>
+      <div class="footer-social">
+        <a href="https://www.instagram.com/sebasblack.art/" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.linkedin.com/in/sebastianblack/" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+
+    <div class="footer-center">
+      <p class="footer-cta-title">Do you like<br>What you see?</p>
+      <a href="https://wa.me/51999999999" class="btn-pill" target="_blank" rel="noopener">Let's connect</a>
+      <p class="footer-copy">2025 ® Sebastian Black</p>
+    </div>
+
+    <div></div>
+  </footer>
+
+  <script>
+  // ─────────────────────────────────────────────────────────────
+  //  HERO IMAGE TRAIL
+  // ─────────────────────────────────────────────────────────────
+  (function () {
+    const SRCS = [
+      'images/tP24LzLiBitCSPYf3I5VWteRjiU.jpg',
+      'images/CLer4HGv0q9Sn8qH9VjavD8BZ9k.jpg',
+      'images/Shka760WfmMwYQuiG3en6TEL0.jpg',
+      'images/LDS9TTysxbjZhkRWrQFzvsXhKJw.jpg',
+      'images/LJysnkKSPfGo83S91iuX1rZ0og.png',
+      'images/4Dn4iGUFr5xkVap3DClXp9PhxBA.jpg',
+      'images/S8RwnGDggeNhwN5zjy3fYKfcV4.jpg',
+      'images/bWP5J9dmmdHlIKzW3JaXW3IalBI.jpg',
+      'images/lFROkRGwSikogzm2l0mgs9Q7A.jpg',
+      'images/yXuseJnsuFob8mXKhJu6oLSU.jpg',
+      'images/JVOIK25WDJ8yXrb0IhYJcSomJM.jpg',
+      'images/MawYbzIPT40XuuuIrK5qLQzhp6k.jpg',
+      'images/lukeRWsi21SEvnHwtUAg3a68LE.jpg',
+      'images/ic543DlJFgPVt96GcwbIGNmj5LI.jpg',
+      'images/aA5FLF5atSUuNujy378jovpkIi0.jpg',
+    ];
+
+    const SPAWN_DIST = 123;
+    const SHOW_MS    = 500;
+    const EXIT_MS    = 400;
+    const EXIT_EASE  = 'cubic-bezier(0.84,0,0.24,1)';
+    const ENTER_EASE = 'cubic-bezier(0.22,1,0.36,1)';
+
+    const hero = document.getElementById('hero');
+    let lastX = null, lastY = null;
+    let idx   = 0;
+
+    // Cursor dot — visible on mouseenter, follows mouse in real-time
+    const dot = document.createElement('div');
+    dot.className = 'hero-cursor-dot';
+    hero.appendChild(dot);
+
+    function spawn(x, y) {
+      const el = document.createElement('div');
+      el.className = 'hero-trail';
+      // Initial state: scale 0.95, opacity 0
+      el.style.cssText = [
+        'opacity:0',
+        `transform:translate(calc(${x}px - 50%), calc(${y}px - 50%)) scale(0.95)`,
+        'transition:none',
+      ].join(';');
+
+      const img = document.createElement('img');
+      img.src      = SRCS[idx % SRCS.length];
+      img.draggable = false;
+      el.appendChild(img);
+      hero.appendChild(el);
+      idx++;
+
+      void el.offsetHeight;
+      el.style.transition = `transform 0.5s ${ENTER_EASE}, opacity 0.45s ease`;
+      el.style.transform  = `translate(calc(${x}px - 50%), calc(${y}px - 50%)) scale(1)`;
+      el.style.opacity    = '1';
+
+      // Exit: scale 1→0.9, opacity 1→0
+      setTimeout(() => {
+        el.style.transition = `transform ${EXIT_MS}ms ${EXIT_EASE}, opacity ${EXIT_MS}ms ${EXIT_EASE}`;
+        el.style.transform  = `translate(calc(${x}px - 50%), calc(${y}px - 50%)) scale(0.9)`;
+        el.style.opacity    = '0';
+        setTimeout(() => el.parentNode && el.remove(), EXIT_MS);
+      }, SHOW_MS);
+
+      lastX = x;
+      lastY = y;
+    }
+
+    hero.addEventListener('mouseenter', (e) => {
+      const r = hero.getBoundingClientRect();
+      const x = e.clientX - r.left;
+      const y = e.clientY - r.top;
+      lastX = x;
+      lastY = y;
+      dot.style.left    = x + 'px';
+      dot.style.top     = y + 'px';
+      dot.style.opacity = '1';
+    });
+
+    hero.addEventListener('mousemove', (e) => {
+      const r = hero.getBoundingClientRect();
+      const x = e.clientX - r.left;
+      const y = e.clientY - r.top;
+      dot.style.left = x + 'px';
+      dot.style.top  = y + 'px';
+      if (lastX !== null && Math.hypot(x - lastX, y - lastY) >= SPAWN_DIST) {
+        spawn(x, y);
+      }
+    });
+
+    hero.addEventListener('mouseleave', () => {
+      lastX = null;
+      lastY = null;
+      dot.style.opacity = '0';
+      hero.querySelectorAll('.hero-trail').forEach(el => {
+        el.style.transition = `opacity ${EXIT_MS}ms ${EXIT_EASE}`;
+        el.style.opacity    = '0';
+        setTimeout(() => el.parentNode && el.remove(), EXIT_MS);
+      });
+    });
+  })();
+
+  // ─────────────────────────────────────────────────────────────
+  //  WORK SECTION CURSOR
+  // ─────────────────────────────────────────────────────────────
+  (function () {
+    const ring   = document.getElementById('cursorRing');
+    const cards  = document.querySelectorAll('.project-card');
+
+    let mx = 0, my = 0;
+    let cx = 0, cy = 0;
+
+    document.addEventListener('mousemove', (e) => {
+      mx = e.clientX;
+      my = e.clientY;
+    });
+
+    // Smooth follow
+    (function loop() {
+      cx += (mx - cx) * 0.14;
+      cy += (my - cy) * 0.14;
+      // translate(-50%,-50%) centers the 130px circle on the cursor point
+      ring.style.left = cx + 'px';
+      ring.style.top  = cy + 'px';
+      requestAnimationFrame(loop);
+    })();
+
+    cards.forEach((card) => {
+      card.addEventListener('mouseenter', () => ring.classList.add('is-active'));
+      card.addEventListener('mouseleave', () => ring.classList.remove('is-active'));
+    });
+
+    document.addEventListener('mouseleave', () => ring.classList.remove('is-active'));
+  })();
+  </script>
+
+</body>
+</html>
