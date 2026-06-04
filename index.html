@@ -738,6 +738,9 @@
     const EXIT_EASE  = 'cubic-bezier(0.84,0,0.24,1)';
     const ENTER_EASE = 'cubic-bezier(0.22,1,0.36,1)';
 
+    // Precargar todas las imágenes del trail para que estén en caché antes del primer hover
+    SRCS.forEach(src => { const i = new Image(); i.src = src; });
+
     const hero = document.getElementById('hero');
     let lastX = null, lastY = null;
     let idx   = 0;
