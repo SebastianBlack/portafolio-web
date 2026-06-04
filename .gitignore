@@ -1,0 +1,11 @@
+# Screenshots de desarrollo
+*.png
+*.jpg
+*.jpeg
+!images/
+
+# Playwright
+.playwright-mcp/
+
+# Sistema
+.DS_Store

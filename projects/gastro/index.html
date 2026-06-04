@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gastro App — Sebastian Black</title>
+  <link rel="preconnect" href="https://api.fontshare.com">
+  <link href="https://api.fontshare.com/v2/css?f[]=switzer@400,500,700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --bg: #0f0e0e; --white: #ffffff; --white-50: rgba(255,255,255,0.5); }
+    html, body { background: var(--bg); color: var(--white); font-family: 'Switzer', sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── NAV ── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+      padding: 22px 40px;
+    }
+    .nav-logo { font-size: 13px; font-weight: 500; letter-spacing: -0.13px; text-transform: uppercase; }
+    .nav-links { display: flex; gap: 28px; font-size: 13px; font-weight: 500; letter-spacing: -0.13px; text-transform: uppercase; }
+    .nav-links a { transition: opacity 0.2s; }
+    .nav-links a:hover { opacity: 0.5; }
+    .nav-year { font-size: 13px; font-weight: 500; color: var(--white-50); letter-spacing: -0.13px; text-align: right; }
+
+    /* ── PROJECT HEADER ── */
+    .project-header {
+      padding: 152px 40px 80px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+    .project-header-left {}
+    .project-title {
+      font-size: 80px; font-weight: 500; letter-spacing: -2.4px; line-height: 76px;
+      animation: fadeUp 1s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
+    }
+    .project-description {
+      font-size: 16px; font-weight: 500; line-height: 24px; letter-spacing: -0.16px;
+      color: var(--white-50); margin-top: 32px; max-width: 480px;
+      animation: fadeUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.22s both;
+    }
+    .project-header-right {
+      padding-top: 12px;
+      animation: fadeUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.18s both;
+    }
+    .project-meta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px 40px;
+    }
+    .meta-item {}
+    .meta-label {
+      font-size: 11px; font-weight: 500; letter-spacing: 0.44px; text-transform: uppercase;
+      color: var(--white-50); margin-bottom: 8px;
+    }
+    .meta-value {
+      font-size: 13px; font-weight: 500; letter-spacing: -0.13px; text-transform: uppercase;
+      line-height: 18px;
+    }
+
+    /* ── HERO IMAGE ── */
+    .project-hero {
+      padding: 0 40px;
+    }
+    .project-hero img {
+      width: 100%; display: block;
+      aspect-ratio: 16 / 9; object-fit: cover;
+    }
+
+    /* ── CONTENT SECTIONS ── */
+    .content-section {
+      padding: 80px 40px;
+    }
+    .content-section + .content-section {
+      padding-top: 0;
+    }
+
+    .content-text {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+    .content-eyebrow {
+      font-size: 11px; font-weight: 500; letter-spacing: 0.44px; text-transform: uppercase;
+      color: var(--white-50); margin-bottom: 16px;
+    }
+    .content-heading {
+      font-size: 40px; font-weight: 500; letter-spacing: -1.2px; line-height: 38px;
+    }
+    .content-body {
+      font-size: 16px; font-weight: 500; line-height: 24px; letter-spacing: -0.16px;
+      color: var(--white-50); padding-top: 8px;
+    }
+    .content-body p + p { margin-top: 16px; }
+
+    /* image grid layouts */
+    .img-full { width: 100%; display: block; }
+    .img-full img { width: 100%; display: block; object-fit: cover; }
+
+    .img-grid-2 {
+      padding: 0 40px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 25px;
+    }
+    .img-grid-2 img { width: 100%; display: block; object-fit: cover; aspect-ratio: 4/3; }
+
+    .img-grid-3 {
+      padding: 0 40px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 25px;
+    }
+    .img-grid-3 img { width: 100%; display: block; object-fit: cover; aspect-ratio: 3/4; }
+
+    .img-padded { padding: 0 40px; }
+    .img-padded img { width: 100%; display: block; object-fit: cover; }
+
+    .section-divider { height: 80px; }
+
+    /* ── NEXT PROJECT ── */
+    .next-project {
+      display: block;
+      padding: 120px 40px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      text-align: center;
+      transition: opacity 0.3s;
+      cursor: none;
+    }
+    .next-project:hover { opacity: 0.75; }
+    .next-label {
+      font-size: 13px; font-weight: 500; letter-spacing: -0.13px; text-transform: uppercase;
+      color: var(--white-50); margin-bottom: 24px;
+    }
+    .next-title {
+      font-size: 80px; font-weight: 500; letter-spacing: -2.4px; line-height: 72px;
+    }
+    .next-arrow {
+      display: block; margin-top: 40px; font-size: 32px; color: var(--white-50);
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+    .next-project:hover .next-arrow { transform: translateX(12px); color: var(--white); }
+
+    /* ── CURSOR ── */
+    .cursor-ring {
+      position: fixed; top: 0; left: 0; width: 130px; height: 130px;
+      border-radius: 50%; background: var(--white); pointer-events: none; z-index: 9999;
+      transform: translate(-50%, -50%) scale(0.1); opacity: 0;
+      transition: opacity 0.3s ease, transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .cursor-ring.is-active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    .cursor-ring svg { width: 38px; height: 38px; opacity: 0; transform: scale(0.5); transition: opacity 0.25s 0.15s ease, transform 0.3s 0.15s ease; }
+    .cursor-ring.is-active svg { opacity: 1; transform: scale(1); }
+
+    /* ── SCROLL REVEAL ── */
+    [data-reveal] {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1), transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+      transition-delay: var(--reveal-delay, 0ms);
+    }
+    [data-reveal].is-visible { opacity: 1; transform: translateY(0); }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.1); padding: 40px 40px 48px;
+      display: grid; grid-template-columns: 1fr 1fr 1fr; align-items: end; gap: 40px;
+    }
+    .footer-address { font-size: 12px; font-weight: 500; letter-spacing: 0.24px; line-height: 14.4px; text-transform: uppercase; color: var(--white-50); }
+    .footer-social { margin-top: 28px; display: flex; flex-direction: column; gap: 6px; }
+    .footer-social a { font-size: 13px; font-weight: 500; letter-spacing: -0.13px; text-transform: uppercase; transition: opacity 0.2s; }
+    .footer-social a:hover { opacity: 0.5; }
+    .footer-center { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 24px; }
+    .footer-cta-title { font-size: 28px; font-weight: 500; line-height: 28px; letter-spacing: -0.84px; }
+    .footer-copy { font-size: 12px; font-weight: 500; letter-spacing: 0.24px; text-transform: uppercase; color: var(--white-50); margin-top: 2px; }
+    .footer-right { display: flex; justify-content: flex-end; align-items: flex-end; }
+    .footer-back-top { font-size: 12px; font-weight: 500; letter-spacing: 0.24px; text-transform: uppercase; color: var(--white-50); transition: opacity 0.2s, color 0.2s; cursor: pointer; }
+    .footer-back-top:hover { color: var(--white); opacity: 0.9; }
+    .btn-pill {
+      display: inline-flex; align-items: center; font-size: 12px; font-weight: 500;
+      letter-spacing: 0.24px; text-transform: uppercase;
+      border: 1px solid rgba(255,255,255,0.25); padding: 13px 28px; border-radius: 100px;
+      transition: background 0.25s, color 0.25s, border-color 0.25s;
+    }
+    .btn-pill:hover { background: var(--white); color: var(--bg); border-color: var(--white); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .nav { animation: fadeUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .nav { padding: 18px 20px; grid-template-columns: 1fr 1fr; }
+      .nav-links { display: none; }
+      .nav-year { display: block; }
+
+      .project-header { padding: 120px 20px 60px; grid-template-columns: 1fr; gap: 40px; }
+      .project-title { font-size: 40px; line-height: 38px; letter-spacing: -1.2px; }
+      .project-description { font-size: 14px; max-width: 100%; }
+      .project-meta-grid { grid-template-columns: 1fr 1fr; gap: 24px 32px; }
+
+      .content-section { padding: 48px 20px; }
+      .content-text { grid-template-columns: 1fr; gap: 32px; }
+      .content-heading { font-size: 28px; line-height: 26px; letter-spacing: -0.84px; }
+
+      .project-hero { padding: 0 20px; }
+      .img-grid-2 { padding: 0 20px; grid-template-columns: 1fr; }
+      .img-grid-3 { padding: 0 20px; grid-template-columns: 1fr; }
+      .img-padded { padding: 0 20px; }
+
+      .next-project { padding: 80px 20px; }
+      .next-title { font-size: 40px; line-height: 38px; letter-spacing: -1.2px; }
+
+      footer { padding: 40px 20px 48px; grid-template-columns: 1fr; gap: 48px; }
+      .footer-right { justify-content: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cursor-ring" id="cursorRing" aria-hidden="true">
+    <svg viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M10 28 L28 10 M28 10 H14 M28 10 V24" stroke="#0f0e0e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
+
+  <header class="nav">
+    <a href="/" class="nav-logo">Sebastian Black</a>
+    <nav class="nav-links">
+      <a href="/projects/">Work</a>
+      <a href="/#about">About</a>
+      <a href="/#contact">Contact</a>
+    </nav>
+    <span class="nav-year">®2026</span>
+  </header>
+
+  <!-- ── PROJECT HEADER ── -->
+  <section class="project-header">
+    <div class="project-header-left">
+      <h1 class="project-title">Gastro<br>App</h1>
+      <p class="project-description">
+        Gastro es una aplicación de restaurantes influenciada por plataformas globales como Opentable y Groupon. El principal reto era la falta de comunicación en tiempo real entre restaurantes y comensales: información desactualizada, menús obsoletos y sin horarios de atención precisos. La solución requería una identidad sólida y un sistema UX que priorizara la claridad.
+      </p>
+    </div>
+    <div class="project-header-right">
+      <div class="project-meta-grid">
+        <div class="meta-item">
+          <div class="meta-label">Cliente</div>
+          <div class="meta-value">Gastro</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Año</div>
+          <div class="meta-value">2024</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Categoría</div>
+          <div class="meta-value">Rebranding<br>App Mobile</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Rol</div>
+          <div class="meta-value">Brand Designer<br>UX/UI Design</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── HERO IMAGE ── -->
+  <div class="project-hero" data-reveal>
+    <img src="/images/7cSqYps8BdZ7wsFmZKZEtqVpr5o.png" alt="Gastro App mockup">
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── EL RETO ── -->
+  <div class="content-section" data-reveal>
+    <div class="content-text">
+      <div>
+        <div class="content-eyebrow">El Reto</div>
+        <h2 class="content-heading">Conectar restaurantes y comensales en tiempo real</h2>
+      </div>
+      <div class="content-body">
+        <p>La plataforma necesitaba resolver la brecha de comunicación entre establecimientos y usuarios: horarios inexactos, menús sin actualizar y la imposibilidad de reservar con confianza desde el celular.</p>
+        <p>El desafío de diseño era construir un sistema visual que transmitiera frescura y confianza, con una identidad capaz de competir con referentes globales manteniendo un sabor local.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── IMAGEN SECUNDARIA ── -->
+  <div class="img-grid-2" data-reveal>
+    <img src="/images/tP24LzLiBitCSPYf3I5VWteRjiU.jpg" alt="Gastro detalle 1">
+    <img src="/images/CLer4HGv0q9Sn8qH9VjavD8BZ9k.jpg" alt="Gastro detalle 2">
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── LA SOLUCIÓN ── -->
+  <div class="content-section" data-reveal>
+    <div class="content-text">
+      <div>
+        <div class="content-eyebrow">La Solución</div>
+        <h2 class="content-heading">Una identidad bold que habla el idioma del usuario</h2>
+      </div>
+      <div class="content-body">
+        <p>Se desarrolló una paleta de color centrada en un naranja vibrante como color primario, acompañado de un sistema tipográfico limpio y de alta legibilidad para pantallas móviles.</p>
+        <p>El sistema de diseño UX priorizó la velocidad de acceso a la información: horarios, menús y disponibilidad de mesa en máximo tres taps desde la pantalla de inicio.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── GALERÍA TRIPLE ── -->
+  <div class="img-grid-3" data-reveal>
+    <img src="/images/LDS9TTysxbjZhkRWrQFzvsXhKJw.jpg" alt="Gastro pantalla 1">
+    <img src="/images/bWP5J9dmmdHlIKzW3JaXW3IalBI.jpg" alt="Gastro pantalla 2">
+    <img src="/images/S8RwnGDggeNhwN5zjy3fYKfcV4.jpg" alt="Gastro pantalla 3">
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── IMAGEN FULL WIDTH ── -->
+  <div class="img-padded" data-reveal>
+    <img src="/images/MawYbzIPT40XuuuIrK5qLQzhp6k.jpg" alt="Gastro brand full" style="aspect-ratio:16/7; object-fit:cover;">
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── NEXT PROJECT ── -->
+  <a href="/projects/gaston/" class="next-project" id="nextProject">
+    <p class="next-label">Next Project</p>
+    <h2 class="next-title">Gaston: Lighting<br>under a new light</h2>
+    <span class="next-arrow">→</span>
+  </a>
+
+  <footer>
+    <div>
+      <div class="footer-address">
+        costanera av. 980<br>
+        Lima, San Miguel 15087<br>
+        Peru
+      </div>
+      <div class="footer-social">
+        <a href="https://www.instagram.com/sebasblack.art/" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.linkedin.com/in/sebastianblack/" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+    <div class="footer-center">
+      <p class="footer-cta-title">Do you like<br>What you see?</p>
+      <a href="https://wa.me/51999999999" class="btn-pill" target="_blank" rel="noopener">Let's connect</a>
+      <p class="footer-copy">2026 ® Sebastian Black</p>
+    </div>
+    <div class="footer-right">
+      <a href="#" class="footer-back-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">↑ Back to top</a>
+    </div>
+  </footer>
+
+  <script>
+  (function () {
+    const ring = document.getElementById('cursorRing');
+    const next = document.getElementById('nextProject');
+    let mx = 0, my = 0, cx = 0, cy = 0;
+    document.addEventListener('mousemove', (e) => { mx = e.clientX; my = e.clientY; });
+    (function loop() {
+      cx += (mx - cx) * 0.14; cy += (my - cy) * 0.14;
+      ring.style.left = cx + 'px'; ring.style.top = cy + 'px';
+      requestAnimationFrame(loop);
+    })();
+    if (next) {
+      next.addEventListener('mouseenter', () => ring.classList.add('is-active'));
+      next.addEventListener('mouseleave', () => ring.classList.remove('is-active'));
+    }
+    document.addEventListener('mouseleave', () => ring.classList.remove('is-active'));
+  })();
+
+  (function () {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        el.style.transitionDelay = el.style.getPropertyValue('--reveal-delay') || '0ms';
+        el.classList.add('is-visible');
+        observer.unobserve(el);
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('[data-reveal]').forEach(el => observer.observe(el));
+  })();
+  </script>
+
+</body>
+</html>

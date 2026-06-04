@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects — Sebastian Black</title>
+  <link rel="preconnect" href="https://api.fontshare.com">
+  <link href="https://api.fontshare.com/v2/css?f[]=switzer@400,500,700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --bg: #0f0e0e; --white: #ffffff; --white-50: rgba(255,255,255,0.5); }
+    html, body { background: var(--bg); color: var(--white); font-family: 'Switzer', sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── NAV ── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+      padding: 22px 40px;
+    }
+    .nav-logo { font-size: 13px; font-weight: 500; letter-spacing: -0.13px; text-transform: uppercase; }
+    .nav-links { display: flex; gap: 28px; font-size: 13px; font-weight: 500; letter-spacing: -0.13px; text-transform: uppercase; }
+    .nav-links a { transition: opacity 0.2s; }
+    .nav-links a:hover { opacity: 0.5; }
+    .nav-year { font-size: 13px; font-weight: 500; color: var(--white-50); letter-spacing: -0.13px; text-align: right; }
+
+    /* ── PAGE HEADER ── */
+    .page-header { padding: 152px 40px 64px; }
+    .page-title {
+      font-size: 80px; font-weight: 500; letter-spacing: -2.4px; line-height: 72px;
+      animation: fadeUp 1s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
+    }
+    .project-count {
+      font-size: 13px; font-weight: 500; letter-spacing: -0.13px; text-transform: uppercase;
+      color: var(--white-50); margin-top: 20px;
+    }
+
+    /* ── PROJECTS GRID ── */
+    .projects-section { padding: 0 40px 120px; }
+    .projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
+    .project-card { display: block; overflow: hidden; cursor: none; }
+    .project-img-wrap { overflow: hidden; }
+    .project-img-wrap img {
+      width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block;
+      transition: transform 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .project-card:hover .project-img-wrap img { transform: scale(1.04); }
+    .project-meta { padding: 14px 0 0; }
+    .project-title { font-size: 28px; font-weight: 500; letter-spacing: -0.84px; line-height: 28px; }
+    .project-category { font-size: 12px; font-weight: 500; letter-spacing: 0.36px; text-transform: uppercase; color: var(--white-50); margin-top: 8px; line-height: 14.4px; }
+
+    /* ── CURSOR ── */
+    .cursor-ring {
+      position: fixed; top: 0; left: 0; width: 130px; height: 130px;
+      border-radius: 50%; background: var(--white); pointer-events: none; z-index: 9999;
+      transform: translate(-50%, -50%) scale(0.1); opacity: 0;
+      transition: opacity 0.3s ease, transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .cursor-ring.is-active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    .cursor-ring svg { width: 38px; height: 38px; opacity: 0; transform: scale(0.5); transition: opacity 0.25s 0.15s ease, transform 0.3s 0.15s ease; }
+    .cursor-ring.is-active svg { opacity: 1; transform: scale(1); }
+
+    /* ── SCROLL REVEAL ── */
+    [data-reveal] {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1), transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+      transition-delay: var(--reveal-delay, 0ms);
+    }
+    [data-reveal].is-visible { opacity: 1; transform: translateY(0); }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.1); padding: 40px 40px 48px;
+      display: grid; grid-template-columns: 1fr 1fr 1fr; align-items: end; gap: 40px;
+    }
+    .footer-address { font-size: 12px; font-weight: 500; letter-spacing: 0.24px; line-height: 14.4px; text-transform: uppercase; color: var(--white-50); }
+    .footer-social { margin-top: 28px; display: flex; flex-direction: column; gap: 6px; }
+    .footer-social a { font-size: 13px; font-weight: 500; letter-spacing: -0.13px; text-transform: uppercase; transition: opacity 0.2s; }
+    .footer-social a:hover { opacity: 0.5; }
+    .footer-center { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 24px; }
+    .footer-cta-title { font-size: 28px; font-weight: 500; line-height: 28px; letter-spacing: -0.84px; }
+    .footer-copy { font-size: 12px; font-weight: 500; letter-spacing: 0.24px; text-transform: uppercase; color: var(--white-50); margin-top: 2px; }
+    .footer-right { display: flex; justify-content: flex-end; align-items: flex-end; }
+    .footer-back-top { font-size: 12px; font-weight: 500; letter-spacing: 0.24px; text-transform: uppercase; color: var(--white-50); transition: opacity 0.2s, color 0.2s; cursor: pointer; }
+    .footer-back-top:hover { color: var(--white); opacity: 0.9; }
+    .btn-pill {
+      display: inline-flex; align-items: center; font-size: 12px; font-weight: 500;
+      letter-spacing: 0.24px; text-transform: uppercase;
+      border: 1px solid rgba(255,255,255,0.25); padding: 13px 28px; border-radius: 100px;
+      transition: background 0.25s, color 0.25s, border-color 0.25s;
+    }
+    .btn-pill:hover { background: var(--white); color: var(--bg); border-color: var(--white); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .nav { animation: fadeUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .nav { padding: 18px 20px; grid-template-columns: 1fr 1fr; }
+      .nav-links { display: none; }
+      .nav-year { display: block; }
+      .page-header { padding: 120px 20px 48px; }
+      .page-title { font-size: 40px; line-height: 38px; letter-spacing: -1.2px; }
+      .projects-section { padding: 0 20px 80px; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .project-title { font-size: 20px; line-height: 20px; letter-spacing: -0.6px; }
+      footer { padding: 40px 20px 48px; grid-template-columns: 1fr; gap: 48px; }
+      .footer-right { justify-content: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cursor-ring" id="cursorRing" aria-hidden="true">
+    <svg viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M10 28 L28 10 M28 10 H14 M28 10 V24" stroke="#0f0e0e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
+
+  <header class="nav">
+    <a href="/" class="nav-logo">Sebastian Black</a>
+    <nav class="nav-links">
+      <a href="/projects/">Work</a>
+      <a href="/#about">About</a>
+      <a href="/#contact">Contact</a>
+    </nav>
+    <span class="nav-year">®2026</span>
+  </header>
+
+  <div class="page-header">
+    <h1 class="page-title">Selected<br>Work</h1>
+    <p class="project-count">06 Projects</p>
+  </div>
+
+  <section class="projects-section">
+    <div class="projects-grid">
+
+      <a href="/projects/gaston/" class="project-card" data-reveal style="--reveal-delay:0ms">
+        <div class="project-img-wrap">
+          <img src="/images/hlr5PPXXSqoc1cs0qjmcnkbF6g.jpg" alt="Gaston" loading="lazy">
+        </div>
+        <div class="project-meta">
+          <div class="project-title">Gaston: Lighting under a new light</div>
+          <div class="project-category">Rebranding</div>
+        </div>
+      </a>
+
+      <a href="/projects/gastro/" class="project-card" data-reveal style="--reveal-delay:80ms">
+        <div class="project-img-wrap">
+          <img src="/images/7cSqYps8BdZ7wsFmZKZEtqVpr5o.png" alt="Gastro App" loading="lazy">
+        </div>
+        <div class="project-meta">
+          <div class="project-title">Gastro App</div>
+          <div class="project-category">Rebranding — Diseño App Mobile</div>
+        </div>
+      </a>
+
+      <a href="/projects/leblink/" class="project-card" data-reveal style="--reveal-delay:0ms">
+        <div class="project-img-wrap">
+          <img src="/images/4lYpKB46sdM5HOrJZDIaevqwAM.jpg" alt="LeBlink" loading="lazy">
+        </div>
+        <div class="project-meta">
+          <div class="project-title">LeBlink: Skincare for the modern age</div>
+          <div class="project-category">Rebranding</div>
+        </div>
+      </a>
+
+      <a href="/projects/sensaya/" class="project-card" data-reveal style="--reveal-delay:80ms">
+        <div class="project-img-wrap">
+          <img src="/images/pgazYd7NgpB7WFK6HYii2oy2DY.jpg" alt="Sensaya" loading="lazy">
+        </div>
+        <div class="project-meta">
+          <div class="project-title">Sensaya: Beauty for everyone</div>
+          <div class="project-category">Rebranding</div>
+        </div>
+      </a>
+
+      <a href="/projects/vintage/" class="project-card" data-reveal style="--reveal-delay:0ms">
+        <div class="project-img-wrap">
+          <img src="/images/NiTxUhPz9ZVe0YMcWCwuRjGOTw4.jpg" alt="Vintage Everything" loading="lazy">
+        </div>
+        <div class="project-meta">
+          <div class="project-title">Vintage Everything: Fashion Hunters</div>
+          <div class="project-category">Rebranding</div>
+        </div>
+      </a>
+
+      <a href="/projects/schlong/" class="project-card" data-reveal style="--reveal-delay:80ms">
+        <div class="project-img-wrap">
+          <img src="/images/DXc8HbrxINYvsJq758hZB934HSk.jpg" alt="Schlong" loading="lazy">
+        </div>
+        <div class="project-meta">
+          <div class="project-title">Schlong: The subtle art of fine living</div>
+          <div class="project-category">Rebranding</div>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <footer>
+    <div>
+      <div class="footer-address">
+        costanera av. 980<br>
+        Lima, San Miguel 15087<br>
+        Peru
+      </div>
+      <div class="footer-social">
+        <a href="https://www.instagram.com/sebasblack.art/" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.linkedin.com/in/sebastianblack/" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+    <div class="footer-center">
+      <p class="footer-cta-title">Do you like<br>What you see?</p>
+      <a href="https://wa.me/51999999999" class="btn-pill" target="_blank" rel="noopener">Let's connect</a>
+      <p class="footer-copy">2026 ® Sebastian Black</p>
+    </div>
+    <div class="footer-right">
+      <a href="#" class="footer-back-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">↑ Back to top</a>
+    </div>
+  </footer>
+
+  <script>
+  (function () {
+    const ring = document.getElementById('cursorRing');
+    const cards = document.querySelectorAll('.project-card');
+    let mx = 0, my = 0, cx = 0, cy = 0;
+    document.addEventListener('mousemove', (e) => { mx = e.clientX; my = e.clientY; });
+    (function loop() {
+      cx += (mx - cx) * 0.14; cy += (my - cy) * 0.14;
+      ring.style.left = cx + 'px'; ring.style.top = cy + 'px';
+      requestAnimationFrame(loop);
+    })();
+    cards.forEach(card => {
+      card.addEventListener('mouseenter', () => ring.classList.add('is-active'));
+      card.addEventListener('mouseleave', () => ring.classList.remove('is-active'));
+    });
+    document.addEventListener('mouseleave', () => ring.classList.remove('is-active'));
+  })();
+
+  (function () {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        el.style.transitionDelay = el.style.getPropertyValue('--reveal-delay') || '0ms';
+        el.classList.add('is-visible');
+        observer.unobserve(el);
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('[data-reveal]').forEach(el => observer.observe(el));
+  })();
+  </script>
+
+</body>
+</html>
