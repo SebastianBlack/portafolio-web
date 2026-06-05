@@ -76,17 +76,13 @@
       cursor: none;
     }
 
-    /* trail images: exact production params (245×170, no radius) */
     .hero-trail {
       position: absolute;
       left: 0;
       top: 0;
-      width: 245px;
-      height: 170px;
       overflow: hidden;
       pointer-events: none;
       z-index: 10;
-      will-change: transform, opacity;
     }
 
     .hero-trail img {
@@ -711,7 +707,7 @@
 
   <script>
   // ─────────────────────────────────────────────────────────────
-  //  HERO IMAGE TRAIL
+  //  HERO IMAGE TRAIL  (DOM pool · double-rAF · cached rect)
   // ─────────────────────────────────────────────────────────────
   (function () {
     const SRCS = [
@@ -732,52 +728,78 @@
       'images/aA5FLF5atSUuNujy378jovpkIi0.jpg',
     ];
 
-    const SPAWN_DIST = 123;
-    const SHOW_MS    = 500;
-    const EXIT_MS    = 400;
+    const POOL_SIZE  = 12;
+    const SPAWN_DIST = 110;
+    const SHOW_MS    = 550;
+    const EXIT_MS    = 380;
     const EXIT_EASE  = 'cubic-bezier(0.84,0,0.24,1)';
     const ENTER_EASE = 'cubic-bezier(0.22,1,0.36,1)';
 
-    // Precargar todas las imágenes del trail para que estén en caché antes del primer hover
+    // Precargar todas las imágenes en caché antes del primer hover
     SRCS.forEach(src => { const i = new Image(); i.src = src; });
 
     const hero = document.getElementById('hero');
-    let lastX = null, lastY = null;
-    let idx   = 0;
+    let heroRect = hero.getBoundingClientRect();
+    window.addEventListener('resize', () => { heroRect = hero.getBoundingClientRect(); });
 
-    // Cursor dot — visible on mouseenter, follows mouse in real-time
+    let lastX = null, lastY = null, srcIdx = 0, poolIdx = 0;
+
+    // Cursor dot
     const dot = document.createElement('div');
     dot.className = 'hero-cursor-dot';
     hero.appendChild(dot);
 
-    function spawn(x, y) {
-      const el = document.createElement('div');
+    // DOM pool — elementos pre-creados, nunca se destruyen, se reciclan
+    const pool = Array.from({ length: POOL_SIZE }, () => {
+      const el  = document.createElement('div');
       el.className = 'hero-trail';
-      // Initial state: scale 0.95, opacity 0
-      el.style.cssText = [
-        'opacity:0',
-        `transform:translate(calc(${x}px - 50%), calc(${y}px - 50%)) scale(0.95)`,
-        'transition:none',
-      ].join(';');
-
+      el.style.opacity = '0';
       const img = document.createElement('img');
-      img.src      = SRCS[idx % SRCS.length];
       img.draggable = false;
       el.appendChild(img);
-      hero.appendChild(el);
-      idx++;
+      hero.insertBefore(el, dot);
+      return { el, img, exitTimer: null };
+    });
 
-      void el.offsetHeight;
-      el.style.transition = `transform 0.5s ${ENTER_EASE}, opacity 0.45s ease`;
-      el.style.transform  = `translate(calc(${x}px - 50%), calc(${y}px - 50%)) scale(1)`;
-      el.style.opacity    = '1';
+    function spawn(x, y, dx, dy) {
+      const item = pool[poolIdx % POOL_SIZE];
+      poolIdx++;
 
-      // Exit: scale 1→0.9, opacity 1→0
-      setTimeout(() => {
+      // Cancelar animación en curso si el slot se recicla
+      if (item.exitTimer) clearTimeout(item.exitTimer);
+
+      const { el, img } = item;
+
+      // Variación orgánica: rotación aleatoria + tilt direccional suave
+      const dirAngle  = Math.atan2(dy, dx) * (180 / Math.PI) * 0.08;
+      const randRot   = (Math.random() - 0.5) * 10;
+      const rotation  = (dirAngle + randRot).toFixed(2);
+
+      // Leve variación de tamaño por imagen
+      const scale0    = 0.88 + Math.random() * 0.08;
+      const w         = Math.round(245 * (0.9 + Math.random() * 0.2));
+      const h         = Math.round(170 * (0.9 + Math.random() * 0.2));
+      const tx        = (x - w / 2).toFixed(1);
+      const ty        = (y - h / 2).toFixed(1);
+
+      img.src = SRCS[srcIdx % SRCS.length];
+      srcIdx++;
+
+      // Reset sin reflow: transición desactivada, estado inicial
+      el.style.cssText = `width:${w}px;height:${h}px;opacity:0;transform:translate(${tx}px,${ty}px) scale(${scale0}) rotate(${rotation}deg);transition:none;will-change:transform,opacity;`;
+
+      // Double rAF: garantiza que el browser pintó el estado inicial antes de activar la transición
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        el.style.transition = `transform 0.52s ${ENTER_EASE}, opacity 0.42s ease`;
+        el.style.transform  = `translate(${tx}px,${ty}px) scale(1) rotate(${rotation}deg)`;
+        el.style.opacity    = '1';
+      }));
+
+      item.exitTimer = setTimeout(() => {
         el.style.transition = `transform ${EXIT_MS}ms ${EXIT_EASE}, opacity ${EXIT_MS}ms ${EXIT_EASE}`;
-        el.style.transform  = `translate(calc(${x}px - 50%), calc(${y}px - 50%)) scale(0.9)`;
+        el.style.transform  = `translate(${tx}px,${ty}px) scale(0.88) rotate(${rotation}deg)`;
         el.style.opacity    = '0';
-        setTimeout(() => el.parentNode && el.remove(), EXIT_MS);
+        item.exitTimer = null;
       }, SHOW_MS);
 
       lastX = x;
@@ -785,35 +807,33 @@
     }
 
     hero.addEventListener('mouseenter', (e) => {
-      const r = hero.getBoundingClientRect();
-      const x = e.clientX - r.left;
-      const y = e.clientY - r.top;
-      lastX = x;
-      lastY = y;
+      heroRect = hero.getBoundingClientRect();
+      const x = e.clientX - heroRect.left;
+      const y = e.clientY - heroRect.top;
+      lastX = x; lastY = y;
       dot.style.left    = x + 'px';
       dot.style.top     = y + 'px';
       dot.style.opacity = '1';
     });
 
     hero.addEventListener('mousemove', (e) => {
-      const r = hero.getBoundingClientRect();
-      const x = e.clientX - r.left;
-      const y = e.clientY - r.top;
+      const x  = e.clientX - heroRect.left;
+      const y  = e.clientY - heroRect.top;
       dot.style.left = x + 'px';
       dot.style.top  = y + 'px';
-      if (lastX !== null && Math.hypot(x - lastX, y - lastY) >= SPAWN_DIST) {
-        spawn(x, y);
+      if (lastX !== null) {
+        const dx = x - lastX, dy = y - lastY;
+        if (Math.hypot(dx, dy) >= SPAWN_DIST) spawn(x, y, dx, dy);
       }
     });
 
     hero.addEventListener('mouseleave', () => {
-      lastX = null;
-      lastY = null;
+      lastX = null; lastY = null;
       dot.style.opacity = '0';
-      hero.querySelectorAll('.hero-trail').forEach(el => {
+      pool.forEach(({ el, exitTimer }) => {
+        if (exitTimer) clearTimeout(exitTimer);
         el.style.transition = `opacity ${EXIT_MS}ms ${EXIT_EASE}`;
         el.style.opacity    = '0';
-        setTimeout(() => el.parentNode && el.remove(), EXIT_MS);
       });
     });
   })();
