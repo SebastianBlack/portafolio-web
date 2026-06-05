@@ -761,7 +761,7 @@
       return { el, img, exitTimer: null };
     });
 
-    function spawn(x, y, dx, dy) {
+    function spawn(x, y) {
       const item = pool[poolIdx % POOL_SIZE];
       poolIdx++;
 
@@ -770,34 +770,27 @@
 
       const { el, img } = item;
 
-      // Variación orgánica: rotación aleatoria + tilt direccional suave
-      const dirAngle  = Math.atan2(dy, dx) * (180 / Math.PI) * 0.08;
-      const randRot   = (Math.random() - 0.5) * 10;
-      const rotation  = (dirAngle + randRot).toFixed(2);
-
-      // Leve variación de tamaño por imagen
-      const scale0    = 0.88 + Math.random() * 0.08;
-      const w         = Math.round(245 * (0.9 + Math.random() * 0.2));
-      const h         = Math.round(170 * (0.9 + Math.random() * 0.2));
-      const tx        = (x - w / 2).toFixed(1);
-      const ty        = (y - h / 2).toFixed(1);
+      const w  = 245;
+      const h  = 170;
+      const tx = (x - w / 2).toFixed(1);
+      const ty = (y - h / 2).toFixed(1);
 
       img.src = SRCS[srcIdx % SRCS.length];
       srcIdx++;
 
       // Reset sin reflow: transición desactivada, estado inicial
-      el.style.cssText = `width:${w}px;height:${h}px;opacity:0;transform:translate(${tx}px,${ty}px) scale(${scale0}) rotate(${rotation}deg);transition:none;will-change:transform,opacity;`;
+      el.style.cssText = `width:${w}px;height:${h}px;opacity:0;transform:translate(${tx}px,${ty}px) scale(0.95);transition:none;will-change:transform,opacity;`;
 
       // Double rAF: garantiza que el browser pintó el estado inicial antes de activar la transición
       requestAnimationFrame(() => requestAnimationFrame(() => {
         el.style.transition = `transform 0.52s ${ENTER_EASE}, opacity 0.42s ease`;
-        el.style.transform  = `translate(${tx}px,${ty}px) scale(1) rotate(${rotation}deg)`;
+        el.style.transform  = `translate(${tx}px,${ty}px) scale(1)`;
         el.style.opacity    = '1';
       }));
 
       item.exitTimer = setTimeout(() => {
         el.style.transition = `transform ${EXIT_MS}ms ${EXIT_EASE}, opacity ${EXIT_MS}ms ${EXIT_EASE}`;
-        el.style.transform  = `translate(${tx}px,${ty}px) scale(0.88) rotate(${rotation}deg)`;
+        el.style.transform  = `translate(${tx}px,${ty}px) scale(0.9)`;
         el.style.opacity    = '0';
         item.exitTimer = null;
       }, SHOW_MS);
@@ -823,7 +816,7 @@
       dot.style.top  = y + 'px';
       if (lastX !== null) {
         const dx = x - lastX, dy = y - lastY;
-        if (Math.hypot(dx, dy) >= SPAWN_DIST) spawn(x, y, dx, dy);
+        if (Math.hypot(dx, dy) >= SPAWN_DIST) spawn(x, y);
       }
     });
 
