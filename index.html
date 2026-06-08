@@ -749,7 +749,6 @@
     dot.className = 'hero-cursor-dot';
     hero.appendChild(dot);
 
-    // DOM pool — elementos pre-creados, nunca se destruyen, se reciclan
     const pool = Array.from({ length: POOL_SIZE }, () => {
       const el  = document.createElement('div');
       el.className = 'hero-trail';
@@ -758,37 +757,34 @@
       img.draggable = false;
       el.appendChild(img);
       hero.insertBefore(el, dot);
-      return { el, img, exitTimer: null };
+      return { el, img, exitTimer: null, version: 0 };
     });
 
     function spawn(x, y) {
       const item = pool[poolIdx % POOL_SIZE];
       poolIdx++;
 
-      // Cancelar animación en curso si el slot se recicla
       if (item.exitTimer) clearTimeout(item.exitTimer);
 
+      const version = ++item.version;
       const { el, img } = item;
-
-      const w  = 245;
-      const h  = 170;
+      const w = 245, h = 170;
       const tx = (x - w / 2).toFixed(1);
       const ty = (y - h / 2).toFixed(1);
 
-      img.src = SRCS[srcIdx % SRCS.length];
-      srcIdx++;
+      img.src = SRCS[srcIdx++ % SRCS.length];
 
-      // Reset sin reflow: transición desactivada, estado inicial
       el.style.cssText = `width:${w}px;height:${h}px;opacity:0;transform:translate(${tx}px,${ty}px) scale(0.95);transition:none;will-change:transform,opacity;`;
 
-      // Double rAF: garantiza que el browser pintó el estado inicial antes de activar la transición
       requestAnimationFrame(() => requestAnimationFrame(() => {
+        if (item.version !== version) return;
         el.style.transition = `transform 0.52s ${ENTER_EASE}, opacity 0.42s ease`;
         el.style.transform  = `translate(${tx}px,${ty}px) scale(1)`;
         el.style.opacity    = '1';
       }));
 
       item.exitTimer = setTimeout(() => {
+        if (item.version !== version) return;
         el.style.transition = `transform ${EXIT_MS}ms ${EXIT_EASE}, opacity ${EXIT_MS}ms ${EXIT_EASE}`;
         el.style.transform  = `translate(${tx}px,${ty}px) scale(0.9)`;
         el.style.opacity    = '0';
@@ -823,10 +819,11 @@
     hero.addEventListener('mouseleave', () => {
       lastX = null; lastY = null;
       dot.style.opacity = '0';
-      pool.forEach(({ el, exitTimer }) => {
-        if (exitTimer) clearTimeout(exitTimer);
-        el.style.transition = `opacity ${EXIT_MS}ms ${EXIT_EASE}`;
-        el.style.opacity    = '0';
+      pool.forEach((item) => {
+        if (item.exitTimer) clearTimeout(item.exitTimer);
+        item.version++;
+        item.el.style.transition = `opacity ${EXIT_MS}ms ${EXIT_EASE}`;
+        item.el.style.opacity    = '0';
       });
     });
   })();
