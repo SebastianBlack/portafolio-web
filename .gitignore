@@ -1,11 +1,15 @@
-# Screenshots de desarrollo
+# Screenshots de desarrollo (raíz y subcarpetas fuera de images/)
 *.png
 *.jpg
 *.jpeg
+
+# Permitir todo dentro de images/
 !images/
+!images/**
 
 # Playwright
 .playwright-mcp/
 
 # Sistema
 .DS_Store
+.vercel
