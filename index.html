@@ -3,7 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-site-verification" content="X0t242R3Z2I9SCUPX2stPGmoAlkf49DCih9QMWR_94A" />
   <title>Sebastian Black Portfolio</title>
+  <link rel="icon" type="image/png" href="/images/ui/favicon.png">
   <link rel="preconnect" href="https://api.fontshare.com">
   <link href="https://api.fontshare.com/v2/css?f[]=switzer@400,500,700&display=swap" rel="stylesheet">
   <style>
@@ -52,16 +54,37 @@
       text-transform: uppercase;
     }
 
-    .nav-links a { transition: opacity 0.2s; }
-    .nav-links a:hover { opacity: 0.5; }
+    .nav-links a { transition: opacity 0.2s; opacity: 0.5; }
+    .nav-links a:hover, .nav-links a.active { opacity: 1; }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 20px;
+    }
 
     .nav-year {
       font-size: 13px;
       font-weight: 500;
       color: var(--white-50);
       letter-spacing: -0.13px;
-      text-align: right;
     }
+
+    .nav-lang {
+      background: none;
+      border: none;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: -0.13px;
+      text-transform: uppercase;
+      color: var(--white-50);
+      cursor: pointer;
+      padding: 0;
+      transition: color 0.2s;
+    }
+    .nav-lang:hover { color: var(--white); }
 
     /* ── HERO ─────────────────────────── */
     .hero {
@@ -163,7 +186,8 @@
       overflow: hidden;
     }
 
-    .project-img-wrap img {
+    .project-img-wrap img,
+    .project-img-wrap video {
       width: 100%;
       aspect-ratio: 4 / 3;
       object-fit: cover;
@@ -171,7 +195,8 @@
       transition: transform 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
 
-    .project-card:hover .project-img-wrap img {
+    .project-card:hover .project-img-wrap img,
+    .project-card:hover .project-img-wrap video {
       transform: scale(1.04);
     }
 
@@ -263,6 +288,9 @@
       opacity: 1;
       transform: scale(1);
     }
+
+    /* ── SCROLL OFFSET (fixed nav clearance) ── */
+    #about, #contact { scroll-margin-top: 120px; }
 
     /* ── ABOUT ────────────────────────── */
     .about-section {
@@ -518,9 +546,58 @@
       cursor: pointer;
     }
     .footer-back-top:hover { color: var(--white); opacity: 0.9; }
+    .nav-hamburger { display: none; background: none; border: none; cursor: pointer; padding: 4px; flex-direction: column; justify-content: center; gap: 5px; }
+    .nav-hamburger span { display: block; width: 22px; height: 1.5px; background: var(--white); transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), opacity 0.2s; transform-origin: center; }
+    .nav-hamburger.is-open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav-hamburger.is-open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-hamburger.is-open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+    .nav-mobile { position: fixed; inset: 0; background: var(--bg); z-index: 190; display: flex; flex-direction: column; padding: 96px 20px 48px; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+    .nav-mobile.is-open { opacity: 1; pointer-events: all; }
+    .nav-mobile-links { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 4px; }
+    .nav-mobile-links a { font-size: 52px; font-weight: 500; letter-spacing: -2px; line-height: 1.05; opacity: 0; transform: translateY(20px); transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.22,1,0.36,1), color 0.2s; }
+    .nav-mobile.is-open .nav-mobile-links a { opacity: 0.5; transform: translateY(0); }
+    .nav-mobile.is-open .nav-mobile-links a:nth-child(1) { transition-delay: 0.05s; }
+    .nav-mobile.is-open .nav-mobile-links a:nth-child(2) { transition-delay: 0.10s; }
+    .nav-mobile.is-open .nav-mobile-links a:nth-child(3) { transition-delay: 0.15s; }
+    .nav-mobile.is-open .nav-mobile-links a:nth-child(4) { transition-delay: 0.20s; }
+    .nav-mobile.is-open .nav-mobile-links a.active, .nav-mobile.is-open .nav-mobile-links a:hover { opacity: 1; }
+    .nav-mobile-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 24px; }
+    .nav-mobile-footer-lang { background: none; border: none; font-family: inherit; font-size: 13px; font-weight: 500; letter-spacing: -0.13px; text-transform: uppercase; color: var(--white-50); cursor: pointer; padding: 0; transition: color 0.2s; }
+    .nav-mobile-footer-year { font-size: 13px; font-weight: 500; letter-spacing: -0.13px; color: var(--white-50); }
+    @media (max-width: 768px) { .nav-hamburger { display: flex; } .nav-year { display: none; } .nav-lang { display: none; } }
+
+    /* ── SKIP LINK ────────────────────── */
+    .skip-link {
+      position: absolute;
+      top: -9999px;
+      left: 0;
+      z-index: 9999;
+      padding: 12px 24px;
+      background: var(--white);
+      color: var(--bg);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: -0.13px;
+      text-transform: uppercase;
+      text-decoration: none;
+    }
+    .skip-link:focus {
+      top: 0;
+    }
   </style>
+  <script src="/js/projects.js"></script>
+  <script src="/js/i18n.js"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-8B50J8PMQ0"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-8B50J8PMQ0');
+  </script>
 </head>
 <body>
+
+  <a href="#main" class="skip-link">Saltar al contenido</a>
 
   <!-- CUSTOM CURSOR (work section) -->
   <div class="cursor-ring" id="cursorRing" aria-hidden="true">
@@ -535,12 +612,31 @@
   <header class="nav">
     <a href="/" class="nav-logo">Sebastian Black</a>
     <nav class="nav-links">
-      <a href="/projects/">Work</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
+      <a href="/projects/branding/" data-i18n="nav.branding">Branding</a>
+      <a href="/projects/product/" data-i18n="nav.product">Producto</a>
+      <a href="#about" data-i18n="nav.about">Sobre mí</a>
+      <a href="#contact" data-i18n="nav.contact">Contacto</a>
     </nav>
-    <span class="nav-year">®2026</span>
+    <div class="nav-right">
+      <button class="nav-lang" data-lang-btn aria-label="Switch to English">EN</button>
+      <span class="nav-year" data-i18n="nav.year">®2026</span>
+      <button class="nav-hamburger" id="navHamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
   </header>
+  <div class="nav-mobile" id="navMobile" aria-hidden="true">
+    <div class="nav-mobile-links">
+      <a href="/projects/branding/" data-i18n="nav.branding">Branding</a>
+      <a href="/projects/product/" data-i18n="nav.product">Producto</a>
+      <a href="#about" data-i18n="nav.about">Sobre mí</a>
+      <a href="#contact" data-i18n="nav.contact">Contacto</a>
+    </div>
+    <div class="nav-mobile-footer">
+      <button class="nav-mobile-footer-lang" data-lang-btn aria-label="Switch to English">EN</button>
+      <span class="nav-mobile-footer-year" data-i18n="nav.year">®2026</span>
+    </div>
+  </div>
+
+  <main id="main">
 
   <!-- HERO -->
   <section class="hero" id="hero">
@@ -548,12 +644,12 @@
 
     <img
       class="hero-logo"
-      src="images/tDVzmPOME9mpSVJfDy4QuMbSk.png"
+      src="/images/ui/logo.png"
       alt="BLACK®"
       draggable="false"
     >
 
-    <p class="hero-tagline">
+    <p class="hero-tagline" data-i18n="hero.tagline">
       Diseñador e ilustrador con base en Perú,<br>
       especializado en branding y desarrollo de productos.
     </p>
@@ -561,81 +657,45 @@
 
   <!-- SELECTED WORK -->
   <section class="work-section" id="work">
-    <h3 class="section-header" data-reveal>Selected work</h3>
+    <h3 class="section-header" data-reveal data-i18n="work.section-title">Selected work</h3>
 
-    <div class="projects-grid">
-
-      <a href="/projects/gaston/" class="project-card" data-reveal style="--reveal-delay:0ms">
-        <div class="project-img-wrap">
-          <img src="images/hlr5PPXXSqoc1cs0qjmcnkbF6g.jpg" alt="Gaston" loading="lazy">
-        </div>
-        <div class="project-meta">
-          <div class="project-title">Gaston: Lighting under a new light</div>
-          <div class="project-category">Rebranding</div>
-        </div>
-      </a>
-
-      <a href="/projects/gastro/" class="project-card" data-reveal style="--reveal-delay:80ms">
-        <div class="project-img-wrap">
-          <img src="images/7cSqYps8BdZ7wsFmZKZEtqVpr5o.png" alt="Gastro App" loading="lazy">
-        </div>
-        <div class="project-meta">
-          <div class="project-title">Gastro App</div>
-          <div class="project-category">Rebranding — Diseño App Mobile</div>
-        </div>
-      </a>
-
-      <a href="/projects/leblink/" class="project-card" data-reveal style="--reveal-delay:160ms">
-        <div class="project-img-wrap">
-          <img src="images/4lYpKB46sdM5HOrJZDIaevqwAM.jpg" alt="LeBlink" loading="lazy">
-        </div>
-        <div class="project-meta">
-          <div class="project-title">LeBlink: Skincare for the modern age</div>
-          <div class="project-category">Rebranding</div>
-        </div>
-      </a>
-
-      <a href="/projects/sensaya/" class="project-card" data-reveal style="--reveal-delay:240ms">
-        <div class="project-img-wrap">
-          <img src="images/pgazYd7NgpB7WFK6HYii2oy2DY.jpg" alt="Sensaya" loading="lazy">
-        </div>
-        <div class="project-meta">
-          <div class="project-title">Sensaya: Beauty for everyone</div>
-          <div class="project-category">Rebranding</div>
-        </div>
-      </a>
-
-      <a href="/projects/vintage/" class="project-card" data-reveal style="--reveal-delay:320ms">
-        <div class="project-img-wrap">
-          <img src="images/NiTxUhPz9ZVe0YMcWCwuRjGOTw4.jpg" alt="Vintage Everything" loading="lazy">
-        </div>
-        <div class="project-meta">
-          <div class="project-title">Vintage Everything: Fashion Hunters</div>
-          <div class="project-category">Rebranding</div>
-        </div>
-      </a>
-
-      <a href="/projects/schlong/" class="project-card" data-reveal style="--reveal-delay:400ms">
-        <div class="project-img-wrap">
-          <img src="images/DXc8HbrxINYvsJq758hZB934HSk.jpg" alt="Schlong" loading="lazy">
-        </div>
-        <div class="project-meta">
-          <div class="project-title">Schlong: The subtle art of fine living</div>
-          <div class="project-category">Rebranding</div>
-        </div>
-      </a>
-
-    </div>
+    <div class="projects-grid" id="projects-grid"></div>
+    <script>
+    (function () {
+      const grid = document.getElementById('projects-grid');
+      const t = window.TRANSLATIONS || {};
+      PROJECTS.forEach(function (p, i) {
+        const delay = (i % 2) * 80;
+        const title = t['project.' + p.id + '.title'] || p.id;
+        const cat   = t['project.' + p.id + '.category'] || '';
+        const card  = document.createElement('a');
+        card.href      = p.url;
+        card.className = 'project-card';
+        card.setAttribute('data-reveal', '');
+        card.style.setProperty('--reveal-delay', delay + 'ms');
+        const media = p.videoThumb
+          ? '<video src="' + p.videoThumb + '" autoplay muted loop playsinline></video>'
+          : '<img src="' + p.thumb + '" alt="' + title + '" loading="lazy">';
+        card.innerHTML =
+          '<div class="project-img-wrap">' + media + '</div>' +
+          '<div class="project-meta">' +
+            '<div class="project-title" data-i18n="project.' + p.id + '.title">' + title + '</div>' +
+            '<div class="project-category" data-i18n="project.' + p.id + '.category">' + cat + '</div>' +
+          '</div>';
+        grid.appendChild(card);
+      });
+    })();
+    </script>
 
     <div class="see-all-wrap">
-      <a href="/projects/" class="btn-pill">see them all</a>
+      <a href="/projects/" class="btn-pill" data-i18n="work.see-all">see them all</a>
     </div>
   </section>
 
   <!-- ABOUT -->
   <section class="about-section" id="about">
     <div>
-      <h2 class="about-title" data-reveal>Hello there<br>I'm Sebastian<br>Black</h2>
+      <h2 class="about-title" data-reveal data-i18n="about.title"><span lang="en">Hello there<br>I'm Sebastian<br>Black</span></h2>
 
       <div class="about-details-group" data-reveal style="--reveal-delay:120ms">
         <div class="about-label">Services</div>
@@ -655,7 +715,7 @@
     </div>
 
     <div class="about-right" data-reveal style="--reveal-delay:80ms">
-      <img src="images/fd5kD2cCcSCbDOldwf36KzORgM.png" alt="Sebastian Black">
+      <img src="images/fd5kD2cCcSCbDOldwf36KzORgM.png" alt="Sebastian Black, diseñador de Lima">
     </div>
   </section>
 
@@ -675,19 +735,17 @@
           <a href="https://www.instagram.com/sebasblack.art/" target="_blank" rel="noopener" class="contact-social-link">Instagram ↗</a>
           <a href="https://www.linkedin.com/in/sebastianblack/" target="_blank" rel="noopener" class="contact-social-link">LinkedIn ↗</a>
         </div>
-        <a href="https://wa.me/51999999999" class="btn-pill" target="_blank" rel="noopener">Start a project</a>
+        <a href="https://wa.me/51999999999" class="btn-pill" target="_blank" rel="noopener" aria-label="Iniciar proyecto por WhatsApp">Start a project</a>
       </div>
     </div>
   </section>
 
+  </main><!-- /main -->
+
   <!-- FOOTER -->
   <footer>
     <div>
-      <div class="footer-address">
-        costanera av. 980<br>
-        Lima, San Miguel 15087<br>
-        Peru
-      </div>
+      <div class="footer-address" data-i18n="footer.address">Lima, Perú</div>
       <div class="footer-social">
         <a href="https://www.instagram.com/sebasblack.art/" target="_blank" rel="noopener">Instagram</a>
         <a href="https://www.linkedin.com/in/sebastianblack/" target="_blank" rel="noopener">LinkedIn</a>
@@ -695,9 +753,9 @@
     </div>
 
     <div class="footer-center">
-      <p class="footer-cta-title">Do you like<br>What you see?</p>
-      <a href="https://wa.me/51999999999" class="btn-pill" target="_blank" rel="noopener">Let's connect</a>
-      <p class="footer-copy">2026 ® Sebastian Black</p>
+      <p class="footer-cta-title" data-i18n="footer.cta">Do you like<br>What you see?</p>
+      <a href="https://wa.me/51999999999" class="btn-pill" target="_blank" rel="noopener" data-i18n="footer.connect" aria-label="Iniciar proyecto por WhatsApp">Let's connect</a>
+      <p class="footer-copy" data-i18n="footer.copy">2026 ® Sebastian Black</p>
     </div>
 
     <div class="footer-right">
@@ -710,23 +768,7 @@
   //  HERO IMAGE TRAIL  (DOM pool · double-rAF · cached rect)
   // ─────────────────────────────────────────────────────────────
   (function () {
-    const SRCS = [
-      'images/tP24LzLiBitCSPYf3I5VWteRjiU.jpg',
-      'images/CLer4HGv0q9Sn8qH9VjavD8BZ9k.jpg',
-      'images/Shka760WfmMwYQuiG3en6TEL0.jpg',
-      'images/LDS9TTysxbjZhkRWrQFzvsXhKJw.jpg',
-      'images/LJysnkKSPfGo83S91iuX1rZ0og.png',
-      'images/4Dn4iGUFr5xkVap3DClXp9PhxBA.jpg',
-      'images/S8RwnGDggeNhwN5zjy3fYKfcV4.jpg',
-      'images/bWP5J9dmmdHlIKzW3JaXW3IalBI.jpg',
-      'images/lFROkRGwSikogzm2l0mgs9Q7A.jpg',
-      'images/yXuseJnsuFob8mXKhJu6oLSU.jpg',
-      'images/JVOIK25WDJ8yXrb0IhYJcSomJM.jpg',
-      'images/MawYbzIPT40XuuuIrK5qLQzhp6k.jpg',
-      'images/lukeRWsi21SEvnHwtUAg3a68LE.jpg',
-      'images/ic543DlJFgPVt96GcwbIGNmj5LI.jpg',
-      'images/aA5FLF5atSUuNujy378jovpkIi0.jpg',
-    ];
+    const SRCS = PROJECTS.flatMap(function (p) { return p.trail; });
 
     const POOL_SIZE  = 12;
     const SPAWN_DIST = 110;
@@ -877,6 +919,27 @@
     }, { threshold: 0.12 });
 
     document.querySelectorAll('[data-reveal]').forEach(el => observer.observe(el));
+  })();
+  </script>
+  <script>
+  (function () {
+    const btn = document.getElementById('navHamburger');
+    const menu = document.getElementById('navMobile');
+    if (!btn || !menu) return;
+    btn.addEventListener('click', function () {
+      const open = menu.classList.toggle('is-open');
+      btn.classList.toggle('is-open', open);
+      menu.setAttribute('aria-hidden', open ? 'false' : 'true');
+      document.body.style.overflow = open ? 'hidden' : '';
+    });
+    menu.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () {
+        menu.classList.remove('is-open');
+        btn.classList.remove('is-open');
+        menu.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      });
+    });
   })();
   </script>
 
