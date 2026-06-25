@@ -771,14 +771,14 @@
   (function () {
     const SRCS = PROJECTS.flatMap(function (p) { return p.trail; });
 
-    const POOL_SIZE  = 12;
-    const SPAWN_DIST = 60;
-    const SHOW_MS    = 450;
-    const EXIT_MS    = 260;
+    const POOL_SIZE  = 16;
+    const SPAWN_DIST = 40;
+    const SHOW_MS    = 600;
+    const EXIT_MS    = 300;
     const EXIT_EASE  = 'cubic-bezier(0.84,0,0.24,1)';
     const ENTER_EASE = 'cubic-bezier(0.22,1,0.36,1)';
+    const SCATTER    = 60; // offset aleatorio máximo desde el cursor (como Framer)
 
-    // Precargar todas las imágenes en caché antes del primer hover
     SRCS.forEach(src => { const i = new Image(); i.src = src; });
 
     const hero = document.getElementById('hero');
@@ -787,21 +787,19 @@
 
     let lastX = null, lastY = null, srcIdx = 0, poolIdx = 0;
 
-    // Cursor dot
     const dot = document.createElement('div');
     dot.className = 'hero-cursor-dot';
     hero.appendChild(dot);
 
     const pool = Array.from({ length: POOL_SIZE }, () => {
-      const el  = document.createElement('div');
+      const el = document.createElement('div');
       el.className = 'hero-trail';
-      el.style.opacity = '0';
-      const img = document.createElement('img');
-      img.draggable = false;
-      el.appendChild(img);
+      el.style.cssText = 'position:absolute;left:0;top:0;pointer-events:none;z-index:10;opacity:0;background-size:cover;background-position:center;will-change:transform,opacity;';
       hero.insertBefore(el, dot);
-      return { el, img, exitTimer: null, version: 0 };
+      return { el, exitTimer: null, version: 0 };
     });
+
+    function rand(range) { return (Math.random() - 0.5) * 2 * range; }
 
     function spawn(x, y) {
       const item = pool[poolIdx % POOL_SIZE];
@@ -810,18 +808,20 @@
       if (item.exitTimer) clearTimeout(item.exitTimer);
 
       const version = ++item.version;
-      const { el, img } = item;
+      const { el } = item;
       const w = 245, h = 170;
-      const tx = (x - w / 2).toFixed(1);
-      const ty = (y - h / 2).toFixed(1);
+      // Offset orgánico igual que Framer
+      const ox = rand(SCATTER);
+      const oy = rand(SCATTER * 0.6);
+      const tx = (x - w / 2 + ox).toFixed(1);
+      const ty = (y - h / 2 + oy).toFixed(1);
 
-      img.src = SRCS[srcIdx++ % SRCS.length];
-
-      el.style.cssText = `width:${w}px;height:${h}px;opacity:0;transform:translate(${tx}px,${ty}px) scale(0.95);transition:none;will-change:transform,opacity;`;
+      el.style.backgroundImage = `url(${SRCS[srcIdx++ % SRCS.length]})`;
+      el.style.cssText = `position:absolute;left:0;top:0;width:${w}px;height:${h}px;background-image:url(${SRCS[(srcIdx-1) % SRCS.length]});background-size:cover;background-position:center;pointer-events:none;z-index:10;opacity:0;transform:translate(${tx}px,${ty}px) scale(0.9);transition:none;will-change:transform,opacity;`;
 
       requestAnimationFrame(() => requestAnimationFrame(() => {
         if (item.version !== version) return;
-        el.style.transition = `transform 0.32s ${ENTER_EASE}, opacity 0.22s ease`;
+        el.style.transition = `transform 0.28s ${ENTER_EASE}, opacity 0.18s ease`;
         el.style.transform  = `translate(${tx}px,${ty}px) scale(1)`;
         el.style.opacity    = '1';
       }));
@@ -829,7 +829,7 @@
       item.exitTimer = setTimeout(() => {
         if (item.version !== version) return;
         el.style.transition = `transform ${EXIT_MS}ms ${EXIT_EASE}, opacity ${EXIT_MS}ms ${EXIT_EASE}`;
-        el.style.transform  = `translate(${tx}px,${ty}px) scale(0.9)`;
+        el.style.transform  = `translate(${tx}px,${ty}px) scale(0.92)`;
         el.style.opacity    = '0';
         item.exitTimer = null;
       }, SHOW_MS);
