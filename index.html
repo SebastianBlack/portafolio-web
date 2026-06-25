@@ -772,9 +772,9 @@
     const SRCS = PROJECTS.flatMap(function (p) { return p.trail; });
 
     const POOL_SIZE  = 12;
-    const SPAWN_DIST = 110;
-    const SHOW_MS    = 550;
-    const EXIT_MS    = 380;
+    const SPAWN_DIST = 60;
+    const SHOW_MS    = 450;
+    const EXIT_MS    = 260;
     const EXIT_EASE  = 'cubic-bezier(0.84,0,0.24,1)';
     const ENTER_EASE = 'cubic-bezier(0.22,1,0.36,1)';
 
@@ -821,7 +821,7 @@
 
       requestAnimationFrame(() => requestAnimationFrame(() => {
         if (item.version !== version) return;
-        el.style.transition = `transform 0.52s ${ENTER_EASE}, opacity 0.42s ease`;
+        el.style.transition = `transform 0.32s ${ENTER_EASE}, opacity 0.22s ease`;
         el.style.transform  = `translate(${tx}px,${ty}px) scale(1)`;
         el.style.opacity    = '1';
       }));
