@@ -23,15 +23,22 @@
     });
   }
 
-  function loadLang(lang, callback) {
-    const existing = document.querySelector(`script[data-lang="${lang}"]`);
-    if (existing) { callback(window.TRANSLATIONS); return; }
+  const CACHE = {};
 
+  function loadLang(lang, callback) {
+    if (CACHE[lang]) {
+      window.TRANSLATIONS = CACHE[lang];
+      callback(CACHE[lang]);
+      return;
+    }
     const script = document.createElement('script');
-    script.src        = `/lang/${lang}.js`;
+    script.src          = `/lang/${lang}.js`;
     script.dataset.lang = lang;
-    script.onload     = () => callback(window.TRANSLATIONS);
-    script.onerror    = () => { if (lang !== DEFAULT) loadLang(DEFAULT, callback); };
+    script.onload  = () => {
+      CACHE[lang] = window.TRANSLATIONS;
+      callback(CACHE[lang]);
+    };
+    script.onerror = () => { if (lang !== DEFAULT) loadLang(DEFAULT, callback); };
     document.head.appendChild(script);
   }
 
@@ -61,12 +68,19 @@
   }
 
   function init() {
-    const lang = getLang();
-    document.documentElement.lang = lang;
-    loadLang(lang, function (t) {
-      applyTranslations(t);
-      wireLangToggle(lang);
-    });
+    const start = () => {
+      const lang = getLang();
+      document.documentElement.lang = lang;
+      loadLang(lang, function (t) {
+        applyTranslations(t);
+        wireLangToggle(lang);
+      });
+    };
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', start, { once: true });
+    } else {
+      start();
+    }
   }
 
   window.i18n = { getLang, setLang, init };
