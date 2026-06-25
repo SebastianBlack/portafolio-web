@@ -771,13 +771,18 @@
   (function () {
     const SRCS = PROJECTS.flatMap(function (p) { return p.trail; });
 
-    const POOL_SIZE  = 16;
-    const SPAWN_DIST = 40;
-    const SHOW_MS    = 600;
-    const EXIT_MS    = 300;
-    const EXIT_EASE  = 'cubic-bezier(0.84,0,0.24,1)';
+    // Valores tomados de inspección del Framer reference
+    const POOL_SIZE       = 20;
+    const SPAWN_DIST      = 135;
+    const SHOW_MS         = 700;
+    // Entrada: opacity rápido, scale más suave (Framer Motion)
+    const ENTER_OPACITY_MS = 220;
+    const ENTER_SCALE_MS   = 420;
+    // Salida: opacity rápido, scale lento (por eso se ven items casi a scale 1 con opacity 0)
+    const EXIT_OPACITY_MS  = 260;
+    const EXIT_SCALE_MS    = 560;
     const ENTER_EASE = 'cubic-bezier(0.22,1,0.36,1)';
-    const SCATTER    = 60; // offset aleatorio máximo desde el cursor (como Framer)
+    const EXIT_EASE  = 'cubic-bezier(0.4,0,0.6,1)';
 
     SRCS.forEach(src => { const i = new Image(); i.src = src; });
 
@@ -794,12 +799,10 @@
     const pool = Array.from({ length: POOL_SIZE }, () => {
       const el = document.createElement('div');
       el.className = 'hero-trail';
-      el.style.cssText = 'position:absolute;left:0;top:0;pointer-events:none;z-index:10;opacity:0;background-size:cover;background-position:center;will-change:transform,opacity;';
+      el.style.cssText = 'position:absolute;left:0;top:0;width:245px;height:170px;background-size:cover;background-position:center;pointer-events:none;z-index:10;opacity:0;will-change:transform,opacity;';
       hero.insertBefore(el, dot);
       return { el, exitTimer: null, version: 0 };
     });
-
-    function rand(range) { return (Math.random() - 0.5) * 2 * range; }
 
     function spawn(x, y) {
       const item = pool[poolIdx % POOL_SIZE];
@@ -810,26 +813,29 @@
       const version = ++item.version;
       const { el } = item;
       const w = 245, h = 170;
-      // Offset orgánico igual que Framer
-      const ox = rand(SCATTER);
-      const oy = rand(SCATTER * 0.6);
-      const tx = (x - w / 2 + ox).toFixed(1);
-      const ty = (y - h / 2 + oy).toFixed(1);
+      const tx = (x - w / 2).toFixed(1);
+      const ty = (y - h / 2).toFixed(1);
+      const src = SRCS[srcIdx++ % SRCS.length];
 
-      el.style.backgroundImage = `url(${SRCS[srcIdx++ % SRCS.length]})`;
-      el.style.cssText = `position:absolute;left:0;top:0;width:${w}px;height:${h}px;background-image:url(${SRCS[(srcIdx-1) % SRCS.length]});background-size:cover;background-position:center;pointer-events:none;z-index:10;opacity:0;transform:translate(${tx}px,${ty}px) scale(0.9);transition:none;will-change:transform,opacity;`;
+      // Frame 1: posicionar sin transición, scale 0.9, opacity 0
+      el.style.transition = 'none';
+      el.style.backgroundImage = `url(${src})`;
+      el.style.transform = `translate(${tx}px,${ty}px) scale(0.9)`;
+      el.style.opacity = '0';
 
+      // Frame 2 (después de 2 rAF para asegurar reflow): animar a scale 1, opacity 1
       requestAnimationFrame(() => requestAnimationFrame(() => {
         if (item.version !== version) return;
-        el.style.transition = `transform 0.28s ${ENTER_EASE}, opacity 0.18s ease`;
+        el.style.transition = `transform ${ENTER_SCALE_MS}ms ${ENTER_EASE}, opacity ${ENTER_OPACITY_MS}ms ease-out`;
         el.style.transform  = `translate(${tx}px,${ty}px) scale(1)`;
         el.style.opacity    = '1';
       }));
 
+      // Después de SHOW_MS: salir (opacity rápida, scale lento)
       item.exitTimer = setTimeout(() => {
         if (item.version !== version) return;
-        el.style.transition = `transform ${EXIT_MS}ms ${EXIT_EASE}, opacity ${EXIT_MS}ms ${EXIT_EASE}`;
-        el.style.transform  = `translate(${tx}px,${ty}px) scale(0.92)`;
+        el.style.transition = `transform ${EXIT_SCALE_MS}ms ${EXIT_EASE}, opacity ${EXIT_OPACITY_MS}ms ease-in`;
+        el.style.transform  = `translate(${tx}px,${ty}px) scale(0.9)`;
         el.style.opacity    = '0';
         item.exitTimer = null;
       }, SHOW_MS);
