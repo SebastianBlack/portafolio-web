@@ -888,8 +888,8 @@
 
     // Smooth follow
     (function loop() {
-      cx += (mx - cx) * 0.14;
-      cy += (my - cy) * 0.14;
+      cx += (mx - cx) * 0.25;
+      cy += (my - cy) * 0.25;
       // translate(-50%,-50%) centers the 130px circle on the cursor point
       ring.style.left = cx + 'px';
       ring.style.top  = cy + 'px';
