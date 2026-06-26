@@ -63,6 +63,7 @@ const PROJECTS = [
     url:   '/projects/getaway-stays/',
     thumb: '/images/getaway-stays/thumb.png',
     trail: ['/images/getaway-stays/thumb.png'],
+    hidden: true,
   },
   {
     id:    'viva-conexiones',
@@ -70,6 +71,7 @@ const PROJECTS = [
     url:   '/projects/viva-conexiones/',
     thumb: '/images/viva-conexiones/thumb.png',
     trail: ['/images/viva-conexiones/thumb.png'],
+    hidden: true,
   },
   {
     id:    'smart-doctor',
@@ -77,6 +79,7 @@ const PROJECTS = [
     url:   '/projects/smart-doctor/',
     thumb: '/images/smart-doctor/thumb.png',
     trail: ['/images/smart-doctor/thumb.png'],
+    hidden: true,
   },
   {
     id:    'rocasac',
@@ -84,6 +87,7 @@ const PROJECTS = [
     url:   '/projects/rocasac/',
     thumb: '/images/rocasac/thumb.png',
     trail: ['/images/rocasac/thumb.png'],
+    hidden: true,
   },
   {
     id:    'freeda',
@@ -98,6 +102,7 @@ const PROJECTS = [
     url:   '/projects/ritrovo/',
     thumb: '/images/ritrovo/thumb.png',
     trail: ['/images/ritrovo/thumb.png'],
+    hidden: true,
   },
   {
     id:    'mycelia',
@@ -105,6 +110,7 @@ const PROJECTS = [
     url:   '/projects/mycelia/',
     thumb: '/images/mycelia/thumb.png',
     trail: ['/images/mycelia/thumb.png'],
+    hidden: true,
   },
   {
     id:    'linking-card',
@@ -112,5 +118,6 @@ const PROJECTS = [
     url:   '/projects/linking-card/',
     thumb: '/images/linking-card/thumb.png',
     trail: ['/images/linking-card/thumb.png'],
+    hidden: true,
   },
 ];

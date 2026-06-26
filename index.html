@@ -690,7 +690,7 @@
     (function () {
       const grid = document.getElementById('projects-grid');
       const t = window.TRANSLATIONS || {};
-      PROJECTS.forEach(function (p, i) {
+      PROJECTS.filter(function (p) { return !p.hidden; }).forEach(function (p, i) {
         const delay = (i % 2) * 80;
         const title = t['project.' + p.id + '.title'] || p.id;
         const cat   = t['project.' + p.id + '.category'] || '';
@@ -794,7 +794,7 @@
   //  HERO IMAGE TRAIL  (DOM pool · double-rAF · cached rect)
   // ─────────────────────────────────────────────────────────────
   (function () {
-    const SRCS = PROJECTS.flatMap(function (p) { return p.trail; });
+    const SRCS = PROJECTS.filter(function (p) { return !p.hidden; }).flatMap(function (p) { return p.trail; });
 
     // Valores tomados de inspección del Framer reference
     const POOL_SIZE       = 20;

@@ -310,8 +310,9 @@
     next.addEventListener('mouseleave', () => ring.classList.remove('is-active'));
   })();
   (function () {
-    const idx  = PROJECTS.findIndex(function(p){ return p.id === 'soul-tv'; });
-    const next = PROJECTS[(idx + 1) % PROJECTS.length];
+    const visible = PROJECTS.filter(function(p){ return !p.hidden; });
+    const idx = visible.findIndex(function(p){ return p.id === 'soul-tv'; });
+    const next = visible[(idx + 1) % visible.length];
     const t    = window.TRANSLATIONS || {};
     document.getElementById('next-title').textContent = t['project.' + next.id + '.title'] || next.id;
     document.getElementById('next-link').href = next.url;

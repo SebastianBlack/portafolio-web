@@ -170,7 +170,7 @@
   <script>
   (function () {
     const TAG  = 'branding';
-    const list = PROJECTS.filter(p => p.tags.includes(TAG));
+    const list = PROJECTS.filter(p => p.tags.includes(TAG) && !p.hidden);
     const grid = document.getElementById('projects-grid');
     const t    = window.TRANSLATIONS || {};
 
