@@ -201,6 +201,40 @@
       cursor: none;
     }
 
+    /* Coming-soon: visible pero no clickable */
+    .project-card.is-coming-soon {
+      cursor: default;
+      pointer-events: none;
+    }
+    .project-card.is-coming-soon .project-img-wrap {
+      position: relative;
+    }
+    .project-card.is-coming-soon .project-img-wrap img,
+    .project-card.is-coming-soon .project-img-wrap video {
+      filter: grayscale(0.6) brightness(0.55);
+    }
+    .project-card.is-coming-soon .project-title,
+    .project-card.is-coming-soon .project-category {
+      color: var(--white-50);
+    }
+    .coming-soon-badge {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: var(--white);
+      background: rgba(15,14,14,0.72);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      padding: 6px 12px;
+      border-radius: 100px;
+      border: 1px solid rgba(255,255,255,0.18);
+      z-index: 2;
+    }
+
     .project-img-wrap {
       overflow: hidden;
     }
@@ -694,16 +728,17 @@
         const delay = (i % 2) * 80;
         const title = t['project.' + p.id + '.title'] || p.id;
         const cat   = t['project.' + p.id + '.category'] || '';
-        const card  = document.createElement('a');
-        card.href      = p.url;
-        card.className = 'project-card';
+        const card  = document.createElement(p.comingSoon ? 'div' : 'a');
+        if (!p.comingSoon) card.href = p.url;
+        card.className = 'project-card' + (p.comingSoon ? ' is-coming-soon' : '');
         card.setAttribute('data-reveal', '');
         card.style.setProperty('--reveal-delay', delay + 'ms');
         const media = p.videoThumb
           ? '<video src="' + p.videoThumb + '" autoplay muted loop playsinline></video>'
           : '<img src="' + p.thumb + '" alt="' + title + '" loading="lazy">';
+        const badge = p.comingSoon ? '<span class="coming-soon-badge" data-i18n="project.coming-soon">Próximamente</span>' : '';
         card.innerHTML =
-          '<div class="project-img-wrap">' + media + '</div>' +
+          '<div class="project-img-wrap">' + media + badge + '</div>' +
           '<div class="project-meta">' +
             '<div class="project-title" data-i18n="project.' + p.id + '.title">' + title + '</div>' +
             '<div class="project-category" data-i18n="project.' + p.id + '.category">' + cat + '</div>' +

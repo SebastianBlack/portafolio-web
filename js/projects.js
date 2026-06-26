@@ -12,7 +12,7 @@ const PROJECTS = [
     tags:  ['product'],
     url:   '/projects/gastro-app/',
     thumb: '/images/gastro-app/thumb.webp',
-    trail: ['/images/gastro-app/trail-1.webp'],
+    trail: ['/images/gastro-app/trail-1.webp', '/images/gastro-app/trail-2.webp'],
   },
   {
     id:    'alaz-brand',
@@ -21,6 +21,7 @@ const PROJECTS = [
     thumb: '/images/alaz-brand/thumb.webp',
     videoThumb: '/images/alaz-brand/thumb.mp4',
     trail: ['/images/alaz-brand/trail-1.webp'],
+    comingSoon: true,
   },
   {
     id:    'alaz-product',
@@ -28,6 +29,7 @@ const PROJECTS = [
     url:   '/projects/alaz-product/',
     thumb: '/images/alaz-product/thumb.webp',
     trail: ['/images/alaz-product/trail-1.webp'],
+    comingSoon: true,
   },
   {
     id:    'kanto-brand',
@@ -35,6 +37,7 @@ const PROJECTS = [
     url:   '/projects/kanto-brand/',
     thumb: '/images/kanto-brand/thumb.webp',
     trail: ['/images/kanto-brand/trail-1.webp'],
+    comingSoon: true,
   },
   {
     id:    'kanto-product',
@@ -42,6 +45,7 @@ const PROJECTS = [
     url:   '/projects/kanto-product/',
     thumb: '/images/kanto-product/thumb.webp',
     trail: ['/images/kanto-product/trail-1.webp'],
+    comingSoon: true,
   },
   {
     id:    'soul-tv',
@@ -49,6 +53,7 @@ const PROJECTS = [
     url:   '/projects/soul-tv/',
     thumb: '/images/soul-tv/thumb.webp',
     trail: ['/images/soul-tv/trail-1.webp'],
+    comingSoon: true,
   },
   {
     id:    'peru-tourism',
@@ -56,6 +61,7 @@ const PROJECTS = [
     url:   '/projects/peru-tourism/',
     thumb: '/images/peru-tourism/thumb.webp',
     trail: ['/images/peru-tourism/trail-1.webp'],
+    comingSoon: true,
   },
   {
     id:    'getaway-stays',
@@ -95,6 +101,7 @@ const PROJECTS = [
     url:   '/projects/freeda/',
     thumb: '/images/freeda/thumb.webp',
     trail: ['/images/freeda/trail-1.webp'],
+    comingSoon: true,
   },
   {
     id:    'ritrovo',

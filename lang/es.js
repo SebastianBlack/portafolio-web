@@ -56,6 +56,8 @@ window.TRANSLATIONS = {
   "projects.count.product": "07 Proyectos",
 
   /* ── PROJECT TITLES & CATEGORIES ── */
+  "project.coming-soon": "Próximamente",
+
   "project.gastro-brand.title":     "Gastro: Identidad de Marca",
   "project.gastro-brand.category":  "Branding",
   "project.gastro-brand.tagline":   "Convirtiendo una base inicial en una identidad escalable, cercana y funcional para una startup gastronómica.",
