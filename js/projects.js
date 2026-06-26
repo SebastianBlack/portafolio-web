@@ -44,6 +44,13 @@ const PROJECTS = [
     trail: ['/images/kanto-product/thumb.png'],
   },
   {
+    id:    'soul-tv',
+    tags:  ['product'],
+    url:   '/projects/soul-tv/',
+    thumb: '/images/soul-tv/thumb.png',
+    trail: ['/images/soul-tv/trail-1.webp'],
+  },
+  {
     id:    'peru-tourism',
     tags:  ['product'],
     url:   '/projects/peru-tourism/',
