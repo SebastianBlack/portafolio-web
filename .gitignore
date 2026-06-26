@@ -7,6 +7,10 @@
 !images/
 !images/**
 
+# Permitir iconos en raíz
+!favicon.ico
+!apple-touch-icon.png
+
 # Playwright
 .playwright-mcp/
 
