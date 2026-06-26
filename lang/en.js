@@ -68,7 +68,7 @@ window.TRANSLATIONS = {
 
   "project.gastro-app.title":       "Gastro App",
   "project.gastro-app.category":    "Product Design",
-  "project.gastro-app.tagline":     "Product design for an app that connects people with restaurants in a closer, clearer and more trustworthy way.",
+  "project.gastro-app.tagline":     "Gastro is a mobile app to discover where and what to eat in Costa Rica. I designed the product experience: menu exploration, restaurant selection, reviews and ratings. The interface prioritizes the dish image and simple navigation, to decide without friction.",
 
   "project.alaz-brand.title":       "Alaz: Visual Identity",
   "project.alaz-brand.category":    "Branding",

@@ -68,7 +68,7 @@ window.TRANSLATIONS = {
 
   "project.gastro-app.title":       "Gastro App",
   "project.gastro-app.category":    "Diseño de Producto",
-  "project.gastro-app.tagline":     "Diseño de producto para una app que conecta personas con restaurantes de forma más cercana, clara y confiable.",
+  "project.gastro-app.tagline":     "Gastro es una app móvil para descubrir dónde y qué comer en Costa Rica. Diseñé la experiencia de producto: exploración de menús, selección de restaurantes, reviews y puntuaciones. La interfaz prioriza la imagen del plato y una navegación simple, para decidir sin fricción.",
 
   "project.alaz-brand.title":       "Alaz: Identidad Visual",
   "project.alaz-brand.category":    "Branding",
