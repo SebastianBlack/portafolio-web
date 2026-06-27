@@ -31,6 +31,9 @@ window.TRANSLATIONS = {
 
   /* ── HOME — ABOUT ── */
   "about.title":    "Hola, soy<br>Sebastian<br>Black",
+  "about.intro":    "Diseñador de producto y marca con base en Lima. Me gusta resolver problemas reales: entender a las personas primero y traducir eso en marcas y productos que se sienten claros, humanos y bien pensados. Trabajo entre la estrategia y el detalle —donde una idea se vuelve algo que la gente realmente usa.",
+  "about.services-label": "Servicios",
+  "about.services-list":  "Graphic Design<br>Packaging<br>Art Direction<br>Brand Strategy<br>Naming<br>Digital Design<br>UX/UI Design",
   "about.body":     "Con más de 5 años de experiencia en diseño, trabajo en la intersección del branding y el producto digital. Me especializo en crear identidades visuales memorables y experiencias de usuario coherentes que conectan marcas con sus audiencias.",
   "about.cta":      "Descargar CV",
 

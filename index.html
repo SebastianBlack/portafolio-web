@@ -362,6 +362,16 @@
       letter-spacing: -2.4px;
     }
 
+    .about-intro {
+      margin-top: 32px;
+      max-width: 540px;
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 26px;
+      letter-spacing: -0.16px;
+      color: var(--white-50);
+    }
+
     .about-details-group { margin-top: 52px; }
 
     .about-label {
@@ -503,8 +513,8 @@
       .about-section { padding: 0 20px 80px; grid-template-columns: 1fr; gap: 0; }
       .about-title { display: none; }
       .about-right { display: none; }
-      .about-section > div:first-child { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-      .about-details-group { margin-top: 0; }
+      .about-intro { margin-top: 0; font-size: 15px; line-height: 24px; max-width: none; }
+      .about-details-group { margin-top: 40px; }
       .contact-section { padding: 0 20px 80px; }
       .contact-inner { padding: 48px 32px; gap: 36px; }
       .contact-title { font-size: 40px; line-height: 38px; letter-spacing: -1.2px; }
@@ -758,19 +768,13 @@
     <div>
       <h2 class="about-title" data-reveal data-i18n="about.title"><span lang="en">Hello there<br>I'm Sebastian<br>Black</span></h2>
 
-      <div class="about-details-group" data-reveal style="--reveal-delay:120ms">
-        <div class="about-label">Services</div>
-        <div class="about-list">
+      <p class="about-intro" data-reveal style="--reveal-delay:80ms" data-i18n="about.intro">Diseñador de producto y marca con base en Lima. Me gusta resolver problemas reales: entender a las personas primero y traducir eso en marcas y productos que se sienten claros, humanos y bien pensados. Trabajo entre la estrategia y el detalle —donde una idea se vuelve algo que la gente realmente usa.</p>
+
+      <div class="about-details-group" data-reveal style="--reveal-delay:160ms">
+        <div class="about-label" data-i18n="about.services-label">Servicios</div>
+        <div class="about-list" data-i18n="about.services-list">
           Graphic Design<br>Packaging<br>Art Direction<br>
           Brand Strategy<br>Naming<br>Digital Design<br>UX/UI Design
-        </div>
-      </div>
-
-      <div class="about-details-group" data-reveal style="--reveal-delay:220ms">
-        <div class="about-label">Clients</div>
-        <div class="about-list">
-          Kanto<br>Freeda<br>Chef Kari Jeri<br>
-          ALAZ<br>Soul TV<br>Smart Doctor<br>Peru Tourism
         </div>
       </div>
     </div>
