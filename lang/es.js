@@ -51,12 +51,10 @@ window.TRANSLATIONS = {
   "footer.back":    "↑ Volver arriba",
 
   /* ── PROJECTS — LISTING ── */
-  "projects.title":         "Selected<br>Work",
+  "projects.title":         "Todos los<br>proyectos",
   "projects.branding.title":"Branding",
-  "projects.product.title": "Product Design",
-  "projects.count.all":     "15 Proyectos",
-  "projects.count.branding":"08 Proyectos",
-  "projects.count.product": "07 Proyectos",
+  "projects.product.title": "Producto",
+  "projects.count":         "Proyectos",
 
   /* ── PROJECT TITLES & CATEGORIES ── */
   "project.coming-soon": "Próximamente",

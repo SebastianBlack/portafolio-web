@@ -179,7 +179,12 @@
     const grid = document.getElementById('projects-grid');
     const t    = window.TRANSLATIONS || {};
 
-    document.getElementById('project-count').textContent = String(list.length).padStart(2,'0') + ' Proyectos';
+    function setCount() {
+      var label = (window.TRANSLATIONS || {})['projects.count'] || 'Proyectos';
+      document.getElementById('project-count').textContent = String(list.length).padStart(2,'0') + ' ' + label;
+    }
+    setCount();
+    setTimeout(setCount, 500);
 
     list.forEach(function (p, i) {
       const delay = (i % 2) * 80;
