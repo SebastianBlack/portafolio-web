@@ -861,16 +861,27 @@
       el.className = 'hero-trail';
       el.style.cssText = 'position:absolute;left:0;top:0;width:245px;height:170px;background-size:cover;background-position:center;pointer-events:none;z-index:10;opacity:0;will-change:transform,opacity;';
       hero.insertBefore(el, dot);
-      return { el, exitTimer: null, version: 0 };
+      return { el, exitTimer: null, version: 0, spawnTime: 0 };
     });
+
+    // Limpia un item de forma inmediata (sin transition) — usado en visibility change y resets
+    function hardReset(item) {
+      if (item.exitTimer) { clearTimeout(item.exitTimer); item.exitTimer = null; }
+      item.version++;
+      item.el.style.transition = 'none';
+      item.el.style.opacity = '0';
+    }
 
     function spawn(x, y) {
       const item = pool[poolIdx % POOL_SIZE];
       poolIdx++;
 
-      if (item.exitTimer) clearTimeout(item.exitTimer);
+      if (item.exitTimer) { clearTimeout(item.exitTimer); item.exitTimer = null; }
 
       const version = ++item.version;
+      const spawnTime = performance.now();
+      item.spawnTime = spawnTime;
+
       const { el } = item;
       const w = 245, h = 170;
       const tx = (x - w / 2).toFixed(1);
@@ -886,6 +897,11 @@
       // Frame 2 (después de 2 rAF para asegurar reflow): animar a scale 1, opacity 1
       requestAnimationFrame(() => requestAnimationFrame(() => {
         if (item.version !== version) return;
+        // Stale guard: si rAF se demoró (tab background), no animar entrada
+        if (performance.now() - spawnTime > SHOW_MS) {
+          el.style.opacity = '0';
+          return;
+        }
         el.style.transition = `transform ${ENTER_SCALE_MS}ms ${ENTER_EASE}, opacity ${ENTER_OPACITY_MS}ms ease-out`;
         el.style.transform  = `translate(${tx}px,${ty}px) scale(1)`;
         el.style.opacity    = '1';
@@ -929,11 +945,29 @@
       lastX = null; lastY = null;
       dot.style.opacity = '0';
       pool.forEach((item) => {
-        if (item.exitTimer) clearTimeout(item.exitTimer);
+        if (item.exitTimer) { clearTimeout(item.exitTimer); item.exitTimer = null; }
         item.version++;
-        item.el.style.transition = `opacity ${EXIT_MS}ms ${EXIT_EASE}`;
+        item.el.style.transition = `opacity ${EXIT_OPACITY_MS}ms ${EXIT_EASE}`;
         item.el.style.opacity    = '0';
       });
+    });
+
+    // Visibility change: si la tab se oculta, reset duro de TODO el pool.
+    // Sin esto, requestAnimationFrame se pausa pero setTimeout sigue (clampeado),
+    // y al volver el foco las imágenes se quedan visibles sin nadie que las limpie.
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'hidden') {
+        pool.forEach(hardReset);
+        lastX = null; lastY = null;
+        dot.style.opacity = '0';
+      }
+    });
+
+    // Página oculta o usuario sale de la ventana → también limpiar
+    window.addEventListener('blur', () => {
+      pool.forEach(hardReset);
+      lastX = null; lastY = null;
+      dot.style.opacity = '0';
     });
   })();
 
