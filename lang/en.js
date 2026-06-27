@@ -31,7 +31,7 @@ window.TRANSLATIONS = {
 
   /* ── HOME — ABOUT ── */
   "about.title": "Hello,<br>I'm Sebastian<br>Black",
-  "about.intro": "Product and brand designer based in Lima. I like solving real problems: understanding people first and turning that into brands and products that feel clear, human and well thought out. I work between strategy and detail — where an idea becomes something people actually use.",
+  "about.intro": "Product and brand designer based in Lima. I solve real problems: understanding people first and turning that into brands and products that feel clear, human and considered. I work between strategy and detail — where an idea becomes something people actually use.",
   "about.services-label": "Services",
   "about.services-list":  "Graphic Design<br>Packaging<br>Art Direction<br>Brand Strategy<br>Naming<br>Digital Design<br>UX/UI Design",
   "about.body":  "With over 5 years of design experience, I work at the intersection of branding and digital product. I specialize in crafting memorable visual identities and coherent user experiences that connect brands with their audiences.",
