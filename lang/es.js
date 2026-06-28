@@ -73,7 +73,17 @@ window.TRANSLATIONS = {
 
   "project.gastro-app.title":       "Gastro App",
   "project.gastro-app.category":    "Diseño de Producto",
+  "project.gastro-app.services":    "Diseño de Producto · UX/UI",
   "project.gastro-app.tagline":     "Gastro es una app móvil para descubrir dónde y qué comer en Costa Rica. Diseñé la experiencia de producto: exploración de menús, selección de restaurantes, reviews y puntuaciones. La interfaz prioriza la imagen del plato y una navegación simple, para decidir sin fricción.",
+  "project.gastro-app.s1.heading":  "Contexto y desafío",
+  "project.gastro-app.s1.body":     "Gastro nace desde cero: una app para que las personas en Costa Rica encuentren rápido dónde y qué comer cerca de ellas. El reto era resolverlo simple —buscar por tipo de cocina y ubicación, filtrar y decidir— sin convertirlo en una app cargada de funciones.",
+  "project.gastro-app.s2.heading":  "Objetivos y alcance",
+  "project.gastro-app.s2.body":     "A partir de entrevistas cualitativas definí dos perfiles de usuario, y sobre ellos un MVP enfocado: un flujo corto y claro para validar la propuesta. La prioridad fue la decisión rápida —encontrar y elegir restaurante— por encima de cualquier función secundaria.",
+  "project.gastro-app.s3.heading":  "Diseño e iteración",
+  "project.gastro-app.s3.body":     "Diseñé la estructura antes que la interfaz. El flujo prioriza buscar, filtrar y decidir en pocos pasos, con la imagen del plato como protagonista y una navegación clara que sostiene la simpleza del MVP.",
+  "project.gastro-app.s4.heading":  "Estado y próximos pasos",
+  "project.gastro-app.s4.body":     "La app entra en fase de validación con su lanzamiento este mes. Los próximos pasos son observar el uso real y iterar el flujo y la interfaz a partir del comportamiento de los primeros usuarios.",
+  "project.gastro-app.cta":         "Descarga la app",
 
   "project.alaz-brand.title":       "Alaz: Identidad Visual",
   "project.alaz-brand.category":    "Branding",
