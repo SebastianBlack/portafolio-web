@@ -7,18 +7,25 @@
 // ─────────────────────────────────────────────────────────────
 
 window.CONTACT = Object.freeze({
-  whatsapp: '51992325564',
-  message:  'Hola Sebastian, me gustaría conversar sobre un proyecto.',
+  whatsapp:        '51992325564',
+  whatsappMessage: 'Hola Sebastian, me gustaría conversar sobre un proyecto.',
+  instagram:       'https://www.instagram.com/sebasblack.pe/',
+  linkedin:        'https://www.linkedin.com/in/sebastianblack/',
 });
 
 (function () {
-  const WA  = window.CONTACT.whatsapp;
-  const MSG = encodeURIComponent(window.CONTACT.message);
-  const HREF = `https://wa.me/${WA}?text=${MSG}`;
+  const C = window.CONTACT;
+  const HREFS = {
+    whatsapp:  `https://wa.me/${C.whatsapp}?text=${encodeURIComponent(C.whatsappMessage)}`,
+    instagram: C.instagram,
+    linkedin:  C.linkedin,
+  };
 
   function apply() {
-    document.querySelectorAll('[data-cta="whatsapp"]').forEach(el => {
-      el.href = HREF;
+    document.querySelectorAll('[data-cta]').forEach(el => {
+      const key = el.dataset.cta;
+      if (!HREFS[key]) return;
+      el.href = HREFS[key];
       if (!el.hasAttribute('target')) el.target = '_blank';
       if (!el.hasAttribute('rel'))    el.rel    = 'noopener';
     });
