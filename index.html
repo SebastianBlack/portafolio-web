@@ -540,11 +540,19 @@
       .hero-logo-mobile-slot {
         width: 58%;
         max-width: 260px;
-        aspect-ratio: 1.44/1;
+        aspect-ratio: 1.54/1;
         background-size: cover;
         background-position: center;
         background-color: rgba(255,255,255,0.04);
-        will-change: background-image;
+        will-change: background-image, transform, opacity;
+        opacity: 0;
+        transform: scale(0.87);
+        animation: heroSlotEnterMobile 0.46s cubic-bezier(0.34, 1.45, 0.55, 1) 1.45s both;
+      }
+      @keyframes heroSlotEnterMobile {
+        0%   { opacity: 0; transform: scale(0.87); }
+        60%  { opacity: 1; }
+        100% { opacity: 1; transform: scale(1); }
       }
       .hero-tagline { font-size: 11px; letter-spacing: 0.2px; white-space: normal; padding: 0 20px; }
       .work-section { padding: 60px 20px 0; }
@@ -1000,17 +1008,23 @@
 
     if (isTouchDevice) {
       // Mobile / touch: el hero usa el layout SEBAS / [imagen] / BLACK.
-      // El slot snap-cambia la imagen cada ~500ms (medido en Framer).
-      // Las imágenes ya están preloaded (SRCS.forEach al principio).
+      // Análisis de Framer: el rectángulo aparece ya con la primera imagen
+      // a los ~1.45s (scale 0.87→1, ~460ms easing back). Después cambia
+      // cada ~500ms snap (sin crossfade).
       dot.remove();
       pool.forEach(p => p.el.remove());
 
       const mobileSlot = document.getElementById('heroMobileSlot');
       let mIdx = 0;
+      // Primera imagen ANTES de la animación de entrada CSS, así el rect
+      // ya se ve con imagen cuando aparece.
+      mobileSlot.style.backgroundImage = `url(${SRCS[mIdx++ % SRCS.length]})`;
       function cycle() {
         mobileSlot.style.backgroundImage = `url(${SRCS[mIdx++ % SRCS.length]})`;
       }
-      setTimeout(() => { cycle(); setInterval(cycle, 500); }, 600);
+      // Esperar a que termine la entrada CSS (1.45s delay + 460ms duration)
+      // antes de empezar el ciclo.
+      setTimeout(() => setInterval(cycle, 500), 1950);
     } else {
       hero.addEventListener('mouseenter', (e) => {
         heroRect = hero.getBoundingClientRect();
