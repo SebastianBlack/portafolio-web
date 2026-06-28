@@ -157,6 +157,9 @@
       clip-path: inset(0 100% 0 0);
     }
 
+    /* Mobile-only logo split: SEBAS arriba + image + BLACK abajo */
+    .hero-logo-mobile { display: none; }
+
     /* tagline at absolute bottom */
     .hero-tagline {
       position: absolute;
@@ -509,7 +512,39 @@
       .nav-links { display: none; }
       .nav-year { display: block; }
       .hero { padding: 0 20px; }
-      .hero-logo-wrap { width: 85%; }
+      .hero-logo-wrap { display: none; }
+
+      /* Mobile hero: SEBAS / [imagen] / BLACK — referencia Framer */
+      .hero-logo-mobile {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 28px;
+        position: relative;
+        z-index: 5;
+        width: 100%;
+      }
+      .hero-logo-mobile img {
+        display: block;
+        width: 56%;
+        max-width: 280px;
+        height: auto;
+        user-select: none;
+      }
+      .hero-logo-mobile img.hero-logo-bottom { width: 70%; max-width: 320px; }
+      .hero-logo-mobile-slot {
+        width: 56%;
+        max-width: 260px;
+        aspect-ratio: 1.44/1;
+        background-size: cover;
+        background-position: center;
+        background-color: rgba(255,255,255,0.04);
+        opacity: 0;
+        transform: scale(0.96);
+        transition: opacity 0.7s ease, transform 1.6s cubic-bezier(0.22,1,0.36,1);
+        will-change: opacity, transform;
+      }
       .hero-tagline { font-size: 11px; letter-spacing: 0.2px; white-space: normal; padding: 0 20px; }
       .work-section { padding: 60px 20px 0; }
       .section-header { font-size: 40px; line-height: 38px; letter-spacing: -1.2px; }
@@ -740,6 +775,12 @@
       <img class="hero-logo" src="/images/ui/logo.png" alt="BLACK®" draggable="false">
     </div>
 
+    <div class="hero-logo-mobile" aria-hidden="true">
+      <img class="hero-logo-top" src="/images/ui/logo-sebas.png" alt="SEBAS" draggable="false">
+      <div class="hero-logo-mobile-slot" id="heroMobileSlot"></div>
+      <img class="hero-logo-bottom" src="/images/ui/logo-black.png" alt="BLACK" draggable="false">
+    </div>
+
     <p class="hero-tagline" data-i18n="hero.tagline">
       Diseñador e ilustrador con base en Perú,<br>
       especializado en branding y desarrollo de productos.
@@ -957,21 +998,13 @@
     const isTouchDevice = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
 
     if (isTouchDevice) {
-      // Mobile / touch: en lugar del trail-by-mouse, una imagen central
-      // que crossfade entre fuentes cada ~2.4s. Vive detrás del logo BLACK
-      // (z-index seteado en CSS via @media hover:none).
+      // Mobile / touch: el hero usa el layout SEBAS / [imagen] / BLACK
+      // (ver .hero-logo-mobile en el HTML). El slot vive INLINE entre los
+      // dos textos — la imagen no flota detrás del logo, está integrada.
       dot.remove();
-      pool.forEach(p => p.el.remove()); // ya no usamos el pool
+      pool.forEach(p => p.el.remove());
 
-      const mobileSlot = document.createElement('div');
-      mobileSlot.className = 'hero-trail';
-      mobileSlot.style.cssText =
-        'position:absolute;left:50%;top:50%;width:62%;max-width:280px;aspect-ratio:1.44/1;' +
-        'transform:translate(-50%,-50%) scale(0.96);background-size:cover;background-position:center;' +
-        'pointer-events:none;opacity:0;transition:opacity 0.7s ease, transform 1.6s cubic-bezier(0.22,1,0.36,1);' +
-        'will-change:opacity,transform;';
-      hero.insertBefore(mobileSlot, hero.firstChild);
-
+      const mobileSlot = document.getElementById('heroMobileSlot');
       let mIdx = 0;
       function cycle() {
         const src = SRCS[mIdx++ % SRCS.length];
@@ -979,10 +1012,10 @@
         img.onload = () => {
           mobileSlot.style.backgroundImage = `url(${src})`;
           mobileSlot.style.opacity = '1';
-          mobileSlot.style.transform = 'translate(-50%,-50%) scale(1)';
+          mobileSlot.style.transform = 'scale(1)';
           setTimeout(() => {
             mobileSlot.style.opacity = '0';
-            mobileSlot.style.transform = 'translate(-50%,-50%) scale(0.96)';
+            mobileSlot.style.transform = 'scale(0.96)';
           }, 1800);
         };
         img.src = src;
