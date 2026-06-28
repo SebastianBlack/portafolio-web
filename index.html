@@ -645,6 +645,19 @@
     .nav-mobile-footer-year { font-size: 13px; font-weight: 500; letter-spacing: -0.13px; color: var(--white-50); }
     @media (max-width: 768px) { .nav-hamburger { display: flex; } .nav-year { display: none; } .nav-lang { display: none; } }
 
+    /* ── TOUCH DEVICES: hide custom cursor entirely ── */
+    @media (hover: none) and (pointer: coarse) {
+      .hero { cursor: default; }
+      .hero-cursor-dot { display: none !important; }
+      .cursor-ring { display: none !important; }
+      .project-card { cursor: pointer; }
+      .next-project { cursor: pointer; }
+      /* On mobile the trail spawns automatically (no mouse) — the image
+         sits behind the BLACK logo so they peek out around it. */
+      .hero-trail { z-index: 3 !important; }
+      .hero-logo-wrap { z-index: 5; }
+    }
+
     /* ── SKIP LINK ────────────────────── */
     .skip-link {
       position: absolute;
@@ -941,46 +954,80 @@
       lastY = y;
     }
 
-    hero.addEventListener('mouseenter', (e) => {
-      heroRect = hero.getBoundingClientRect();
-      const x = e.clientX - heroRect.left;
-      const y = e.clientY - heroRect.top;
-      lastX = x; lastY = y;
-      dot.style.left    = x + 'px';
-      dot.style.top     = y + 'px';
-      dot.style.opacity = '1';
-    });
+    const isTouchDevice = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
 
-    hero.addEventListener('mousemove', (e) => {
-      const x  = e.clientX - heroRect.left;
-      const y  = e.clientY - heroRect.top;
-      dot.style.left = x + 'px';
-      dot.style.top  = y + 'px';
-      if (lastX !== null) {
-        const dx = x - lastX, dy = y - lastY;
-        if (Math.hypot(dx, dy) >= SPAWN_DIST) spawn(x, y);
+    if (isTouchDevice) {
+      // Mobile / touch: en lugar del trail-by-mouse, una imagen central
+      // que crossfade entre fuentes cada ~2.4s. Vive detrás del logo BLACK
+      // (z-index seteado en CSS via @media hover:none).
+      dot.remove();
+      pool.forEach(p => p.el.remove()); // ya no usamos el pool
+
+      const mobileSlot = document.createElement('div');
+      mobileSlot.className = 'hero-trail';
+      mobileSlot.style.cssText =
+        'position:absolute;left:50%;top:50%;width:62%;max-width:280px;aspect-ratio:1.44/1;' +
+        'transform:translate(-50%,-50%) scale(0.96);background-size:cover;background-position:center;' +
+        'pointer-events:none;opacity:0;transition:opacity 0.7s ease, transform 1.6s cubic-bezier(0.22,1,0.36,1);' +
+        'will-change:opacity,transform;';
+      hero.insertBefore(mobileSlot, hero.firstChild);
+
+      let mIdx = 0;
+      function cycle() {
+        const src = SRCS[mIdx++ % SRCS.length];
+        const img = new Image();
+        img.onload = () => {
+          mobileSlot.style.backgroundImage = `url(${src})`;
+          mobileSlot.style.opacity = '1';
+          mobileSlot.style.transform = 'translate(-50%,-50%) scale(1)';
+          setTimeout(() => {
+            mobileSlot.style.opacity = '0';
+            mobileSlot.style.transform = 'translate(-50%,-50%) scale(0.96)';
+          }, 1800);
+        };
+        img.src = src;
       }
-    });
-
-    hero.addEventListener('mouseleave', () => {
-      lastX = null; lastY = null;
-      dot.style.opacity = '0';
-      pool.forEach((item) => {
-        if (item.exitTimer) { clearTimeout(item.exitTimer); item.exitTimer = null; }
-        item.version++;
-        item.el.style.transition = `opacity ${EXIT_OPACITY_MS}ms ${EXIT_EASE}`;
-        item.el.style.opacity    = '0';
+      setTimeout(() => { cycle(); setInterval(cycle, 2400); }, 1300);
+    } else {
+      hero.addEventListener('mouseenter', (e) => {
+        heroRect = hero.getBoundingClientRect();
+        const x = e.clientX - heroRect.left;
+        const y = e.clientY - heroRect.top;
+        lastX = x; lastY = y;
+        dot.style.left    = x + 'px';
+        dot.style.top     = y + 'px';
+        dot.style.opacity = '1';
       });
-    });
+
+      hero.addEventListener('mousemove', (e) => {
+        const x  = e.clientX - heroRect.left;
+        const y  = e.clientY - heroRect.top;
+        dot.style.left = x + 'px';
+        dot.style.top  = y + 'px';
+        if (lastX !== null) {
+          const dx = x - lastX, dy = y - lastY;
+          if (Math.hypot(dx, dy) >= SPAWN_DIST) spawn(x, y);
+        }
+      });
+
+      hero.addEventListener('mouseleave', () => {
+        lastX = null; lastY = null;
+        if (dot) dot.style.opacity = '0';
+        pool.forEach((item) => {
+          if (item.exitTimer) { clearTimeout(item.exitTimer); item.exitTimer = null; }
+          item.version++;
+          item.el.style.transition = `opacity ${EXIT_OPACITY_MS}ms ${EXIT_EASE}`;
+          item.el.style.opacity    = '0';
+        });
+      });
+    }
 
     // Visibility change: si la tab se oculta, reset duro de TODO el pool.
-    // Sin esto, requestAnimationFrame se pausa pero setTimeout sigue (clampeado),
-    // y al volver el foco las imágenes se quedan visibles sin nadie que las limpie.
     document.addEventListener('visibilitychange', () => {
       if (document.visibilityState === 'hidden') {
         pool.forEach(hardReset);
         lastX = null; lastY = null;
-        dot.style.opacity = '0';
+        if (dot && dot.parentNode) dot.style.opacity = '0';
       }
     });
 
@@ -988,14 +1035,16 @@
     window.addEventListener('blur', () => {
       pool.forEach(hardReset);
       lastX = null; lastY = null;
-      dot.style.opacity = '0';
+      if (dot && dot.parentNode) dot.style.opacity = '0';
     });
   })();
 
   // ─────────────────────────────────────────────────────────────
-  //  WORK SECTION CURSOR
+  //  WORK SECTION CURSOR (skip en touch devices)
   // ─────────────────────────────────────────────────────────────
   (function () {
+    if (window.matchMedia('(hover: none) and (pointer: coarse)').matches) return;
+
     const ring   = document.getElementById('cursorRing');
     const cards  = document.querySelectorAll('.project-card');
 
@@ -1007,11 +1056,9 @@
       my = e.clientY;
     });
 
-    // Smooth follow
     (function loop() {
       cx += (mx - cx) * 0.25;
       cy += (my - cy) * 0.25;
-      // translate(-50%,-50%) centers the 130px circle on the cursor point
       ring.style.left = cx + 'px';
       ring.style.top  = cy + 'px';
       requestAnimationFrame(loop);
