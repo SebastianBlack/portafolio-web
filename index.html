@@ -515,17 +515,18 @@
       .hero-logo-wrap { display: none; }
 
       /* Mobile hero: SEBAS / [imagen] / BLACK — referencia Framer
-         Medido: logo-sebas.png texto ocupa 98.3% del PNG (cropped),
-                 logo-black.png texto ocupa 60.8% del PNG (con padding).
-         Para que ambos TEXTOS se vean del mismo ancho visual:
-           SEBAS_width × 0.983 == BLACK_width × 0.608
-           SEBAS_width = BLACK_width × 0.619 */
+         Animación de entrada en 3 fases (medida frame a frame del ref):
+           Fase 1 (0–700ms):  wipe horizontal SEBAS, después BLACK (150ms stagger)
+           Fase 2 (700–1200ms): pausa con palabras blancas, juntas
+           Fase 3 (1200–1700ms): rectángulo crece entre ellas, las separa
+         Anchos calibrados (texto visible interno):
+           SEBAS PNG = 98.3% texto, BLACK PNG = 60.8% → SEBAS_w = BLACK_w × 0.619 */
       .hero-logo-mobile {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 24px;
+        gap: 0;
         position: relative;
         z-index: 5;
         width: 100%;
@@ -535,8 +536,16 @@
         height: auto;
         user-select: none;
       }
-      .hero-logo-mobile img.hero-logo-top    { width: 45%; max-width: 186px; }
-      .hero-logo-mobile img.hero-logo-bottom { width: 73%; max-width: 300px; }
+      .hero-logo-mobile img.hero-logo-top {
+        width: 45%; max-width: 186px;
+        clip-path: inset(0 100% 0 0);
+        animation: heroMobileWipe 0.7s cubic-bezier(0.76, 0, 0.24, 1) 0.1s both;
+      }
+      .hero-logo-mobile img.hero-logo-bottom {
+        width: 73%; max-width: 300px;
+        clip-path: inset(0 100% 0 0);
+        animation: heroMobileWipe 0.7s cubic-bezier(0.76, 0, 0.24, 1) 0.25s both;
+      }
       .hero-logo-mobile-slot {
         width: 58%;
         max-width: 260px;
@@ -544,15 +553,21 @@
         background-size: cover;
         background-position: center;
         background-color: rgba(255,255,255,0.04);
-        will-change: background-image, transform, opacity;
+        will-change: max-height, opacity, transform, margin;
         opacity: 0;
-        transform: scale(0.87);
-        animation: heroSlotEnterMobile 0.46s cubic-bezier(0.34, 1.45, 0.55, 1) 1.45s both;
+        max-height: 0;
+        margin: 0 0;
+        transform: scale(0.92);
+        overflow: hidden;
+        animation: heroMobileSlotExpand 0.55s cubic-bezier(0.34, 1.4, 0.55, 1) 1.2s both;
       }
-      @keyframes heroSlotEnterMobile {
-        0%   { opacity: 0; transform: scale(0.87); }
-        60%  { opacity: 1; }
-        100% { opacity: 1; transform: scale(1); }
+      @keyframes heroMobileWipe {
+        to { clip-path: inset(0 0 0 0); }
+      }
+      @keyframes heroMobileSlotExpand {
+        0%   { max-height: 0;    opacity: 0; transform: scale(0.92); margin: 0; }
+        50%  { opacity: 1; }
+        100% { max-height: 240px; opacity: 1; transform: scale(1); margin: 22px 0; }
       }
       .hero-tagline { font-size: 11px; letter-spacing: 0.2px; white-space: normal; padding: 0 20px; }
       .work-section { padding: 60px 20px 0; }
@@ -1007,24 +1022,21 @@
     const isTouchDevice = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
 
     if (isTouchDevice) {
-      // Mobile / touch: el hero usa el layout SEBAS / [imagen] / BLACK.
-      // Análisis de Framer: el rectángulo aparece ya con la primera imagen
-      // a los ~1.45s (scale 0.87→1, ~460ms easing back). Después cambia
-      // cada ~500ms snap (sin crossfade).
+      // Mobile / touch: layout SEBAS / [imagen] / BLACK con animación de
+      // entrada en 3 fases (ver CSS .hero-logo-mobile-*). Sólo necesitamos
+      // setear la primera imagen ANTES de que la animación arranque, y
+      // luego iniciar el cycle cuando termine la expansión (~1.8s).
       dot.remove();
       pool.forEach(p => p.el.remove());
 
       const mobileSlot = document.getElementById('heroMobileSlot');
       let mIdx = 0;
-      // Primera imagen ANTES de la animación de entrada CSS, así el rect
-      // ya se ve con imagen cuando aparece.
       mobileSlot.style.backgroundImage = `url(${SRCS[mIdx++ % SRCS.length]})`;
       function cycle() {
         mobileSlot.style.backgroundImage = `url(${SRCS[mIdx++ % SRCS.length]})`;
       }
-      // Esperar a que termine la entrada CSS (1.45s delay + 460ms duration)
-      // antes de empezar el ciclo.
-      setTimeout(() => setInterval(cycle, 500), 1950);
+      // 1.2s delay del rect + 0.55s duración = 1.75s. Damos +50ms de buffer.
+      setTimeout(() => setInterval(cycle, 500), 1800);
     } else {
       hero.addEventListener('mouseenter', (e) => {
         heroRect = hero.getBoundingClientRect();
