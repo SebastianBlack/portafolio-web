@@ -1,0 +1,267 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="google-site-verification" content="X0t242R3Z2I9SCUPX2stPGmoAlkf49DCih9QMWR_94A"><title>Sebastian Black Portfolio</title><link rel="icon" type="image/x-icon" href="/favicon.ico?v=3"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=3"><link rel="icon" type="image/png" sizes="64x64" href="/images/ui/favicon.png?v=3"><link rel="preconnect" href="https://api.fontshare.com"><link href="https://api.fontshare.com/v2/css?f[]=switzer@400,500,700&display=swap" rel="stylesheet"><script src="/js/projects.js"></script><script src="/js/i18n.js"></script><script src="/js/contact.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-8B50J8PMQ0"></script><script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-8B50J8PMQ0');
+  </script><link rel="stylesheet" href="/_astro/index.BhlTj5AE.css"></head><body><div class="cursor-ring" id="cursorRing" aria-hidden="true"><!-- Arrow ↗ inline SVG — black on white circle --><svg viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 28 L28 10 M28 10 H14 M28 10 V24" stroke="#0f0e0e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></div><a href="#main" class="skip-link">Saltar al contenido</a><header class="nav"><a href="/" class="nav-logo">Sebastian Black</a><nav class="nav-links"><a href="/projects/branding/" data-i18n="nav.branding">Branding</a><a href="/projects/product/" data-i18n="nav.product">Producto</a><a href="#about" data-i18n="nav.about">Sobre mí</a><a href="#contact" data-i18n="nav.contact">Contacto</a></nav><div class="nav-right"><button class="nav-lang" data-lang-btn aria-label="Switch to English">EN</button><span class="nav-year" data-i18n="nav.year">®2026</span><button class="nav-hamburger" id="navHamburger" aria-label="Menu"><span></span><span></span><span></span></button></div></header><div class="nav-mobile" id="navMobile" aria-hidden="true"><div class="nav-mobile-links"><a href="/projects/branding/" data-i18n="nav.branding">Branding</a><a href="/projects/product/" data-i18n="nav.product">Producto</a><a href="#about" data-i18n="nav.about">Sobre mí</a><a href="#contact" data-i18n="nav.contact">Contacto</a></div><div class="nav-mobile-footer"><button class="nav-mobile-footer-lang" data-lang-btn aria-label="Switch to English">EN</button><span class="nav-mobile-footer-year" data-i18n="nav.year">®2026</span></div></div><main id="main"><section class="hero" id="hero"><!-- trail images injected by JS --><div class="hero-logo-wrap"><img class="hero-logo-ghost" src="/images/ui/logo.png" alt="" aria-hidden="true" draggable="false"><img class="hero-logo" src="/images/ui/logo.png" alt="BLACK®" draggable="false"></div><div class="hero-logo-mobile" aria-hidden="true"><img class="hero-logo-top" src="/images/ui/logo-sebas.png" alt="SEBAS" draggable="false"><div class="hero-logo-mobile-slot" id="heroMobileSlot"></div><img class="hero-logo-bottom" src="/images/ui/logo-black.png" alt="BLACK" draggable="false"></div><p class="hero-tagline" data-i18n="hero.tagline">Diseñador e ilustrador con base en Perú,<br>especializado en branding y desarrollo de productos.</p></section><!-- SELECTED WORK --><section class="work-section" id="work"><h3 class="section-header" data-reveal data-i18n="work.section-title">Selected work</h3><div class="projects-grid" id="projects-grid"></div><script>
+    (function () {
+      const grid = document.getElementById('projects-grid');
+      const t = window.TRANSLATIONS || {};
+      PROJECTS.filter(function (p) { return !p.hidden; }).forEach(function (p, i) {
+        const delay = (i % 2) * 80;
+        const title = t['project.' + p.id + '.title'] || p.id;
+        const cat   = t['project.' + p.id + '.category'] || '';
+        const card  = document.createElement(p.comingSoon ? 'div' : 'a');
+        if (!p.comingSoon) card.href = p.url;
+        card.className = 'project-card' + (p.comingSoon ? ' is-coming-soon' : '');
+        card.setAttribute('data-reveal', '');
+        card.style.setProperty('--reveal-delay', delay + 'ms');
+        const media = p.videoThumb
+          ? '<video src="' + p.videoThumb + '" autoplay muted loop playsinline></video>'
+          : '<img src="' + p.thumb + '" alt="' + title + '" loading="lazy">';
+        const badge = p.comingSoon ? '<span class="coming-soon-badge" data-i18n="project.coming-soon">Próximamente</span>' : '';
+        card.innerHTML =
+          '<div class="project-img-wrap">' + media + badge + '</div>' +
+          '<div class="project-meta">' +
+            '<div class="project-title" data-i18n="project.' + p.id + '.title">' + title + '</div>' +
+            '<div class="project-category" data-i18n="project.' + p.id + '.category">' + cat + '</div>' +
+          '</div>';
+        grid.appendChild(card);
+      });
+    })();
+    </script><div class="see-all-wrap"><a href="/projects/" class="btn-pill" data-i18n="work.see-all">see them all</a></div></section><!-- ABOUT --><section class="about-section" id="about"><div><h2 class="about-title" data-reveal data-i18n="about.title"><span lang="en">Hello there<br>I'm Sebastian<br>Black</span></h2><p class="about-intro" data-reveal style="--reveal-delay:80ms" data-i18n="about.intro">Diseñador de producto y marca con base en Lima. Me gusta resolver problemas reales: entender a las personas primero y traducir eso en marcas y productos que se sienten claros, humanos y bien pensados. Trabajo entre la estrategia y el detalle —donde una idea se vuelve algo que la gente realmente usa.</p><div class="about-details-grid" data-reveal style="--reveal-delay:160ms"><div class="about-details-group"><div class="about-label" data-i18n="about.services-label">Servicios</div><div class="about-list" data-i18n="about.services-list">Brand &amp; Identity<br>Art Direction<br>Motion Graphics<br>Product Design<br>UX/UI Design</div></div><div class="about-details-group"><div class="about-label" data-i18n="about.tools-label">Herramientas</div><div class="about-list" data-i18n="about.tools-list">Figma<br>Claude<br>Miro<br>After Effects<br>Illustrator<br>Photoshop</div></div></div></div><div class="about-right" data-reveal style="--reveal-delay:80ms"><img src="/images/profile.webp" alt="Sebastian Black, diseñador de Lima"></div></section><!-- CONTACT --><section class="contact-section" id="contact"><div class="contact-inner" data-reveal><div class="contact-top-row"><div class="contact-eyebrow">Contact</div><div class="contact-available"><span class="availability-dot"></span>Available for projects</div></div><h2 class="contact-title">Let's<br>talk</h2><div class="contact-bottom-row"><div class="contact-socials"><a href="https://www.instagram.com/sebasblack.pe/" target="_blank" rel="noopener" class="contact-social-link" data-cta="instagram">Instagram ↗</a><a href="https://www.linkedin.com/in/sebastianblack/" target="_blank" rel="noopener" class="contact-social-link" data-cta="linkedin">LinkedIn ↗</a></div><a href="https://wa.me/51992325564" class="btn-pill" target="_blank" rel="noopener" aria-label="Iniciar proyecto por WhatsApp" data-cta="whatsapp">Start a project</a></div></div></section></main><footer><div><div class="footer-address" data-i18n="footer.address">Lima, Perú</div><div class="footer-social"><a href="https://www.instagram.com/sebasblack.pe/" target="_blank" rel="noopener" data-cta="instagram">Instagram</a><a href="https://www.linkedin.com/in/sebastianblack/" target="_blank" rel="noopener" data-cta="linkedin">LinkedIn</a></div></div><div class="footer-center"><p class="footer-cta-title" data-i18n="footer.cta">Do you like<br>What you see?</p><a href="https://wa.me/51992325564" class="btn-pill" target="_blank" rel="noopener" data-i18n="footer.connect" aria-label="Iniciar proyecto por WhatsApp" data-cta="whatsapp">Let's connect</a><p class="footer-copy" data-i18n="footer.copy">2026 ® Sebastian Black</p></div><div class="footer-right"><a href="#" class="footer-back-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">↑ Back to top</a></div></footer><script>
+  // ─────────────────────────────────────────────────────────────
+  //  HERO IMAGE TRAIL  (DOM pool · double-rAF · cached rect)
+  // ─────────────────────────────────────────────────────────────
+  (function () {
+    const SRCS = PROJECTS.filter(function (p) { return !p.hidden; }).flatMap(function (p) { return p.trail; });
+
+    // Valores tomados de inspección del Framer reference
+    const POOL_SIZE       = 20;
+    const SPAWN_DIST      = 135;
+    const SHOW_MS         = 700;
+    // Entrada: opacity rápido, scale más suave (Framer Motion)
+    const ENTER_OPACITY_MS = 220;
+    const ENTER_SCALE_MS   = 420;
+    // Salida: opacity rápido, scale lento (por eso se ven items casi a scale 1 con opacity 0)
+    const EXIT_OPACITY_MS  = 260;
+    const EXIT_SCALE_MS    = 560;
+    const ENTER_EASE = 'cubic-bezier(0.22,1,0.36,1)';
+    const EXIT_EASE  = 'cubic-bezier(0.4,0,0.6,1)';
+
+    SRCS.forEach(src => { const i = new Image(); i.src = src; });
+
+    const hero = document.getElementById('hero');
+    let heroRect = hero.getBoundingClientRect();
+    window.addEventListener('resize', () => { heroRect = hero.getBoundingClientRect(); });
+
+    let lastX = null, lastY = null, srcIdx = 0, poolIdx = 0;
+
+    const dot = document.createElement('div');
+    dot.className = 'hero-cursor-dot';
+    hero.appendChild(dot);
+
+    const pool = Array.from({ length: POOL_SIZE }, () => {
+      const el = document.createElement('div');
+      el.className = 'hero-trail';
+      el.style.cssText = 'position:absolute;left:0;top:0;width:245px;height:170px;background-size:cover;background-position:center;pointer-events:none;z-index:10;opacity:0;will-change:transform,opacity;';
+      hero.insertBefore(el, dot);
+      return { el, exitTimer: null, version: 0, spawnTime: 0 };
+    });
+
+    // Limpia un item de forma inmediata (sin transition) — usado en visibility change y resets
+    function hardReset(item) {
+      if (item.exitTimer) { clearTimeout(item.exitTimer); item.exitTimer = null; }
+      item.version++;
+      item.el.style.transition = 'none';
+      item.el.style.opacity = '0';
+    }
+
+    function spawn(x, y) {
+      const item = pool[poolIdx % POOL_SIZE];
+      poolIdx++;
+
+      if (item.exitTimer) { clearTimeout(item.exitTimer); item.exitTimer = null; }
+
+      const version = ++item.version;
+      const spawnTime = performance.now();
+      item.spawnTime = spawnTime;
+
+      const { el } = item;
+      const w = 245, h = 170;
+      const tx = (x - w / 2).toFixed(1);
+      const ty = (y - h / 2).toFixed(1);
+      const src = SRCS[srcIdx++ % SRCS.length];
+
+      // Frame 1: posicionar sin transición, scale 0.9, opacity 0
+      el.style.transition = 'none';
+      el.style.backgroundImage = `url(${src})`;
+      el.style.transform = `translate(${tx}px,${ty}px) scale(0.9)`;
+      el.style.opacity = '0';
+
+      // Frame 2 (después de 2 rAF para asegurar reflow): animar a scale 1, opacity 1
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        if (item.version !== version) return;
+        // Stale guard: si rAF se demoró (tab background), no animar entrada
+        if (performance.now() - spawnTime > SHOW_MS) {
+          el.style.opacity = '0';
+          return;
+        }
+        el.style.transition = `transform ${ENTER_SCALE_MS}ms ${ENTER_EASE}, opacity ${ENTER_OPACITY_MS}ms ease-out`;
+        el.style.transform  = `translate(${tx}px,${ty}px) scale(1)`;
+        el.style.opacity    = '1';
+      }));
+
+      // Después de SHOW_MS: salir (opacity rápida, scale lento)
+      item.exitTimer = setTimeout(() => {
+        if (item.version !== version) return;
+        el.style.transition = `transform ${EXIT_SCALE_MS}ms ${EXIT_EASE}, opacity ${EXIT_OPACITY_MS}ms ease-in`;
+        el.style.transform  = `translate(${tx}px,${ty}px) scale(0.9)`;
+        el.style.opacity    = '0';
+        item.exitTimer = null;
+      }, SHOW_MS);
+
+      lastX = x;
+      lastY = y;
+    }
+
+    const isTouchDevice = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+
+    if (isTouchDevice) {
+      // Mobile / touch: layout SEBAS / [imagen] / BLACK con animación de
+      // entrada en 3 fases (ver CSS .hero-logo-mobile-*). Sólo necesitamos
+      // setear la primera imagen ANTES de que la animación arranque, y
+      // luego iniciar el cycle cuando termine la expansión (~1.8s).
+      dot.remove();
+      pool.forEach(p => p.el.remove());
+
+      const mobileSlot = document.getElementById('heroMobileSlot');
+      let mIdx = 0;
+      mobileSlot.style.backgroundImage = `url(${SRCS[mIdx++ % SRCS.length]})`;
+      function cycle() {
+        mobileSlot.style.backgroundImage = `url(${SRCS[mIdx++ % SRCS.length]})`;
+      }
+      // 1.2s delay del rect + 0.55s duración = 1.75s. Damos +50ms de buffer.
+      setTimeout(() => setInterval(cycle, 500), 1800);
+    } else {
+      hero.addEventListener('mouseenter', (e) => {
+        heroRect = hero.getBoundingClientRect();
+        const x = e.clientX - heroRect.left;
+        const y = e.clientY - heroRect.top;
+        lastX = x; lastY = y;
+        dot.style.left    = x + 'px';
+        dot.style.top     = y + 'px';
+        dot.style.opacity = '1';
+      });
+
+      hero.addEventListener('mousemove', (e) => {
+        const x  = e.clientX - heroRect.left;
+        const y  = e.clientY - heroRect.top;
+        dot.style.left = x + 'px';
+        dot.style.top  = y + 'px';
+        if (lastX !== null) {
+          const dx = x - lastX, dy = y - lastY;
+          if (Math.hypot(dx, dy) >= SPAWN_DIST) spawn(x, y);
+        }
+      });
+
+      hero.addEventListener('mouseleave', () => {
+        lastX = null; lastY = null;
+        if (dot) dot.style.opacity = '0';
+        pool.forEach((item) => {
+          if (item.exitTimer) { clearTimeout(item.exitTimer); item.exitTimer = null; }
+          item.version++;
+          item.el.style.transition = `opacity ${EXIT_OPACITY_MS}ms ${EXIT_EASE}`;
+          item.el.style.opacity    = '0';
+        });
+      });
+    }
+
+    // Visibility change: si la tab se oculta, reset duro de TODO el pool.
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'hidden') {
+        pool.forEach(hardReset);
+        lastX = null; lastY = null;
+        if (dot && dot.parentNode) dot.style.opacity = '0';
+      }
+    });
+
+    // Página oculta o usuario sale de la ventana → también limpiar
+    window.addEventListener('blur', () => {
+      pool.forEach(hardReset);
+      lastX = null; lastY = null;
+      if (dot && dot.parentNode) dot.style.opacity = '0';
+    });
+  })();
+
+  // ─────────────────────────────────────────────────────────────
+  //  WORK SECTION CURSOR (skip en touch devices)
+  // ─────────────────────────────────────────────────────────────
+  (function () {
+    if (window.matchMedia('(hover: none) and (pointer: coarse)').matches) return;
+
+    const ring   = document.getElementById('cursorRing');
+    const cards  = document.querySelectorAll('.project-card');
+
+    let mx = 0, my = 0;
+    let cx = 0, cy = 0;
+
+    document.addEventListener('mousemove', (e) => {
+      mx = e.clientX;
+      my = e.clientY;
+    });
+
+    (function loop() {
+      cx += (mx - cx) * 0.25;
+      cy += (my - cy) * 0.25;
+      ring.style.left = cx + 'px';
+      ring.style.top  = cy + 'px';
+      requestAnimationFrame(loop);
+    })();
+
+    cards.forEach((card) => {
+      card.addEventListener('mouseenter', () => ring.classList.add('is-active'));
+      card.addEventListener('mouseleave', () => ring.classList.remove('is-active'));
+    });
+
+    document.addEventListener('mouseleave', () => ring.classList.remove('is-active'));
+  })();
+
+  // ─────────────────────────────────────────────────────────────
+  //  SCROLL REVEAL
+  // ─────────────────────────────────────────────────────────────
+  (function () {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const el    = entry.target;
+        const delay = el.style.getPropertyValue('--reveal-delay') || '0ms';
+        el.style.transitionDelay = delay;
+        el.classList.add('is-visible');
+        observer.unobserve(el);
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('[data-reveal]').forEach(el => observer.observe(el));
+  })();
+  </script><script>
+  (function () {
+    const btn = document.getElementById('navHamburger');
+    const menu = document.getElementById('navMobile');
+    if (!btn || !menu) return;
+    btn.addEventListener('click', function () {
+      const open = menu.classList.toggle('is-open');
+      btn.classList.toggle('is-open', open);
+      menu.setAttribute('aria-hidden', open ? 'false' : 'true');
+      document.body.style.overflow = open ? 'hidden' : '';
+    });
+    menu.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () {
+        menu.classList.remove('is-open');
+        btn.classList.remove('is-open');
+        menu.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      });
+    });
+  })();
+  </script></body></html>
