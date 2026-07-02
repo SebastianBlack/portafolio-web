@@ -76,14 +76,16 @@ const { title, tag } = Astro.props;
       grid.appendChild(card);
     });
 
-    const ring  = document.getElementById('cursorRing');
-    let mx=0,my=0,cx=0,cy=0;
-    document.addEventListener('mousemove', function(e){ mx=e.clientX; my=e.clientY; });
-    (function loop(){ cx+=(mx-cx)*0.14; cy+=(my-cy)*0.14; ring.style.left=cx+'px'; ring.style.top=cy+'px'; requestAnimationFrame(loop); })();
-    document.querySelectorAll('.project-card').forEach(function(c){
-      c.addEventListener('mouseenter', function(){ ring.classList.add('is-active'); });
-      c.addEventListener('mouseleave', function(){ ring.classList.remove('is-active'); });
-    });
+    if (!window.matchMedia('(hover: none) and (pointer: coarse)').matches) {
+      const ring  = document.getElementById('cursorRing');
+      let mx=0,my=0,cx=0,cy=0;
+      document.addEventListener('mousemove', function(e){ mx=e.clientX; my=e.clientY; });
+      (function loop(){ cx+=(mx-cx)*0.14; cy+=(my-cy)*0.14; ring.style.left=cx+'px'; ring.style.top=cy+'px'; requestAnimationFrame(loop); })();
+      document.querySelectorAll('.project-card').forEach(function(c){
+        c.addEventListener('mouseenter', function(){ ring.classList.add('is-active'); });
+        c.addEventListener('mouseleave', function(){ ring.classList.remove('is-active'); });
+      });
+    }
 
     const observer = new IntersectionObserver(function(entries){
       entries.forEach(function(e){ if(!e.isIntersecting) return; e.target.classList.add('is-visible'); observer.unobserve(e.target); });

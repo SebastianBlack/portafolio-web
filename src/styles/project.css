@@ -95,4 +95,7 @@
     .nav-mobile-footer-lang { background: none; border: none; font-family: inherit; font-size: 13px; font-weight: 500; letter-spacing: -0.13px; text-transform: uppercase; color: var(--white-50); cursor: pointer; padding: 0; transition: color 0.2s; }
     .nav-mobile-footer-year { font-size: 13px; font-weight: 500; letter-spacing: -0.13px; color: var(--white-50); }
     @media (max-width: 768px) { .nav-hamburger { display: flex; } .nav-year { display: none; } .nav-lang { display: none; } }
+    .skip-link { position: absolute; top: -9999px; left: 0; z-index: 9999; padding: 12px 24px; background: var(--white); color: var(--bg); font-size: 13px; font-weight: 500; letter-spacing: -0.13px; text-transform: uppercase; text-decoration: none; }
+    .skip-link:focus { top: 0; }
+    @media (hover: none) and (pointer: coarse) { .cursor-ring { display: none !important; } .next-project { cursor: pointer; } }
   

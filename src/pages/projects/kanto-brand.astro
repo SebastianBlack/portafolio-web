@@ -108,7 +108,8 @@ import ProjectLayout from "../../layouts/ProjectLayout.astro";
 
 <script is:inline>
   (function () {
-    const ring = document.getElementById('cursorRing');;
+    if (window.matchMedia('(hover: none) and (pointer: coarse)').matches) return;
+    const ring = document.getElementById('cursorRing');
     const next = document.getElementById('next-link');
     let mx=0,my=0,cx=0,cy=0;
     document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; });
@@ -120,9 +121,13 @@ import ProjectLayout from "../../layouts/ProjectLayout.astro";
     const visible = PROJECTS.filter(function(p){ return !p.hidden; });
     const idx = visible.findIndex(function(p){ return p.id === 'kanto-brand'; });
     const next = visible[(idx + 1) % visible.length];
-    const t    = window.TRANSLATIONS || {};
-    document.getElementById('next-title').textContent = t['project.' + next.id + '.title'] || next.id;
     document.getElementById('next-link').href = next.url;
+    function setNextTitle() {
+      const title = (window.TRANSLATIONS || {})['project.' + next.id + '.title'];
+      if (title) document.getElementById('next-title').textContent = title;
+    }
+    setNextTitle();
+    setTimeout(setNextTitle, 500);
   })();
   </script>
 </ProjectLayout>
