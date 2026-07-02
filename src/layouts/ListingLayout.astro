@@ -80,7 +80,7 @@ const { title, tag } = Astro.props;
       const ring  = document.getElementById('cursorRing');
       let mx=0,my=0,cx=0,cy=0;
       document.addEventListener('mousemove', function(e){ mx=e.clientX; my=e.clientY; }, { passive: true });
-      (function loop(){ cx+=(mx-cx)*0.2; cy+=(my-cy)*0.2; ring.style.transform='translate('+(cx-65)+'px,'+(cy-65)+'px)'; requestAnimationFrame(loop); })();
+      (function loop(){ cx+=(mx-cx)*0.25; cy+=(my-cy)*0.25; ring.style.left=cx+'px'; ring.style.top=cy+'px'; requestAnimationFrame(loop); })();
       document.querySelectorAll('.project-card').forEach(function(c){
         c.addEventListener('mouseenter', function(){ ring.classList.add('is-active'); });
         c.addEventListener('mouseleave', function(){ ring.classList.remove('is-active'); });

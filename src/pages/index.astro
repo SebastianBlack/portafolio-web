@@ -137,7 +137,6 @@ import Footer from "../components/Footer.astro";
     // Valores tomados de inspección del Framer reference
     const POOL_SIZE       = 20;
     const SPAWN_DIST      = 135;
-    const SPAWN_DIST_SQ   = SPAWN_DIST * SPAWN_DIST;
     const SHOW_MS         = 700;
     // Entrada: opacity rápido, scale más suave (Framer Motion)
     const ENTER_OPACITY_MS = 220;
@@ -248,17 +247,19 @@ import Footer from "../components/Footer.astro";
         const x = e.clientX - heroRect.left;
         const y = e.clientY - heroRect.top;
         lastX = x; lastY = y;
-        dot.style.transform = 'translate(' + (x - 7) + 'px,' + (y - 7) + 'px)';
-        dot.style.opacity   = '1';
+        dot.style.left    = x + 'px';
+        dot.style.top     = y + 'px';
+        dot.style.opacity = '1';
       }, { passive: true });
 
       hero.addEventListener('mousemove', (e) => {
         const x  = e.clientX - heroRect.left;
         const y  = e.clientY - heroRect.top;
-        dot.style.transform = 'translate(' + (x - 7) + 'px,' + (y - 7) + 'px)';
+        dot.style.left = x + 'px';
+        dot.style.top  = y + 'px';
         if (lastX !== null) {
           const dx = x - lastX, dy = y - lastY;
-          if (dx * dx + dy * dy >= SPAWN_DIST_SQ) spawn(x, y);
+          if (Math.hypot(dx, dy) >= SPAWN_DIST) spawn(x, y);
         }
       }, { passive: true });
 
@@ -311,7 +312,8 @@ import Footer from "../components/Footer.astro";
     (function loop() {
       cx += (mx - cx) * 0.25;
       cy += (my - cy) * 0.25;
-      ring.style.transform = 'translate(' + (cx - 65) + 'px,' + (cy - 65) + 'px)';
+      ring.style.left = cx + 'px';
+      ring.style.top  = cy + 'px';
       requestAnimationFrame(loop);
     })();
 
