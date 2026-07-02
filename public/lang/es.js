@@ -84,7 +84,6 @@ window.TRANSLATIONS = {
   "project.gastro-app.s3.body":     "Diseñé la estructura antes que la interfaz. El flujo prioriza buscar, filtrar y decidir en pocos pasos, con la imagen del plato como protagonista y una navegación clara que sostiene la simpleza del MVP.",
   "project.gastro-app.s4.heading":  "Estado y próximos pasos",
   "project.gastro-app.s4.body":     "La app entra en fase de validación con su lanzamiento este mes. Los próximos pasos son observar el uso real y iterar el flujo y la interfaz a partir del comportamiento de los primeros usuarios.",
-  "project.gastro-app.cta":         "Descarga la app",
 
   "project.alaz-brand.title":       "Alaz: Identidad Visual",
   "project.alaz-brand.category":    "Branding",

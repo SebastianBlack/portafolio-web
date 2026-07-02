@@ -84,7 +84,6 @@ window.TRANSLATIONS = {
   "project.gastro-app.s3.body":     "I designed the structure before the interface. The flow prioritizes searching, filtering and deciding in a few steps, with the dish image as the protagonist and clear navigation that sustains the simplicity of the MVP.",
   "project.gastro-app.s4.heading":  "Status & next steps",
   "project.gastro-app.s4.body":     "The app enters validation with its launch this month. The next steps are to observe real usage and iterate the flow and interface based on the behavior of the first users.",
-  "project.gastro-app.cta":         "Download the app",
 
   "project.alaz-brand.title":       "Alaz: Visual Identity",
   "project.alaz-brand.category":    "Branding",
