@@ -1,0 +1,138 @@
+---
+import ProjectLayout from "../../layouts/ProjectLayout.astro";
+---
+<ProjectLayout title="Gastro App">
+
+  <div class="project-header">
+    <div class="project-header-left">
+      <h1 class="project-title" data-i18n="project.gastro-app.title">Gastro App</h1>
+      <p class="project-tagline" data-i18n="project.gastro-app.tagline"></p>
+    </div>
+    <div class="project-header-right">
+      <div class="project-meta-grid">
+        <div class="meta-item">
+          <div class="meta-label" data-i18n="meta.category">Categoría</div>
+          <div class="meta-value" data-i18n="project.gastro-app.category">Diseño de Producto</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label" data-i18n="meta.year">Año</div>
+          <div class="meta-value">2026</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label" data-i18n="meta.client">Cliente</div>
+          <div class="meta-value">Gastro</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label" data-i18n="meta.services">Servicios</div>
+          <div class="meta-value" data-i18n="project.gastro-app.services">Diseño de Producto · UX/UI</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="project-hero">
+    <img src="/images/gastro-app/hero.webp" alt="Gastro App">
+  </div>
+
+  <!-- 1: El Problema -->
+  <div class="content-section" data-reveal>
+    <div class="content-text">
+      <div>
+        <p class="content-eyebrow" data-i18n="section.problem">El Problema</p>
+        <h2 class="content-heading" data-i18n="project.gastro-app.s1.heading">Contexto y desafío</h2>
+      </div>
+      <div class="content-body">
+        <p data-i18n="project.gastro-app.s1.body">Gastro nace desde cero: una app para que las personas en Costa Rica encuentren rápido dónde y qué comer cerca de ellas. El reto era resolverlo simple —buscar por tipo de cocina y ubicación, filtrar y decidir— sin convertirlo en una app cargada de funciones.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-section">
+    <div class="img-grid-2">
+      <img src="/images/gastro-app/01.webp" alt="" data-reveal>
+      <img src="/images/gastro-app/02.webp" alt="" data-reveal style="--reveal-delay:80ms">
+    </div>
+  </div>
+
+  <!-- 2: Estrategia + Objetivos -->
+  <div class="content-section" data-reveal>
+    <div class="content-text">
+      <div>
+        <p class="content-eyebrow" data-i18n="section.strategy">Estrategia</p>
+        <h2 class="content-heading" data-i18n="project.gastro-app.s2.heading">Objetivos y alcance</h2>
+      </div>
+      <div class="content-body">
+        <p data-i18n="project.gastro-app.s2.body">A partir de entrevistas cualitativas definí dos perfiles de usuario, y sobre ellos un MVP enfocado: un flujo corto y claro para validar la propuesta. La prioridad fue la decisión rápida —encontrar y elegir restaurante— por encima de cualquier función secundaria.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-section">
+    <div class="img-grid-3">
+      <img src="/images/gastro-app/01v.webp" alt="" data-reveal>
+      <img src="/images/gastro-app/02v.webp" alt="" data-reveal style="--reveal-delay:80ms">
+      <img src="/images/gastro-app/03v.webp" alt="" data-reveal style="--reveal-delay:160ms">
+    </div>
+  </div>
+
+  <!-- 3: Proceso -->
+  <div class="content-section" data-reveal>
+    <div class="content-text">
+      <div>
+        <p class="content-eyebrow" data-i18n="section.process">Proceso</p>
+        <h2 class="content-heading" data-i18n="project.gastro-app.s3.heading">Diseño e iteración</h2>
+      </div>
+      <div class="content-body">
+        <p data-i18n="project.gastro-app.s3.body">Diseñé la estructura antes que la interfaz. El flujo prioriza buscar, filtrar y decidir en pocos pasos, con la imagen del plato como protagonista y una navegación clara que sostiene la simpleza del MVP.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-section">
+    <div class="img-padded">
+      <img src="/images/gastro-app/wide-01.webp" alt="Gastro app en uso" data-reveal>
+    </div>
+  </div>
+
+  <!-- 4: Resultados + CTA (final) -->
+  <div class="content-section" data-reveal>
+    <div class="content-text">
+      <div>
+        <p class="content-eyebrow" data-i18n="section.results">Resultados</p>
+        <h2 class="content-heading" data-i18n="project.gastro-app.s4.heading">Estado y próximos pasos</h2>
+      </div>
+      <div class="content-body">
+        <p data-i18n="project.gastro-app.s4.body">La app entra en fase de validación con su lanzamiento este mes. Los próximos pasos son observar el uso real y iterar el flujo y la interfaz a partir del comportamiento de los primeros usuarios.</p>
+        <p style="margin-top:32px;">
+          <a href="#" class="btn-pill" target="_blank" rel="noopener" data-cta="gastro-app-store" data-i18n="project.gastro-app.cta">Descarga la app</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <a class="next-project" id="next-link" href="/">
+    <p class="next-label" data-i18n="next.project">Siguiente proyecto</p>
+    <h2 class="next-title" id="next-title">—</h2>
+    <span class="next-arrow">→</span>
+  </a>
+
+<script is:inline>
+  (function () {
+    const ring = document.getElementById('cursorRing');;
+    const next = document.getElementById('next-link');
+    let mx=0,my=0,cx=0,cy=0;
+    document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; });
+    (function loop(){ cx+=(mx-cx)*0.14; cy+=(my-cy)*0.14; ring.style.left=cx+'px'; ring.style.top=cy+'px'; requestAnimationFrame(loop); })();
+    next.addEventListener('mouseenter', () => ring.classList.add('is-active'));
+    next.addEventListener('mouseleave', () => ring.classList.remove('is-active'));
+  })();
+  (function () {
+    const visible = PROJECTS.filter(function(p){ return !p.hidden; });
+    const idx = visible.findIndex(function(p){ return p.id === 'gastro-app'; });
+    const next = visible[(idx + 1) % visible.length];
+    const t    = window.TRANSLATIONS || {};
+    document.getElementById('next-title').textContent = t['project.' + next.id + '.title'] || next.id;
+    document.getElementById('next-link').href = next.url;
+  })();
+  </script>
+</ProjectLayout>
