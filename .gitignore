@@ -9,6 +9,11 @@
 !public/images/
 !public/images/**
 
+# Excluir archivos con hash de Framer en la raíz de public/images/
+public/images/*.png
+public/images/*.jpg
+public/images/*.jpeg
+
 # Permitir iconos en raíz
 !favicon.ico
 !apple-touch-icon.png
