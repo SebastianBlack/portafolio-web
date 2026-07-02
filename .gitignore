@@ -6,6 +6,8 @@
 # Permitir todo dentro de images/
 !images/
 !images/**
+!public/images/
+!public/images/**
 
 # Permitir iconos en raíz
 !favicon.ico
