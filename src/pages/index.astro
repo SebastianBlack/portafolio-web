@@ -137,6 +137,7 @@ import Footer from "../components/Footer.astro";
     // Valores tomados de inspección del Framer reference
     const POOL_SIZE       = 20;
     const SPAWN_DIST      = 135;
+    const SPAWN_DIST_SQ   = SPAWN_DIST * SPAWN_DIST;
     const SHOW_MS         = 700;
     // Entrada: opacity rápido, scale más suave (Framer Motion)
     const ENTER_OPACITY_MS = 220;
@@ -247,21 +248,19 @@ import Footer from "../components/Footer.astro";
         const x = e.clientX - heroRect.left;
         const y = e.clientY - heroRect.top;
         lastX = x; lastY = y;
-        dot.style.left    = x + 'px';
-        dot.style.top     = y + 'px';
-        dot.style.opacity = '1';
-      });
+        dot.style.transform = 'translate(' + (x - 7) + 'px,' + (y - 7) + 'px)';
+        dot.style.opacity   = '1';
+      }, { passive: true });
 
       hero.addEventListener('mousemove', (e) => {
         const x  = e.clientX - heroRect.left;
         const y  = e.clientY - heroRect.top;
-        dot.style.left = x + 'px';
-        dot.style.top  = y + 'px';
+        dot.style.transform = 'translate(' + (x - 7) + 'px,' + (y - 7) + 'px)';
         if (lastX !== null) {
           const dx = x - lastX, dy = y - lastY;
-          if (Math.hypot(dx, dy) >= SPAWN_DIST) spawn(x, y);
+          if (dx * dx + dy * dy >= SPAWN_DIST_SQ) spawn(x, y);
         }
-      });
+      }, { passive: true });
 
       hero.addEventListener('mouseleave', () => {
         lastX = null; lastY = null;
@@ -272,7 +271,7 @@ import Footer from "../components/Footer.astro";
           item.el.style.transition = `opacity ${EXIT_OPACITY_MS}ms ${EXIT_EASE}`;
           item.el.style.opacity    = '0';
         });
-      });
+      }, { passive: true });
     }
 
     // Visibility change: si la tab se oculta, reset duro de TODO el pool.
@@ -307,13 +306,12 @@ import Footer from "../components/Footer.astro";
     document.addEventListener('mousemove', (e) => {
       mx = e.clientX;
       my = e.clientY;
-    });
+    }, { passive: true });
 
     (function loop() {
       cx += (mx - cx) * 0.25;
       cy += (my - cy) * 0.25;
-      ring.style.left = cx + 'px';
-      ring.style.top  = cy + 'px';
+      ring.style.transform = 'translate(' + (cx - 65) + 'px,' + (cy - 65) + 'px)';
       requestAnimationFrame(loop);
     })();
 

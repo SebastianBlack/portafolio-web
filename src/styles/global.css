@@ -31,6 +31,8 @@
 
 .hero-cursor-dot {
   position: absolute;
+  top: 0;
+  left: 0;
   width: 14px;
   height: 14px;
   border-radius: 50%;
@@ -39,7 +41,7 @@
   z-index: 20;
   opacity: 0;
   transition: opacity 0.2s ease;
-  transform: translate(-50%, -50%);
+  will-change: transform;
 }
 
 .hero-logo-wrap {
