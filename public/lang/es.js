@@ -119,7 +119,16 @@ window.TRANSLATIONS = {
 
   "project.peru-tourism.title":     "Peru Tourism",
   "project.peru-tourism.category":  "Diseño de Producto",
+  "project.peru-tourism.services":  "UX/UI Design",
   "project.peru-tourism.tagline":   "Rediseño de la experiencia digital para mostrar el Perú al mundo con claridad, orgullo y atractivo visual.",
+  "project.peru-tourism.s1.heading": "Contexto y desafío",
+  "project.peru-tourism.s1.body":    "El 70% del tráfico era móvil, pero el sitio no estaba preparado. La arquitectura de información era redundante, mantenía contenido obsoleto y el formulario de contacto vertical generaba alta fricción para la captación de leads.",
+  "project.peru-tourism.s2.heading": "Enfoque mobile-first",
+  "project.peru-tourism.s2.body":    "Priorizar la experiencia mobile-first para capturar turistas. Se definió limpiar la arquitectura y enfocar la conversión en un nuevo flujo de personalización de viajes, cerrando con un formulario optimizado de baja carga cognitiva.",
+  "project.peru-tourism.s3.heading": "Diseña tu viaje",
+  "project.peru-tourism.s3.body":    "Diseñé el flujo \"Diseña tu viaje\", categorizando opciones por tipo de experiencia. Transformé el formulario extenso en un multi-step form guiado, mostrando máximo dos inputs por vista para facilitar la digestión de la información.",
+  "project.peru-tourism.s4.heading": "Impacto",
+  "project.peru-tourism.s4.body":    "El rediseño del formulario agilizó el cierre del flujo de leads. A nivel técnico, la plataforma logró una velocidad de carga 3× más rápida, garantizando una experiencia de usuario móvil fluida y sin interrupciones.",
 
   "project.getaway-stays.title":    "The Getaway Stays",
   "project.getaway-stays.category": "Diseño de Producto",

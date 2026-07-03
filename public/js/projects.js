@@ -59,9 +59,8 @@ const PROJECTS = [
     id:    'peru-tourism',
     tags:  ['product'],
     url:   '/projects/peru-tourism/',
-    thumb: '/images/peru-tourism/thumb.webp',
-    trail: ['/images/peru-tourism/trail-1.webp'],
-    comingSoon: true,
+    thumb: '/images/peru-tourism/thumb-1.webp',
+    trail: ['/images/peru-tourism/trail-5.webp'],
   },
   {
     id:    'getaway-stays',
