@@ -1,0 +1,6 @@
+{
+  "redirects": [
+    { "source": "/projects/gastro", "destination": "/projects/gastro-brand", "permanent": true },
+    { "source": "/projects",        "destination": "/projects/product",     "permanent": true }
+  ]
+}

@@ -59,8 +59,6 @@ window.TRANSLATIONS = {
   "projects.count":         "Proyectos",
 
   /* ── PROJECT TITLES & CATEGORIES ── */
-  "project.coming-soon": "Próximamente",
-
   "project.gastro-brand.title":     "Gastro: Identidad de Marca",
   "project.gastro-brand.category":  "Branding",
   "project.gastro-brand.services":  "Brand & Identity · Art Direction",
@@ -85,38 +83,6 @@ window.TRANSLATIONS = {
   "project.gastro-app.s4.heading":  "Estado y próximos pasos",
   "project.gastro-app.s4.body":     "La app entra en fase de validación con su lanzamiento este mes. Los próximos pasos son observar el uso real y iterar el flujo y la interfaz a partir del comportamiento de los primeros usuarios.",
 
-  "project.alaz-brand.title":       "Alaz: Identidad Visual",
-  "project.alaz-brand.category":    "Branding",
-  "project.alaz-brand.tagline":     "Sistema de identidad visual para una marca que celebra la gastronomía y la cultura a través del diseño.",
-
-  "project.alaz-product.title":     "Alaz: Diseño de Producto",
-  "project.alaz-product.category":  "Diseño de Producto",
-  "project.alaz-product.tagline":   "Experiencia de producto coherente con la identidad de Alaz, llevando su esencia visual al mundo digital.",
-
-  "project.kanto-brand.title":      "Kanto: Identidad de Marca",
-  "project.kanto-brand.category":   "Branding",
-  "project.kanto-brand.tagline":    "Construcción de marca para un estudio creativo con foco en diseño, tecnología y cultura visual.",
-
-  "project.kanto-product.title":    "Kanto: Diseño de Producto",
-  "project.kanto-product.category": "Diseño de Producto",
-  "project.kanto-product.tagline":  "Plataforma digital que extiende la identidad de Kanto hacia una experiencia de usuario fluida y distintiva.",
-
-  "project.soul-tv.title":          "Soul TV: T-Commerce",
-  "project.soul-tv.category":       "Diseño de Producto",
-  "project.soul-tv.tagline":        "Experiencia de t-commerce que convierte la televisión en una tienda interactiva — descubrir, comprar y disfrutar sin cambiar de pantalla.",
-  "project.soul-tv.s1.heading":     "Contexto y Desafío",
-  "project.soul-tv.s1.body":        "Soul TV buscaba expandir su oferta más allá del entretenimiento tradicional integrando t-commerce nativo en la experiencia televisiva. El reto fue diseñar un sistema que permitiera comprar productos en pantalla sin interrumpir el contenido, manteniendo la fluidez y el lenguaje de la marca.",
-  "project.soul-tv.s2.heading":     "Estrategia y Sistema",
-  "project.soul-tv.s2.body":        "Definimos un patrón de interacción donde los productos aparecen contextualmente en la transmisión y permiten una acción rápida sin abandonar el flujo. La arquitectura se construyó alrededor de tres principios: visibilidad sutil, decisión rápida y continuidad del contenido.",
-  "project.soul-tv.s3.heading":     "Diseño de Interfaz",
-  "project.soul-tv.s3.body":        "El sistema visual se diseñó para vivir sobre el contenido sin competir con él. Tipografía generosa, contraste alto y micro-interacciones cuidadas para mando a distancia y pantalla táctil. Cada estado fue prototipado en TV, tablet y móvil para validar legibilidad y ergonomía a distancia.",
-  "project.soul-tv.s4.heading":     "Resultados",
-  "project.soul-tv.s4.body":        "El producto se posicionó como la primera experiencia de t-commerce de Soul TV, validando un nuevo modelo de monetización para la plataforma y abriendo la puerta a partnerships con marcas que ahora pueden integrarse directamente al contenido.",
-  "project.soul-tv.m1.number":      "—",
-  "project.soul-tv.m1.label":       "Pantallas activas",
-  "project.soul-tv.m2.number":      "—",
-  "project.soul-tv.m2.label":       "Tasa de interacción",
-
   "project.peru-tourism.title":     "Peru Tourism",
   "project.peru-tourism.category":  "Diseño de Producto",
   "project.peru-tourism.services":  "UX/UI Design",
@@ -129,37 +95,5 @@ window.TRANSLATIONS = {
   "project.peru-tourism.s3.body":    "Diseñé el flujo \"Diseña tu viaje\", categorizando opciones por tipo de experiencia. Transformé el formulario extenso en un multi-step form guiado, mostrando máximo dos inputs por vista para facilitar la digestión de la información.",
   "project.peru-tourism.s4.heading": "Impacto",
   "project.peru-tourism.s4.body":    "El rediseño del formulario agilizó el cierre del flujo de leads. A nivel técnico, la plataforma logró una velocidad de carga 3× más rápida, garantizando una experiencia de usuario móvil fluida y sin interrupciones.",
-
-  "project.getaway-stays.title":    "The Getaway Stays",
-  "project.getaway-stays.category": "Diseño de Producto",
-  "project.getaway-stays.tagline":  "Plataforma de hospedajes únicos diseñada para inspirar viajes y simplificar la reserva de experiencias auténticas.",
-
-  "project.viva-conexiones.title":    "Viva Conexiones",
-  "project.viva-conexiones.category": "Diseño de Producto",
-  "project.viva-conexiones.tagline":  "Experiencia digital para una empresa de telecomunicaciones que acerca servicios y personas de forma simple.",
-
-  "project.smart-doctor.title":     "Smart Doctor",
-  "project.smart-doctor.category":  "Diseño de Producto",
-  "project.smart-doctor.tagline":   "Diseño de plataforma médica digital para facilitar el acceso a la salud con confianza y claridad.",
-
-  "project.rocasac.title":          "Rocasac",
-  "project.rocasac.category":       "Branding",
-  "project.rocasac.tagline":        "Identidad de marca para una empresa de construcción que transmite solidez, experiencia y confianza.",
-
-  "project.freeda.title":           "Freeda",
-  "project.freeda.category":        "Branding",
-  "project.freeda.tagline":         "Marca con carácter propio para una propuesta creativa que celebra la libertad y la expresión individual.",
-
-  "project.ritrovo.title":          "Ritrovo",
-  "project.ritrovo.category":       "Branding",
-  "project.ritrovo.tagline":        "Identidad visual para un espacio de encuentro que combina gastronomía italiana con calidez y atmósfera.",
-
-  "project.mycelia.title":          "Mycelia",
-  "project.mycelia.category":       "Branding",
-  "project.mycelia.tagline":        "Sistema de identidad para una marca que explora la conexión entre naturaleza, ciencia y diseño orgánico.",
-
-  "project.linking-card.title":     "Linking Card",
-  "project.linking-card.category":  "Branding",
-  "project.linking-card.tagline":   "Marca e identidad visual para una tarjeta de presentación digital que conecta profesionales en un solo tap.",
 
 };

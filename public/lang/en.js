@@ -59,8 +59,6 @@ window.TRANSLATIONS = {
   "projects.count":          "Projects",
 
   /* ── PROJECT TITLES & CATEGORIES ── */
-  "project.coming-soon": "Coming Soon",
-
   "project.gastro-brand.title":     "Gastro: Brand Identity",
   "project.gastro-brand.category":  "Branding",
   "project.gastro-brand.services":  "Brand & Identity · Art Direction",
@@ -85,38 +83,6 @@ window.TRANSLATIONS = {
   "project.gastro-app.s4.heading":  "Status & next steps",
   "project.gastro-app.s4.body":     "The app enters validation with its launch this month. The next steps are to observe real usage and iterate the flow and interface based on the behavior of the first users.",
 
-  "project.alaz-brand.title":       "Alaz: Visual Identity",
-  "project.alaz-brand.category":    "Branding",
-  "project.alaz-brand.tagline":     "Visual identity system for a brand that celebrates gastronomy and culture through design.",
-
-  "project.alaz-product.title":     "Alaz: Product Design",
-  "project.alaz-product.category":  "Product Design",
-  "project.alaz-product.tagline":   "Coherent product experience that carries the Alaz visual identity into the digital world.",
-
-  "project.kanto-brand.title":      "Kanto: Brand Identity",
-  "project.kanto-brand.category":   "Branding",
-  "project.kanto-brand.tagline":    "Brand building for a creative studio focused on design, technology and visual culture.",
-
-  "project.kanto-product.title":    "Kanto: Product Design",
-  "project.kanto-product.category": "Product Design",
-  "project.kanto-product.tagline":  "Digital platform that extends Kanto's identity into a smooth and distinctive user experience.",
-
-  "project.soul-tv.title":          "Soul TV: T-Commerce",
-  "project.soul-tv.category":       "Product Design",
-  "project.soul-tv.tagline":        "A t-commerce experience that turns television into an interactive store — discover, buy and enjoy without switching screens.",
-  "project.soul-tv.s1.heading":     "Context & Challenge",
-  "project.soul-tv.s1.body":        "Soul TV wanted to expand its offering beyond traditional entertainment by integrating native t-commerce into the viewing experience. The challenge was designing a system that allowed on-screen purchases without interrupting the content, keeping the brand's flow and language intact.",
-  "project.soul-tv.s2.heading":     "Strategy & System",
-  "project.soul-tv.s2.body":        "We defined an interaction pattern where products appear contextually during the stream and enable a quick action without leaving the flow. The architecture was built around three principles: subtle visibility, fast decision and content continuity.",
-  "project.soul-tv.s3.heading":     "Interface Design",
-  "project.soul-tv.s3.body":        "The visual system was designed to live on top of the content without competing with it. Generous typography, high contrast and refined micro-interactions for both remote and touch. Every state was prototyped on TV, tablet and mobile to validate readability and ergonomics at distance.",
-  "project.soul-tv.s4.heading":     "Results",
-  "project.soul-tv.s4.body":        "The product launched as Soul TV's first t-commerce experience, validating a new monetization model for the platform and opening the door for brand partnerships that can now plug directly into the content.",
-  "project.soul-tv.m1.number":      "—",
-  "project.soul-tv.m1.label":       "Active screens",
-  "project.soul-tv.m2.number":      "—",
-  "project.soul-tv.m2.label":       "Engagement rate",
-
   "project.peru-tourism.title":     "Peru Tourism",
   "project.peru-tourism.category":  "Product Design",
   "project.peru-tourism.services":  "UX/UI Design",
@@ -129,37 +95,5 @@ window.TRANSLATIONS = {
   "project.peru-tourism.s3.body":    "I designed the \"Design your trip\" flow, categorizing options by experience type. I turned the lengthy form into a guided multi-step experience — showing a maximum of two inputs per view to reduce cognitive load.",
   "project.peru-tourism.s4.heading": "Impact",
   "project.peru-tourism.s4.body":    "Redesigning the form streamlined lead capture completion. On the technical side, the platform achieved a 3× faster load time, delivering a smooth, uninterrupted mobile user experience.",
-
-  "project.getaway-stays.title":    "The Getaway Stays",
-  "project.getaway-stays.category": "Product Design",
-  "project.getaway-stays.tagline":  "Unique accommodation platform designed to inspire travel and simplify the booking of authentic experiences.",
-
-  "project.viva-conexiones.title":    "Viva Conexiones",
-  "project.viva-conexiones.category": "Product Design",
-  "project.viva-conexiones.tagline":  "Digital experience for a telecom company that brings services and people together in a simple way.",
-
-  "project.smart-doctor.title":     "Smart Doctor",
-  "project.smart-doctor.category":  "Product Design",
-  "project.smart-doctor.tagline":   "Digital medical platform design to make healthcare more accessible with confidence and clarity.",
-
-  "project.rocasac.title":          "Rocasac",
-  "project.rocasac.category":       "Branding",
-  "project.rocasac.tagline":        "Brand identity for a construction company that conveys solidity, experience and trust.",
-
-  "project.freeda.title":           "Freeda",
-  "project.freeda.category":        "Branding",
-  "project.freeda.tagline":         "A brand with its own character for a creative venture that celebrates freedom and individual expression.",
-
-  "project.ritrovo.title":          "Ritrovo",
-  "project.ritrovo.category":       "Branding",
-  "project.ritrovo.tagline":        "Visual identity for a gathering place that blends Italian cuisine with warmth and atmosphere.",
-
-  "project.mycelia.title":          "Mycelia",
-  "project.mycelia.category":       "Branding",
-  "project.mycelia.tagline":        "Identity system for a brand that explores the connection between nature, science and organic design.",
-
-  "project.linking-card.title":     "Linking Card",
-  "project.linking-card.category":  "Branding",
-  "project.linking-card.tagline":   "Brand and visual identity for a digital business card that connects professionals with a single tap.",
 
 };
