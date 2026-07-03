@@ -8,7 +8,7 @@
 .meta-label { font-size: 11px; font-weight: 500; letter-spacing: 0.44px; text-transform: uppercase; color: var(--white-50); margin-bottom: 8px; }
 .meta-value { font-size: 13px; font-weight: 500; letter-spacing: -0.13px; text-transform: uppercase; line-height: 18px; }
 .project-hero { padding: 0 40px; }
-.project-hero img, .project-hero video { width: 100%; display: block; aspect-ratio: 16/9; object-fit: cover; }
+.project-hero img, .project-hero video { width: 100%; display: block; aspect-ratio: 2360/1080; object-fit: cover; }
 .content-section { padding: 80px 40px; }
 .content-text { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
 .content-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.44px; text-transform: uppercase; color: var(--white-50); margin-bottom: 16px; }
@@ -16,11 +16,11 @@
 .content-body { font-size: 16px; font-weight: 500; line-height: 26px; letter-spacing: -0.16px; color: var(--white-50); }
 .content-body p + p { margin-top: 16px; }
 .img-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
-.img-grid-2 img { width: 100%; display: block; object-fit: cover; aspect-ratio: 4/3; }
+.img-grid-2 img, .img-grid-2 video { width: 100%; display: block; object-fit: cover; aspect-ratio: 4/3; }
 .img-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 25px; }
-.img-grid-3 img { width: 100%; display: block; object-fit: cover; aspect-ratio: 3/4; }
-.img-padded img { width: 100%; display: block; object-fit: cover; }
-.img-full img { width: 100%; display: block; object-fit: cover; }
+.img-grid-3 img, .img-grid-3 video { width: 100%; display: block; object-fit: cover; aspect-ratio: 3/4; }
+.img-padded img, .img-padded video { width: 100%; display: block; object-fit: cover; }
+.img-full img, .img-full video { width: 100%; display: block; object-fit: cover; }
 .next-project { display: block; padding: 120px 40px; border-top: 1px solid rgba(255,255,255,0.1); text-align: center; transition: opacity 0.3s; cursor: none; }
 .next-project:hover { opacity: 0.75; }
 .next-label { font-size: 13px; font-weight: 500; letter-spacing: -0.13px; text-transform: uppercase; color: var(--white-50); margin-bottom: 24px; }
