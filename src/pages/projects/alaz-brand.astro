@@ -50,8 +50,8 @@ import ProjectLayout from "../../layouts/ProjectLayout.astro";
 
   <div class="content-section">
     <div class="img-grid-2">
-      <img src="/images/alaz-brand/01.png" alt="" data-reveal>
-      <img src="/images/alaz-brand/02.png" alt="" data-reveal style="--reveal-delay:80ms">
+      <img src="/images/alaz-brand/01.webp" alt="" data-reveal>
+      <img src="/images/alaz-brand/02.webp" alt="" data-reveal style="--reveal-delay:80ms">
     </div>
   </div>
 
@@ -72,16 +72,16 @@ import ProjectLayout from "../../layouts/ProjectLayout.astro";
 
   <div class="content-section">
     <div class="img-padded">
-      <img src="/images/alaz-brand/wide-01.png" alt="" data-reveal>
+      <img src="/images/alaz-brand/wide-01.webp" alt="" data-reveal>
     </div>
   </div>
 
 
   <div class="content-section">
     <div class="img-grid-3">
-      <img src="/images/alaz-brand/01v.png" alt="" data-reveal>
-      <img src="/images/alaz-brand/02v.png" alt="" data-reveal style="--reveal-delay:80ms">
-      <img src="/images/alaz-brand/03v.png" alt="" data-reveal style="--reveal-delay:160ms">
+      <img src="/images/alaz-brand/01v.webp" alt="" data-reveal>
+      <img src="/images/alaz-brand/02v.webp" alt="" data-reveal style="--reveal-delay:80ms">
+      <img src="/images/alaz-brand/03v.webp" alt="" data-reveal style="--reveal-delay:160ms">
     </div>
   </div>
 
@@ -118,7 +118,7 @@ import ProjectLayout from "../../layouts/ProjectLayout.astro";
     next.addEventListener('mouseleave', () => ring.classList.remove('is-active'));
   })();
   (function () {
-    const visible = PROJECTS.filter(function(p){ return !p.hidden; });
+    const visible = PROJECTS.filter(function(p){ return p.published; });
     const idx = visible.findIndex(function(p){ return p.id === 'alaz-brand'; });
     const next = visible[(idx + 1) % visible.length];
     document.getElementById('next-link').href = next.url;

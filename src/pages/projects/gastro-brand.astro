@@ -118,7 +118,7 @@ import ProjectLayout from "../../layouts/ProjectLayout.astro";
     next.addEventListener('mouseleave', () => ring.classList.remove('is-active'));
   })();
   (function () {
-    const visible = PROJECTS.filter(function(p){ return !p.hidden; });
+    const visible = PROJECTS.filter(function(p){ return p.published; });
     const idx = visible.findIndex(function(p){ return p.id === 'gastro-brand'; });
     const next = visible[(idx + 1) % visible.length];
     document.getElementById('next-link').href = next.url;

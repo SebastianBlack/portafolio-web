@@ -31,7 +31,7 @@ import ProjectLayout from "../../layouts/ProjectLayout.astro";
   </div>
 
   <div class="project-hero">
-    <img src="/images/alaz-product/hero.png" alt="Alaz: Diseño de Producto">
+    <img src="/images/alaz-product/hero.webp" alt="Alaz: Diseño de Producto">
   </div>
 
   <!-- 1: El Problema -->
@@ -50,8 +50,8 @@ import ProjectLayout from "../../layouts/ProjectLayout.astro";
 
   <div class="content-section">
     <div class="img-grid-2">
-      <img src="/images/alaz-product/01.png" alt="" data-reveal>
-      <img src="/images/alaz-product/02.png" alt="" data-reveal style="--reveal-delay:80ms">
+      <img src="/images/alaz-product/01.webp" alt="" data-reveal>
+      <img src="/images/alaz-product/02.webp" alt="" data-reveal style="--reveal-delay:80ms">
     </div>
   </div>
 
@@ -72,7 +72,7 @@ import ProjectLayout from "../../layouts/ProjectLayout.astro";
 
   <div class="content-section">
     <div class="img-padded">
-      <img src="/images/alaz-product/wide-01.png" alt="" data-reveal>
+      <img src="/images/alaz-product/wide-01.webp" alt="" data-reveal>
     </div>
   </div>
 
@@ -93,9 +93,9 @@ import ProjectLayout from "../../layouts/ProjectLayout.astro";
 
   <div class="content-section">
     <div class="img-grid-3">
-      <img src="/images/alaz-product/01v.png" alt="" data-reveal>
-      <img src="/images/alaz-product/02v.png" alt="" data-reveal style="--reveal-delay:80ms">
-      <img src="/images/alaz-product/03v.png" alt="" data-reveal style="--reveal-delay:160ms">
+      <img src="/images/alaz-product/01v.webp" alt="" data-reveal>
+      <img src="/images/alaz-product/02v.webp" alt="" data-reveal style="--reveal-delay:80ms">
+      <img src="/images/alaz-product/03v.webp" alt="" data-reveal style="--reveal-delay:160ms">
     </div>
   </div>
 
@@ -141,7 +141,7 @@ import ProjectLayout from "../../layouts/ProjectLayout.astro";
     next.addEventListener('mouseleave', () => ring.classList.remove('is-active'));
   })();
   (function () {
-    const visible = PROJECTS.filter(function(p){ return !p.hidden; });
+    const visible = PROJECTS.filter(function(p){ return p.published; });
     const idx = visible.findIndex(function(p){ return p.id === 'alaz-product'; });
     const next = visible[(idx + 1) % visible.length];
     document.getElementById('next-link').href = next.url;

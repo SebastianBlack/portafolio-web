@@ -20,7 +20,7 @@ import ProjectLayout from "../../layouts/ProjectLayout.astro";
         </div>
         <div class="meta-item">
           <div class="meta-label" data-i18n="meta.client">Cliente</div>
-          <div class="meta-value">Alaz</div>
+          <div class="meta-value">Peru Tourism</div>
         </div>
         <div class="meta-item">
           <div class="meta-label" data-i18n="meta.services">Servicios</div>
@@ -125,7 +125,7 @@ import ProjectLayout from "../../layouts/ProjectLayout.astro";
     next.addEventListener('mouseleave', () => ring.classList.remove('is-active'));
   })();
   (function () {
-    const visible = PROJECTS.filter(function(p){ return !p.hidden; });
+    const visible = PROJECTS.filter(function(p){ return p.published; });
     const idx = visible.findIndex(function(p){ return p.id === 'peru-tourism'; });
     const next = visible[(idx + 1) % visible.length];
     document.getElementById('next-link').href = next.url;
