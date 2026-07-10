@@ -6,7 +6,7 @@ import "../styles/project.css";
 const { title, description } = Astro.props;
 
 const SITE = 'https://www.sebastian-black.com';
-const OG_IMAGE = `${SITE}/images/ui/og-image.webp`;
+const OG_IMAGE = `${SITE}/images/ui/og-image.jpg`;
 const PAGE_TITLE = `${title} — Sebastian Black`;
 const DESCRIPTION = description || `Caso de estudio: ${title}. Portafolio de Sebastian Black, diseñador e ilustrador con base en Perú.`;
 const URL = `${SITE}${Astro.url.pathname}`;
@@ -26,7 +26,7 @@ const URL = `${SITE}${Astro.url.pathname}`;
   <meta property="og:title" content={PAGE_TITLE}>
   <meta property="og:description" content={DESCRIPTION}>
   <meta property="og:image" content={OG_IMAGE}>
-  <meta property="og:image:type" content="image/webp">
+  <meta property="og:image:type" content="image/jpeg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="Sebastian Black — Portfolio">
