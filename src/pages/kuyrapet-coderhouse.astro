@@ -129,6 +129,15 @@ const COMPONENTES = [
       <p>Hoy se vende por WhatsApp, la web y la oficina de Comsatel, y el equipo acompaña cada activación. El siguiente paso es la venta en tiendas, donde ese acompañamiento no existe.</p>
     </div>
 
+    <div class="kp-block">
+      <h3 class="kp-h3">Contexto, restricciones y alcance</h3>
+      <ul class="kp-list">
+        <li><strong>Restricciones:</strong> la precisión en interiores depende del firmware, no de la app; la app se construye sobre la base del proveedor del GPS; hoy tiene menos de 40 usuarios; no hubo acceso a analítica ni a registros de soporte, así que el research se trianguló con otras fuentes.</li>
+        <li><strong>Fuera de alcance, y por qué:</strong> los modos de trabajo (el proveedor los hará automáticos), el historial y el bienestar. El foco es el primer uso, que es donde está la causa raíz.</li>
+        <li><strong>KPI 3:</strong> la línea base sale del registro de WhatsApp de Comsatel en los 3 meses previos a la venta en tiendas.</li>
+      </ul>
+    </div>
+
     <div class="kp-panel kp-table-wrap" role="region" aria-labelledby="t-sintoma" tabindex="0">
       <table class="kp-table">
         <caption id="t-sintoma">Síntoma vs. causa raíz</caption>
@@ -278,6 +287,7 @@ const COMPONENTES = [
         <p>pasos guiados dentro de la app, con progreso visible</p>
       </div>
     </div>
+    <p class="kp-note">El video cuenta 11 pasos, desde descargar la app hasta ver el mapa. El rediseño guía 5 pasos con progreso: cuenta, permisos y vinculación, mascota, zona segura y familia.</p>
   </section>
 
   <!-- 3 · ARQUITECTURA Y FLUJOS -->
@@ -522,6 +532,7 @@ const COMPONENTES = [
     <div class="kp-block">
       <h3 class="kp-h3">Test en Maze</h3>
       <p>No moderado, 7 participantes (más el piloto, que no se cuenta), en celular o computadora.</p>
+      <p class="kp-note">La vinculación por Bluetooth está simulada en el prototipo: el KPI 1 mide si el flujo se entiende sin ayuda, no si se logra vincular un collar real.</p>
     </div>
 
     <div class="kp-stats kp-stats-2">
@@ -586,7 +597,7 @@ const COMPONENTES = [
       <h3 class="kp-h3">Iteración v1 → v2</h3>
       <p>No se le pide al familiar que memorice; el rol se explica cuando importa:</p>
       <ul class="kp-list">
-        <li><strong>En la invitación:</strong> una línea que se lee en 3 segundos: <q>Como familiar podrás ver dónde está Isha y recibir sus avisos. Sebastián administra el collar, las zonas y quién tiene acceso.</q></li>
+        <li><strong>En la invitación:</strong> una línea pensada para leerse de un vistazo (hipótesis de la v2, a medir en la próxima ronda): <q>Como familiar podrás ver dónde está Isha y recibir sus avisos. Sebastián administra el collar, las zonas y quién tiene acceso.</q></li>
         <li><strong>En "No podrás":</strong> se dice explícitamente "ni invitar o quitar personas".</li>
         <li><strong>En el primer Inicio del familiar:</strong> un aviso que se cierra con "Entendido".</li>
       </ul>
@@ -710,6 +721,7 @@ const COMPONENTES = [
           <li>Sin analítica ni registros de soporte de Comsatel.</li>
           <li>La pregunta de roles mide comprensión al leer, no el comportamiento posterior.</li>
           <li>En el tree test no se registró el primer clic.</li>
+          <li>La vinculación por Bluetooth está simulada en el prototipo: el KPI 1 mide si el flujo se entiende sin ayuda, no si se logra vincular un collar real.</li>
         </ul>
       </div>
       <div class="kp-block">
