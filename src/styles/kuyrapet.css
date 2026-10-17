@@ -114,6 +114,9 @@ body:has(.kp) .nav { background: var(--bg); }
 .kp-verdict.is-ok::before { content: "✓ "; }
 .kp-verdict.is-ko { background: #fff; color: var(--kp-red); border: 1.5px solid var(--kp-red); }
 .kp-verdict.is-ko::before { content: "✕ "; }
+.kp-verdict.is-next { background: transparent; color: var(--kp-ink); border: 1.5px dashed var(--kp-ink); }
+.kp-verdict.is-next::before { content: "→ "; }
+.kp-cell-note { display: block; margin-top: 6px; font-size: 12px; line-height: 1.45; color: #4a4848; }
 
 /* ── Cifras ─────────────────────── */
 .kp-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-bottom: 56px; }

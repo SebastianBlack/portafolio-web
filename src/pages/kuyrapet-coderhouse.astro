@@ -154,15 +154,20 @@ const COMPONENTES = [
         <tbody>
           <tr><td>1 · Configuración sin ayuda</td><td>≥80% vincula el collar y llega a Inicio sin ayuda ni errores críticos</td><td>Misión en Maze</td></tr>
           <tr><td>2 · Comprensión de roles</td><td>≥80% identifica qué puede y qué no puede hacer un familiar</td><td>Misión y pregunta en Maze</td></tr>
-          <tr><td>3 · Activaciones sin soporte (negocio)</td><td>Menos de 1 de cada 5 clientes de tienda escribe a soporte para activar, en los 3 meses posteriores al lanzamiento</td><td>Registro de WhatsApp de Comsatel</td></tr>
+          <tr><td>3 · Activaciones sin soporte (negocio)</td><td>Menos de 1 de cada 5 clientes de tienda escribe a soporte para activar, en los 3 meses posteriores al lanzamiento</td><td>Registro de WhatsApp de Comsatel. La línea base se toma del mismo registro en los 3 meses previos a la venta en tiendas.</td></tr>
         </tbody>
       </table>
       <p class="kp-table-note">Los KPIs 1 y 2 anticipan el 3.</p>
     </div>
 
     <div class="kp-block kp-hipotesis">
-      <h3 class="kp-h3">Hipótesis</h3>
+      <h3 class="kp-h3">Hipótesis 1 · Configuración</h3>
       <p>Si el primer uso guía la vinculación, explica qué esperar del collar y muestra qué puede hacer cada rol, al menos 80% de los dueños lo configura sin ayuda.</p>
+    </div>
+
+    <div class="kp-block kp-hipotesis">
+      <h3 class="kp-h3">Hipótesis 2 · Roles</h3>
+      <p>Si al invitar y al aceptar se muestra qué puede y qué no puede hacer cada persona, al menos 80% de los familiares identifica su rol.</p>
     </div>
 
     <figure class="kp-board">
@@ -416,6 +421,7 @@ const COMPONENTES = [
     <div class="kp-block">
       <h3 class="kp-h3">Prototipo embebido</h3>
       <p>3 flujos: configurar, invitación y alerta.</p>
+      <p>El prototipo usa una variable (familiaInvitada): si en el paso 5 invitas a alguien, Familia muestra a esa persona; si lo dejas para después, muestra el estado vacío. Y si el collar todavía no tiene señal, Inicio muestra primero el estado sin señal.</p>
     </div>
     <div class="kp-proto">
       <iframe
@@ -535,7 +541,7 @@ const COMPONENTES = [
         <thead><tr><th scope="col">KPI</th><th scope="col">Meta</th><th scope="col">Resultado</th><th scope="col">Veredicto</th></tr></thead>
         <tbody>
           <tr><td>1 · Configuración sin ayuda</td><td>≥80%</td><td>7 de 7 (100%) · 0% de abandono · 6 de 7 por el camino directo</td><td><span class="kp-verdict is-ok">Validada</span></td></tr>
-          <tr><td>2 · Comprensión de roles</td><td>≥80%</td><td>2 de 5 (40%) identificaron todo bien</td><td><span class="kp-verdict is-ko">Refutada</span></td></tr>
+          <tr><td>2 · Comprensión de roles</td><td>≥80%</td><td>2 de 5 (40%) identificaron todo bien<small class="kp-cell-note">5 de 7 respondieron esta pregunta; 2 cerraron el test antes de llegar a ella.</small></td><td><span class="kp-verdict is-ko">Refutada</span></td></tr>
           <tr><td>Facilidad percibida</td><td>—</td><td>5.4 de 7</td><td>Referencia</td></tr>
         </tbody>
       </table>
@@ -544,10 +550,27 @@ const COMPONENTES = [
     <div class="kp-block">
       <h3 class="kp-h3">Hallazgos</h3>
       <ol class="kp-findings">
-        <li><strong>Grave: la invitación se acepta sin leer.</strong> Mediana de 4.6 segundos en la pantalla y 20% de clics fuera de lugar.</li>
+        <li><strong>Grave: la invitación se acepta sin leer.</strong> Mediana de 4.6 s en la pantalla y 20% de clics fuera de lugar.</li>
         <li><strong>Menor: "la familia" es ambiguo.</strong> 2 de 5 creyeron que el familiar puede invitar o quitar personas. Todos entendieron que no puede cambiar el collar ni las zonas.</li>
         <li><strong>Menor, del método:</strong> la misión terminaba al llegar a Inicio, y una persona dijo <q>No vi el home</q>.</li>
       </ol>
+    </div>
+
+    <div class="kp-block">
+      <h3 class="kp-h3">Plan RITE <span class="kp-muted">(severidad × esfuerzo)</span></h3>
+    </div>
+    <div class="kp-panel kp-table-wrap" role="region" aria-labelledby="t-rite" tabindex="0">
+      <table class="kp-table">
+        <caption id="t-rite" class="kp-sr">Plan RITE: cambios por severidad y esfuerzo</caption>
+        <thead><tr><th scope="col">Cambio</th><th scope="col">Severidad</th><th scope="col">Esfuerzo</th><th scope="col">Estado</th></tr></thead>
+        <tbody>
+          <tr><td>Resumen del rol en la invitación</td><td>Grave</td><td>Bajo (texto)</td><td><span class="kp-verdict is-ok">Hecho en v2</span></td></tr>
+          <tr><td>Aviso de rol en el primer Inicio del familiar</td><td>Grave</td><td>Medio (pantalla nueva)</td><td><span class="kp-verdict is-ok">Hecho en v2</span></td></tr>
+          <tr><td>“Ni invitar o quitar personas” en “No podrás”</td><td>Menor</td><td>Bajo (texto)</td><td><span class="kp-verdict is-ok">Hecho en v2</span></td></tr>
+          <tr><td>Tarea propia sobre Inicio en el próximo test</td><td>Menor (del método)</td><td>Bajo</td><td><span class="kp-verdict is-next">Próxima ronda</span></td></tr>
+          <tr><td>Atajo “Compartir con mi familia” en Cuenta</td><td>Menor (tree test)</td><td>Medio</td><td><span class="kp-verdict is-next">Próxima ronda</span></td></tr>
+        </tbody>
+      </table>
     </div>
 
     <figure class="kp-board">
@@ -619,6 +642,7 @@ const COMPONENTES = [
         <li>Áreas táctiles de 44 px o más (botones de 52 px).</li>
         <li>Errores que dicen qué pasó y qué hacer.</li>
         <li>Alertas que se anuncian al lector de pantalla sin mover el foco.</li>
+        <li>Navegable con teclado externo y Switch Control: orden de foco lógico (volver → título → contenido → acción principal → acción secundaria) y foco visible de 2 px.</li>
       </ul>
     </div>
 
@@ -656,7 +680,7 @@ const COMPONENTES = [
             <th scope="row">Qué esperar del collar</th>
             <td>Quitar las limitaciones para que la bienvenida "venda", o prometer "más de 5 días"</td>
             <td>Bienvenida con beneficios; batería calculada y cobertura en su contexto</td>
-            <td>Las consultas repetidas son la causa del KPI 3, y no había datos para prometer días: la clienta real dice unos 2</td>
+            <td>Las consultas repetidas son la causa del KPI 3, y no había datos para prometer días: la clienta real dice unos 2. En Maze, con la bienvenida nueva: 0% de abandono y 6 de 7 por el camino directo.</td>
           </tr>
           <tr>
             <th scope="row">Color</th>
