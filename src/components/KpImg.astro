@@ -2,11 +2,13 @@
 // Imagen del case study KuyraPet. Si el PNG todavía no está en
 // public/images/kuyrapet-coderhouse/, muestra un marcador con el nombre del archivo.
 import { existsSync, openSync, readSync, closeSync } from "node:fs";
+import { join } from "node:path";
 
 const { file, alt, eager = false, class: className = "" } = Astro.props;
 
 const DIR = "/images/kuyrapet-coderhouse/";
-const diskPath = new URL(`../../public${DIR}${file}`, import.meta.url);
+// Ruta desde la raíz del proyecto: import.meta.url apunta a otra carpeta en el build
+const diskPath = join(process.cwd(), "public", DIR, file);
 const exists = existsSync(diskPath);
 
 // Lee ancho y alto del encabezado PNG (IHDR) para reservar el espacio y evitar saltos.
