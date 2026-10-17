@@ -134,7 +134,6 @@ const COMPONENTES = [
       <ul class="kp-list">
         <li><strong>Restricciones:</strong> la precisión en interiores depende del firmware, no de la app; la app se construye sobre la base del proveedor del GPS; hoy tiene menos de 40 usuarios; no hubo acceso a analítica ni a registros de soporte, así que el research se trianguló con otras fuentes.</li>
         <li><strong>Fuera de alcance, y por qué:</strong> los modos de trabajo (el proveedor los hará automáticos), el historial y el bienestar. El foco es el primer uso, que es donde está la causa raíz.</li>
-        <li><strong>KPI 3:</strong> la línea base sale del registro de WhatsApp de Comsatel en los 3 meses previos a la venta en tiendas.</li>
       </ul>
     </div>
 
@@ -431,7 +430,7 @@ const COMPONENTES = [
     <div class="kp-block">
       <h3 class="kp-h3">Prototipo embebido</h3>
       <p>3 flujos: configurar, invitación y alerta.</p>
-      <p>El prototipo usa una variable (familiaInvitada): si en el paso 5 invitas a alguien, Familia muestra a esa persona; si lo dejas para después, muestra el estado vacío. Y si el collar todavía no tiene señal, Inicio muestra primero el estado sin señal.</p>
+      <p>El prototipo usa variables. <code>familiaInvitada</code> decide si Familia muestra a la persona invitada o el estado vacío. <code>esFamiliar</code> cambia el rol: si un familiar toca algo que solo administra el dueño, ve un aviso que se lo explica. Y si el collar todavía no tiene señal, Inicio muestra primero el estado sin señal.</p>
     </div>
     <div class="kp-proto">
       <iframe
@@ -531,7 +530,7 @@ const COMPONENTES = [
 
     <div class="kp-block">
       <h3 class="kp-h3">Test en Maze</h3>
-      <p>No moderado, 7 participantes (más el piloto, que no se cuenta), en celular o computadora.</p>
+      <p>Test en Maze, la mayoría sin moderar y algunos moderados por videollamada: 7 participantes (más el piloto, que no se cuenta), en celular o computadora.</p>
       <p class="kp-note">La vinculación por Bluetooth está simulada en el prototipo: el KPI 1 mide si el flujo se entiende sin ayuda, no si se logra vincular un collar real.</p>
     </div>
 
@@ -737,6 +736,16 @@ const COMPONENTES = [
         <h3 class="kp-h3">IA como copiloto</h3>
         <p>Usé Claude para agrupar los 19 hallazgos heurísticos en patrones (el prompt está registrado en el FigJam), revisar la redacción y calcular contrastes.</p>
         <p>Las entrevistas, los tests y las decisiones de diseño son míos, y cada afirmación cita su fuente.</p>
+      </div>
+      <div class="kp-block kp-reflexion">
+        <h3 class="kp-h3">Reflexión: mi mayor reto técnico</h3>
+        <p><strong>Validar con herramientas limitadas.</strong> Maze gratis permitía un solo estudio al mes y bloqueaba el tree test.</p>
+        <ul class="kp-list">
+          <li><strong>Separé los métodos:</strong> el tree test en Figma, moderado con 5 personas (14 de 15 tareas), y Maze solo para el prototipo.</li>
+          <li><strong>Hice un piloto antes:</strong> detectó una pregunta que medía memoria y no diseño.</li>
+          <li><strong>Leí el comportamiento, no solo el número:</strong> el KPI 2 dio 40%, pero la invitación se aceptaba en 4.6 s de mediana. No era memoria, era lectura. Eso definió la v2.</li>
+        </ul>
+        <p><strong>Aprendizaje:</strong> con pocos recursos, un test funciona si cada pregunta está ligada a una decisión.</p>
       </div>
       <div class="kp-block">
         <h3 class="kp-h3">Agradecimientos</h3>
