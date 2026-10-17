@@ -102,7 +102,7 @@ body:has(.kp) .nav { background: var(--bg); }
 .kp-cierre .kp-block { margin: 0; max-width: none; }
 .kp-cierre { row-gap: 56px; column-gap: 60px; }
 .kp-cierre .kp-reflexion { grid-column: 1 / -1; border: 1px solid var(--kp-red); padding: 32px; }
-.kp-reflexion .kp-list { margin: 16px 0; }
+.kp-reflexion p { max-width: 760px; }
 .kp code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.9em; color: var(--white); background: rgba(255,255,255,0.08); padding: 1px 6px; border-radius: 4px; }
 
 .kp-placeholder { display: flex; align-items: center; justify-content: center; width: 100%; background: repeating-linear-gradient(45deg, #e4ebf4 0 12px, var(--kp-soft) 12px 24px); border: 1px dashed #8a96a6; color: var(--kp-ink); font-size: 12px; font-weight: 500; letter-spacing: 0.24px; text-align: center; padding: 12px; }
