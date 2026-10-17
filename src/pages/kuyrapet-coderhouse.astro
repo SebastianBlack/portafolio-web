@@ -138,6 +138,16 @@ const COMPONENTES = [
       </ul>
     </div>
 
+    <div class="kp-block">
+      <h3 class="kp-h3">Con quién trabajé</h3>
+      <ul class="kp-list">
+        <li>Área comercial de Comsatel: consultas frecuentes, roles y activación.</li>
+        <li>Equipo de activación (mystery shopping por WhatsApp).</li>
+        <li>6 dueñas de perros entrevistadas y 1 clienta real de KuyraPet.</li>
+        <li>7 participantes en Maze (la mayoría sin moderar) y 5 en el tree test moderado.</li>
+      </ul>
+    </div>
+
     <div class="kp-panel kp-table-wrap" role="region" aria-labelledby="t-sintoma" tabindex="0">
       <table class="kp-table">
         <caption id="t-sintoma">Síntoma vs. causa raíz</caption>
@@ -401,6 +411,54 @@ const COMPONENTES = [
       <h3 class="kp-h3">La bienvenida, antes y después del piloto</h3>
       <p>Antes enumeraba limitaciones ("en interiores la ubicación es aproximada"). Ahora vende valor: ver dónde está en el mapa, recibir un aviso si sale de casa y compartir su cuidado.</p>
       <p>Las limitaciones se dicen en el momento en que importan.</p>
+    </div>
+
+    <div class="kp-block">
+      <h3 class="kp-h3">Pantallas clave anotadas</h3>
+    </div>
+
+    <figure class="kp-board">
+      <button type="button" class="kp-zoom kp-panel" aria-label="Ampliar imagen: pantallas clave anotadas">
+        <KpImg file="pantallas-anotadas.png" alt="Cuatro pantallas clave con notas numeradas: Permisos, Error, Invitación v2 e Inicio. Las notas se leen debajo, como texto." />
+      </button>
+      <figcaption>
+        <a href={`${FIGMA}?node-id=159-1275`} target="_blank" rel="noopener">Ver en Figma<span class="kp-sr"> (se abre en una pestaña nueva)</span> ↗</a>
+      </figcaption>
+    </figure>
+
+    <div class="kp-notes">
+      <div>
+        <h4 class="kp-h4">Permisos</h4>
+        <ol class="kp-notes-list">
+          <li>Cada permiso numerado, con para qué sirve (H2).</li>
+          <li>Abre los diálogos del sistema en orden: Bluetooth y luego notificaciones.</li>
+          <li>Salida sin presión; si se niega Bluetooth, lleva a 1.2a.</li>
+        </ol>
+      </div>
+      <div>
+        <h4 class="kp-h4">Error</h4>
+        <ol class="kp-notes-list">
+          <li>Dice qué pasó, sin culpar.</li>
+          <li>Campo en estado Error con la ayuda debajo: qué revisar.</li>
+          <li>Una acción principal y una alternativa (buscar cerca).</li>
+        </ol>
+      </div>
+      <div>
+        <h4 class="kp-h4">Invitación v2</h4>
+        <ol class="kp-notes-list">
+          <li>v2: el rol en una línea, pensada para leerse de un vistazo (hipótesis, KPI 2).</li>
+          <li>Lo que no puede hacer, incluido invitar o quitar personas.</li>
+          <li>Activa <code>familiaInvitada</code> y lleva al primer Inicio con aviso de rol.</li>
+        </ol>
+      </div>
+      <div>
+        <h4 class="kp-h4">Inicio</h4>
+        <ol class="kp-notes-list">
+          <li>Dónde está, la zona segura y hace cuánto.</li>
+          <li>Batería en días y señal en palabras, nunca solo %.</li>
+          <li>4 secciones; Familia depende de la variable <code>familiaInvitada</code>.</li>
+        </ol>
+      </div>
     </div>
 
     <div class="kp-block">
@@ -696,10 +754,10 @@ const COMPONENTES = [
             <td>Las consultas repetidas son la causa del KPI 3, y no había datos para prometer días: la clienta real dice unos 2. En Maze, con la bienvenida nueva: 0% de abandono y 6 de 7 por el camino directo.</td>
           </tr>
           <tr>
-            <th scope="row">Color</th>
-            <td>Rojo de marca en el botón principal</td>
-            <td>Botón negro; rojo como acento y para emergencias; el peligro se reconoce por forma</td>
-            <td>El rojo se leía como peligro (H7), pero sin acento las pantallas parecían wireframes</td>
+            <th scope="row">Rol del familiar (iteración)</th>
+            <td>v1: lista de "Podrás / No podrás" dentro de la invitación</td>
+            <td>v2: el rol resumido en una línea, "ni invitar o quitar personas" y un aviso en el primer Inicio del familiar</td>
+            <td>Maze: KPI 2 en 40% (meta 80%); la invitación se aceptaba en 4.6 s de mediana; 2 de 5 creían que podían invitar</td>
           </tr>
         </tbody>
       </table>

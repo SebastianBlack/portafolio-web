@@ -188,6 +188,13 @@ body:has(.kp) .nav { background: var(--bg); }
 .kp-lightbox-body img { max-width: none; width: min(2400px, 180vw); height: auto; background: var(--kp-soft); }
 .kp-lightbox-close { position: fixed; top: 16px; right: 16px; width: 48px; height: 48px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.3); background: var(--bg); color: var(--white); font-size: 18px; cursor: pointer; z-index: 2; }
 
+/* ── Notas de pantallas clave ───── */
+.kp-notes { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; margin-bottom: 56px; }
+.kp-h4 { font-size: 13px; font-weight: 500; letter-spacing: 0.44px; text-transform: uppercase; color: var(--white); padding-bottom: 12px; margin-bottom: 14px; border-bottom: 1px solid var(--kp-line); }
+.kp-notes-list { list-style: none; counter-reset: kpn; display: grid; gap: 12px; }
+.kp-notes-list li { counter-increment: kpn; position: relative; padding-left: 30px; font-size: 14px; line-height: 1.55; color: var(--white-50); }
+.kp-notes-list li::before { content: counter(kpn); position: absolute; left: 0; top: 0; width: 20px; height: 20px; border-radius: 50%; background: var(--kp-red); color: #fff; font-size: 11px; font-weight: 600; display: flex; align-items: center; justify-content: center; }
+
 /* ── Prototipo ──────────────────── */
 .kp-proto { margin-bottom: 56px; }
 .kp-proto-frame { display: block; background: var(--kp-soft); }
@@ -197,6 +204,7 @@ body:has(.kp) .nav { background: var(--bg); }
 @media (max-width: 1024px) {
   .kp-gallery-4 { grid-template-columns: repeat(2, minmax(0, 280px)); }
   .kp-pairs { grid-template-columns: 1fr; }
+  .kp-notes { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 768px) {
@@ -229,6 +237,7 @@ body:has(.kp) .nav { background: var(--bg); }
   .kp-table { min-width: 520px; font-size: 14px; }
   .kp-grid-2, .kp-stats, .kp-compare, .kp-with-stat, .kp-with-aside { grid-template-columns: 1fr; gap: 20px; }
   .kp-compare-num { font-size: 88px !important; }
+  .kp-notes { grid-template-columns: 1fr; gap: 28px; }
   .kp-aside-img { max-width: 260px; }
 
   /* Galerías como carrusel */
