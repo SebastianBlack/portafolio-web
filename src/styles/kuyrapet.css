@@ -68,6 +68,8 @@ body:has(.kp) .nav { background: var(--bg); }
 .kp .kp-note { font-size: 13px; line-height: 1.55; color: var(--white-50); }
 .kp-compare + .kp-note { max-width: 640px; margin: -36px 0 56px; }
 .kp-block .kp-note { margin-top: 14px; padding-left: 12px; border-left: 2px solid var(--kp-line); }
+.kp .kp-ooi { font-size: 16px; line-height: 1.65; color: var(--white-50); margin-bottom: 24px; }
+.kp-ooi strong { color: var(--white); font-weight: 500; }
 .kp-hipotesis { border: 1px solid var(--kp-line); padding: 28px 32px; }
 .kp-hipotesis p { color: var(--white); font-size: 18px; }
 
