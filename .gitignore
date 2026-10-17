@@ -29,3 +29,8 @@ dist/
 # Sistema
 .DS_Store
 .vercel
+
+# Variables locales (tokens)
+.env
+.env.local
+.env*.local

@@ -1,0 +1,818 @@
+---
+import ProjectLayout from "../layouts/ProjectLayout.astro";
+import KpImg from "../components/KpImg.astro";
+import "../styles/kuyrapet.css";
+
+const PROTO = "https://www.figma.com/proto/y2L5fAMVyP4dOU1IuPO1PM?node-id=32-173&starting-point-node-id=32%3A173";
+const FIGMA = "https://www.figma.com/design/y2L5fAMVyP4dOU1IuPO1PM";
+const FIGJAM = "https://www.figma.com/board/YOs8gs5UazopF4hQ5uGKpi";
+const figjamNode = (id) => `${FIGJAM}?node-id=${id.replace(":", "-")}`;
+
+// Etiquetas cortas para el índice; los h2 mantienen los nombres exactos de la rúbrica
+const TOC = [
+  ["narrativa", "Estrategia"],
+  ["investigacion", "Investigación"],
+  ["arquitectura", "Arquitectura"],
+  ["propuesta", "Prototipo"],
+  ["sistema", "Sistema"],
+  ["validacion", "Validación"],
+  ["accesibilidad", "Accesibilidad"],
+  ["decisiones", "Decisiones"],
+  ["cierre", "Cierre"],
+];
+
+const FLUJO1 = [
+  "bienvenida", "cuenta", "permisos", "vincular", "mascota", "zona segura", "familia", "listo",
+].map((paso, i) => ({
+  file: `flujo1-0${i + 1}.png`,
+  alt: `Primer uso, pantalla 1.${i} de 1.7: ${paso}`,
+}));
+
+const FLUJO2 = [
+  "Invitación: Sebastián te invitó a cuidar a Isha, con lo que podrás y no podrás hacer como familiar",
+  "Inicio: mapa con Isha en casa y el estado del collar (batería, señal y ubicación)",
+  "Alerta de escape: Isha salió de Casa, con el botón rojo Encontrar a Isha",
+  "Encontrar a Isha: ubicación en vivo con las opciones luz, sonido y buscar cerca",
+  "Familia y permisos: administrador y familiar, con lo que puede y no puede hacer un familiar",
+  "Mis collares: estado del collar con batería estimada, cobertura, luz, WiFi y zona horaria",
+].map((alt, i) => ({ file: `flujo2-0${i + 1}.png`, alt: `Flujo 2, pantalla ${i + 1} de 6. ${alt}` }));
+
+const ESTADOS = [
+  { file: "estado-bluetooth.png", tag: "Alternativo", alt: "Estado alternativo 1.2a: Bluetooth no activado, con qué pasa y cómo seguir" },
+  { file: "estado-cargando.png", tag: "Carga", alt: "Estado de carga 1.3a: conectando el collar, con el avance de cada paso" },
+  { file: "estado-error.png", tag: "Error", alt: "Estado de error 1.3b: número no reconocido, con dónde encontrarlo en el collar" },
+  { file: "estado-vacio.png", tag: "Vacío", alt: "Estado vacío 4.0a: nadie más cuida a Isha, con la invitación a sumar a la familia" },
+];
+
+const COMPONENTES = [
+  { file: "componentes-boton.png", alt: "Componente botón con sus variantes y estados" },
+  { file: "componentes-estado-collar.png", alt: "Componente tarjeta de estado del collar con sus variantes" },
+  { file: "componentes-mapa.png", alt: "Componente tarjeta de mapa con sus variantes" },
+  { file: "componentes-nav.png", alt: "Componente navegación inferior con sus variantes" },
+];
+---
+<ProjectLayout
+  title="KuyraPet"
+  noindex
+  description="Rediseño del primer uso de KuyraPet, el collar GPS de Comsatel Perú. En el test, todos los participantes lo configuraron sin ayuda."
+>
+<main id="main" class="kp" lang="es">
+
+  <!-- HERO · resumen ejecutivo -->
+  <header class="kp-hero" id="resumen">
+    <p class="kp-eyebrow">Case study · 2026 · Proyecto final de Coderhouse, Diseño UX/UI Avanzado</p>
+    <h1 class="kp-h1">De 11 pasos por video a 5 pasos guiados en la app</h1>
+    <p class="kp-subtitle">Rediseño del primer uso de KuyraPet, el collar GPS de Comsatel Perú. En el test, todos los participantes lo configuraron sin ayuda.</p>
+
+    <dl class="kp-ficha">
+      <div><dt>Cliente</dt><dd>KuyraPet (Comsatel Perú)</dd></div>
+      <div><dt>Rol</dt><dd>Diseñador UX/UI (research, estrategia, arquitectura, UI y sistema de diseño)</dd></div>
+      <div><dt>Herramientas</dt><dd>Figma, FigJam, Maze, Claude (IA como copiloto)</dd></div>
+    </dl>
+
+    <div class="kp-actions">
+      <a class="btn-pill kp-btn-solid" href={PROTO} target="_blank" rel="noopener">Ver prototipo<span class="kp-sr"> (se abre en una pestaña nueva)</span> ↗</a>
+      <a class="btn-pill" href={FIGMA} target="_blank" rel="noopener">Ver archivo de Figma<span class="kp-sr"> (se abre en una pestaña nueva)</span> ↗</a>
+    </div>
+
+    <div class="kp-panel kp-hero-img">
+      <ul class="kp-hero-screens">
+        <li><KpImg file="flujo1-01.png" eager class="kp-screen" alt="Bienvenida de la app: Tu mascota, siempre cerca, con los beneficios del collar" /></li>
+        <li><KpImg file="flujo2-02.png" eager class="kp-screen" alt="Inicio: mapa con Isha en casa y el estado del collar" /></li>
+        <li><KpImg file="invitacion-v2.png" eager class="kp-screen" alt="Invitación al familiar: Sebastián te invitó a cuidar a Isha, con lo que podrás y no podrás hacer" /></li>
+      </ul>
+    </div>
+
+    <div class="kp-tres">
+      <div class="kp-dato">
+        <p class="kp-dato-label">El reto</p>
+        <p>Hoy, activar el collar depende del equipo de Comsatel. Los clientes repiten las mismas preguntas y no saben qué puede hacer su familia en la app.</p>
+      </div>
+      <div class="kp-dato">
+        <p class="kp-dato-label">La solución</p>
+        <p>Un primer uso de 5 pasos dentro de la app, que conecta el collar, explica qué esperar de él y deja claro qué puede hacer cada persona.</p>
+      </div>
+      <div class="kp-dato">
+        <p class="kp-dato-label">El resultado</p>
+        <p class="kp-num" aria-hidden="true">100%</p>
+        <p>En el test, todos los participantes configuraron el collar sin ayuda (meta: 80%). La comprensión de roles no llegó a la meta y llevó a una segunda versión.</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- ÍNDICE FIJO -->
+  <nav class="kp-toc" aria-label="Índice del case study">
+    <button type="button" class="kp-toc-toggle" aria-expanded="false" aria-controls="kpTocList">
+      <span class="kp-toc-current">Índice</span>
+      <span class="kp-toc-chevron" aria-hidden="true">▾</span>
+    </button>
+    <ol id="kpTocList">
+      {TOC.map(([id, label], i) => (
+        <li><a href={`#${id}`}><span class="kp-toc-n">{String(i + 1).padStart(2, "0")}</span> {label}</a></li>
+      ))}
+    </ol>
+  </nav>
+
+  <!-- 1 · NARRATIVA ESTRATÉGICA -->
+  <section class="kp-section" id="narrativa" aria-labelledby="h-narrativa">
+    <div class="kp-intro">
+      <div>
+        <p class="kp-eyebrow">01</p>
+        <h2 class="kp-h2" id="h-narrativa">Narrativa estratégica</h2>
+      </div>
+      <p class="kp-lead">El problema no era la app en sí, sino que nadie la diseñó para la primera vez.</p>
+    </div>
+
+    <div class="kp-block">
+      <h3 class="kp-h3">Producto y contexto</h3>
+      <p>KuyraPet es un collar GPS con app (iOS y Android) y suscripción. Muestra en el mapa dónde está la mascota, avisa si sale de su zona segura y guarda sus recorridos.</p>
+      <p>Hoy se vende por WhatsApp, la web y la oficina de Comsatel, y el equipo acompaña cada activación. El siguiente paso es la venta en tiendas, donde ese acompañamiento no existe.</p>
+    </div>
+
+    <div class="kp-panel kp-table-wrap" role="region" aria-labelledby="t-sintoma" tabindex="0">
+      <table class="kp-table">
+        <caption id="t-sintoma">Síntoma vs. causa raíz</caption>
+        <thead><tr><th scope="col">Síntoma</th><th scope="col">Causa raíz</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Los clientes necesitan al equipo de Comsatel para activar y configurar el collar, y repiten las mismas consultas: cuánto dura la batería y si funciona fuera del país.</td>
+            <td>La app no tiene un primer uso diseñado: no guía la vinculación, no explica qué esperar del collar ni qué puede hacer cada rol. El acompañamiento humano reemplaza al producto.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="kp-block">
+      <h3 class="kp-h3">Por qué importa al negocio</h3>
+      <p>Con la venta en tiendas, un primer uso que funcione solo deja de ser una mejora y pasa a ser una condición para crecer.</p>
+    </div>
+
+    <div class="kp-panel kp-table-wrap" role="region" aria-labelledby="t-kpis" tabindex="0">
+      <table class="kp-table">
+        <caption id="t-kpis">Objetivos y KPIs</caption>
+        <thead><tr><th scope="col">KPI</th><th scope="col">Meta</th><th scope="col">Cómo se mide</th></tr></thead>
+        <tbody>
+          <tr><td>1 · Configuración sin ayuda</td><td>≥80% vincula el collar y llega a Inicio sin ayuda ni errores críticos</td><td>Misión en Maze</td></tr>
+          <tr><td>2 · Comprensión de roles</td><td>≥80% identifica qué puede y qué no puede hacer un familiar</td><td>Misión y pregunta en Maze</td></tr>
+          <tr><td>3 · Activaciones sin soporte (negocio)</td><td>Menos de 1 de cada 5 clientes de tienda escribe a soporte para activar, en los 3 meses posteriores al lanzamiento</td><td>Registro de WhatsApp de Comsatel</td></tr>
+        </tbody>
+      </table>
+      <p class="kp-table-note">Los KPIs 1 y 2 anticipan el 3.</p>
+    </div>
+
+    <div class="kp-block kp-hipotesis">
+      <h3 class="kp-h3">Hipótesis</h3>
+      <p>Si el primer uso guía la vinculación, explica qué esperar del collar y muestra qué puede hacer cada rol, al menos 80% de los dueños lo configura sin ayuda.</p>
+    </div>
+
+    <figure class="kp-board">
+      <button type="button" class="kp-zoom kp-panel" aria-label="Ampliar imagen: auditoría en los 5 niveles de Garrett">
+        <KpImg file="garrett.png" alt="Tablero de auditoría de la app en los 5 niveles de Garrett: estrategia, alcance, estructura, esqueleto y superficie" />
+      </button>
+      <figcaption>
+        Auditoría en los 5 niveles de Garrett: del objetivo de negocio a la superficie
+        <a href={figjamNode("2:3")} target="_blank" rel="noopener">Ver en FigJam<span class="kp-sr"> (se abre en una pestaña nueva)</span> ↗</a>
+      </figcaption>
+    </figure>
+  </section>
+
+  <!-- 2 · INVESTIGACIÓN Y ANÁLISIS -->
+  <section class="kp-section" id="investigacion" aria-labelledby="h-investigacion">
+    <div class="kp-intro">
+      <div>
+        <p class="kp-eyebrow">02</p>
+        <h2 class="kp-h2" id="h-investigacion">Investigación y análisis</h2>
+      </div>
+      <p class="kp-lead">Crucé lo que dice la empresa, lo que hace la app y lo que viven los dueños. Donde las tres fuentes coincidían, ahí estaba el problema.</p>
+    </div>
+
+    <div class="kp-block">
+      <h3 class="kp-h3">Fuentes trianguladas</h3>
+      <ul class="kp-list kp-list-cols">
+        <li>Entrevista y llamadas con el área comercial de Comsatel.</li>
+        <li>Mystery shopping por WhatsApp con el equipo de activación.</li>
+        <li>La web, la publicidad y las preguntas frecuentes oficiales.</li>
+        <li>Recorrido de la app real: 16 capturas, como invitado.</li>
+        <li>6 entrevistas a dueñas de perros en Lima, sin mencionar la marca.</li>
+        <li>1 clienta real de KuyraPet.</li>
+        <li>El video oficial de activación que se envía a los clientes.</li>
+      </ul>
+    </div>
+
+    <div class="kp-block">
+      <h3 class="kp-h3">Evaluación heurística: 3 hallazgos clave <span class="kp-muted">(de 19, severidad de Nielsen)</span></h3>
+      <ol class="kp-findings">
+        <li><strong>No hay primer uso (E23).</strong> Al instalar la app aparecen muchas funciones a la vez, sin indicar por dónde empezar.</li>
+        <li><strong>Sumar a un familiar no está guiado (H1, severidad 3).</strong> La invitación muestra un correo en vez de un nombre y no dice qué podrá hacer quien la acepta.</li>
+        <li><strong>El estado del collar es técnico e inconsistente (H6 y H7, severidad 3).</strong> La batería se muestra solo en %, y el mismo estado aparece con colores e íconos distintos.</li>
+      </ol>
+    </div>
+
+    <figure class="kp-board">
+      <button type="button" class="kp-zoom kp-panel" aria-label="Ampliar imagen: recorrido de la app actual">
+        <KpImg file="asis-recorrido.png" alt="Recorrido de la app actual con los hallazgos heurísticos marcados sobre las capturas: inicio, invitación y estado del collar" />
+      </button>
+      <figcaption>
+        <a href={figjamNode("30:1131")} target="_blank" rel="noopener">Ver en FigJam<span class="kp-sr"> (se abre en una pestaña nueva)</span> ↗</a>
+      </figcaption>
+    </figure>
+
+    <figure class="kp-board">
+      <button type="button" class="kp-zoom kp-panel" aria-label="Ampliar imagen: Customer Journey As-Is">
+        <KpImg file="journey.png" alt="Customer Journey As-Is: etapas desde la compra hasta el primer aviso de escape, con citas de las entrevistas" />
+      </button>
+      <figcaption>
+        <span><strong>Customer Journey As-Is.</strong> Del momento de la compra al primer aviso de escape, con citas reales de las entrevistas</span>
+        <a href={figjamNode("23:906")} target="_blank" rel="noopener">Ver en FigJam<span class="kp-sr"> (se abre en una pestaña nueva)</span> ↗</a>
+      </figcaption>
+    </figure>
+
+    <div class="kp-block">
+      <h3 class="kp-h3">Insights</h3>
+      <ul class="kp-cards">
+        <li class="kp-card">
+          <p class="kp-card-tag">I1 · Mueve el KPI 1</p>
+          <p class="kp-card-title">Vincular es el momento de mayor riesgo de abandono.</p>
+          <p>3 de 6 tuvieron fricción al vincular un aparato, y una lo abandonó.</p>
+        </li>
+        <li class="kp-card">
+          <p class="kp-card-tag">I2 · Mueve el KPI 2</p>
+          <p class="kp-card-title">Cuidar es compartido, y a veces temporal.</p>
+          <p>6 de 6 comparten el cuidado y 5 de 5 quieren compartir la ubicación. Una pidió acceso por unos días: <q>Poder darle acceso a [quien la cuida]… no que tenga acceso todo el tiempo</q>.</p>
+        </li>
+        <li class="kp-card">
+          <p class="kp-card-tag">I3 · Mueve los KPIs 1 y 3</p>
+          <p class="kp-card-title">La confianza depende del alcance y la precisión.</p>
+          <p>5 de 6 lo piden. Nadie menciona la batería, pero es la consulta n.º 1 a la empresa.</p>
+        </li>
+      </ul>
+    </div>
+
+    <div class="kp-block">
+      <h3 class="kp-h3">¿Cómo podríamos…?</h3>
+      <ul class="kp-hmw">
+        <li>…lograr que el dueño conecte su collar solo, desde la app?</li>
+        <li>…dejar claro qué puede hacer cada persona que cuida a la mascota?</li>
+        <li>…decir qué esperar del collar sin prometer lo que no cumple?</li>
+      </ul>
+    </div>
+
+    <div class="kp-block">
+      <h3 class="kp-h3">La activación, antes y después</h3>
+      <p>El video oficial explica 11 pasos fuera de la app, entre ellos ir a los ajustes del celular y buscar el número de serie. El rediseño los lleva a 5 pasos guiados dentro de la app, con el progreso a la vista.</p>
+    </div>
+    <div class="kp-compare">
+      <div class="kp-compare-col">
+        <p class="kp-tag">Antes</p>
+        <p class="kp-compare-num">11</p>
+        <p>pasos explicados en un video, fuera de la app</p>
+      </div>
+      <div class="kp-compare-col is-after">
+        <p class="kp-tag">Ahora</p>
+        <p class="kp-compare-num">5</p>
+        <p>pasos guiados dentro de la app, con progreso visible</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · ARQUITECTURA Y FLUJOS -->
+  <section class="kp-section" id="arquitectura" aria-labelledby="h-arquitectura">
+    <div class="kp-intro">
+      <div>
+        <p class="kp-eyebrow">03</p>
+        <h2 class="kp-h2" id="h-arquitectura">Arquitectura y flujos</h2>
+      </div>
+      <p class="kp-lead">Antes de dibujar pantallas, ordené qué existe y dónde lo busca la gente.</p>
+    </div>
+
+    <div class="kp-block">
+      <h3 class="kp-h3">Sitemap actual vs. propuesto</h3>
+      <div class="kp-compare kp-compare-text">
+        <div class="kp-compare-col">
+          <p class="kp-tag">Antes</p>
+          <p>5 pestañas que mezclan secciones y acciones; las alertas viven en Cuenta &gt; Mensajes.</p>
+        </div>
+        <div class="kp-compare-col is-after">
+          <p class="kp-tag">Después</p>
+          <p>4 secciones (Inicio, Actividad, Mi mascota, Cuenta), como recomiendan las guías de Apple y Google (de 3 a 5 secciones; las acciones no son pestañas). El collar pasa a Cuenta &gt; Mis collares, porque lo compra y lo registra el dueño. Inicio muestra el estado del collar a todos.</p>
+        </div>
+      </div>
+    </div>
+
+    <figure class="kp-board">
+      <button type="button" class="kp-zoom kp-panel" aria-label="Ampliar imagen: sitemap actual, modelo de contenido y sitemap propuesto">
+        <KpImg file="arquitectura.png" alt="Tablero de arquitectura: sitemap actual de 5 pestañas, modelo de contenido y sitemap propuesto de 4 secciones" />
+      </button>
+      <figcaption>
+        Sitemap actual, modelo de contenido y sitemap propuesto
+        <a href={figjamNode("28:984")} target="_blank" rel="noopener">Ver en FigJam<span class="kp-sr"> (se abre en una pestaña nueva)</span> ↗</a>
+      </figcaption>
+    </figure>
+
+    <div class="kp-block kp-with-stat">
+      <div class="kp-stat">
+        <p class="kp-num">93%</p>
+        <p class="kp-stat-label">Tree test · 14 de 15</p>
+      </div>
+      <div>
+        <h3 class="kp-h3">Tree test <span class="kp-muted">(5 personas, árbol solo con texto)</span></h3>
+      </div>
+    </div>
+
+    <div class="kp-panel kp-table-wrap" role="region" aria-labelledby="t-tree" tabindex="0">
+      <table class="kp-table">
+        <caption id="t-tree" class="kp-sr">Resultados del tree test</caption>
+        <thead><tr><th scope="col">Tarea</th><th scope="col">Éxito</th></tr></thead>
+        <tbody>
+          <tr><td>Que tu mamá también pueda ver a tu perro</td><td>4 de 5 (80%)</td></tr>
+          <tr><td>Si el aparato aguanta el fin de semana</td><td>5 de 5 (100%)</td></tr>
+          <tr><td>Si el aparato funciona en Chile</td><td>5 de 5 (100%)</td></tr>
+        </tbody>
+        <tfoot><tr><th scope="row">Total</th><td><strong>14 de 15 (93%)</strong></td></tr></tfoot>
+      </table>
+    </div>
+
+    <div class="kp-block">
+      <h3 class="kp-h3">Qué cambió</h3>
+      <p>Una persona no encontró dónde dar acceso a su mamá. Antes del test definimos que solo moveríamos la sección si fallaban 2 de 5 o más, así que se mantiene.</p>
+      <p>El próximo paso es un atajo "Compartir con mi familia" en Cuenta. No se registró el primer clic por persona; queda como limitación.</p>
+    </div>
+
+    <div class="kp-block">
+      <h3 class="kp-h3">Flujo principal</h3>
+      <p>Primer uso de 1.0 a 1.7: bienvenida, cuenta, permisos, vincular, mascota, zona segura, familia y listo.</p>
+    </div>
+    <div class="kp-panel kp-gallery-wrap">
+      <ul class="kp-gallery kp-gallery-4" aria-label="Flujo principal del primer uso, 8 pantallas">
+        {FLUJO1.map((s, i) => (
+          <li><KpImg file={s.file} alt={s.alt} class="kp-screen" /><span class="kp-screen-n">1.{i}</span></li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- 4 · PROPUESTA VISUAL Y PROTOTIPO -->
+  <section class="kp-section" id="propuesta" aria-labelledby="h-propuesta">
+    <div class="kp-intro">
+      <div>
+        <p class="kp-eyebrow">04</p>
+        <h2 class="kp-h2" id="h-propuesta">Propuesta visual y prototipo</h2>
+      </div>
+      <p class="kp-lead">Cada pantalla final sale de un wireframe y de un hallazgo; el estilo está al servicio de leer el estado de la mascota de un vistazo.</p>
+    </div>
+
+    <div class="kp-block">
+      <h3 class="kp-h3">De wireframe a UI</h3>
+      <p>Estilo: minimalismo funcional, tarjetas, un solo dato protagonista por tarjeta y patrones nativos de iOS (barra inferior flotante, botones píldora, títulos grandes).</p>
+      <p>La acción principal es negra; el rojo de la marca es el color de acento.</p>
+    </div>
+
+    <div class="kp-pairs">
+      <div class="kp-panel kp-pair">
+        <figure><span class="kp-tag kp-tag-dark">Wireframe</span><KpImg file="wf-bienvenida.png" alt="Wireframe en escala de grises de la pantalla de bienvenida" class="kp-screen" /></figure>
+        <span class="kp-pair-arrow" aria-hidden="true">→</span>
+        <figure><span class="kp-tag kp-tag-red">UI</span><KpImg file="ui-bienvenida.png" alt="Pantalla de bienvenida final, con los beneficios del collar" class="kp-screen" /></figure>
+      </div>
+      <div class="kp-panel kp-pair">
+        <figure><span class="kp-tag kp-tag-dark">Wireframe</span><KpImg file="wf-permisos.png" alt="Wireframe en escala de grises de la pantalla de permisos" class="kp-screen" /></figure>
+        <span class="kp-pair-arrow" aria-hidden="true">→</span>
+        <figure><span class="kp-tag kp-tag-red">UI</span><KpImg file="ui-permisos.png" alt="Pantalla de permisos final: permisos en español, numerados y con el porqué de cada uno" class="kp-screen" /></figure>
+      </div>
+    </div>
+
+    <div class="kp-block">
+      <h3 class="kp-h3">La bienvenida, antes y después del piloto</h3>
+      <p>Antes enumeraba limitaciones ("en interiores la ubicación es aproximada"). Ahora vende valor: ver dónde está en el mapa, recibir un aviso si sale de casa y compartir su cuidado.</p>
+      <p>Las limitaciones se dicen en el momento en que importan.</p>
+    </div>
+
+    <div class="kp-block">
+      <h3 class="kp-h3">Estados críticos</h3>
+    </div>
+    <div class="kp-panel kp-gallery-wrap">
+      <ul class="kp-gallery kp-gallery-4" aria-label="Estados críticos, 4 pantallas">
+        {ESTADOS.map((s) => (
+          <li><span class="kp-tag kp-tag-dark">{s.tag}</span><KpImg file={s.file} alt={s.alt} class="kp-screen" /></li>
+        ))}
+      </ul>
+    </div>
+    <ul class="kp-list kp-list-cols kp-block">
+      <li><strong>Alternativo:</strong> Bluetooth no activado (1.2a), con qué pasa y cómo seguir.</li>
+      <li><strong>Carga:</strong> conectando el collar (1.3a), con el avance de cada paso.</li>
+      <li><strong>Error:</strong> número no reconocido (1.3b): "No reconocimos este número. Está en la parte trasera del collar. Revísalo y vuelve a intentarlo."</li>
+      <li><strong>Vacío:</strong> nadie más cuida a Isha (4.0a): "Invita a tu familia para que también vean dónde está".</li>
+    </ul>
+    <p class="kp-block kp-muted">También están el estado sin señal (3.0a), la alerta de escape (3.1) y la búsqueda (3.2).</p>
+
+    <div class="kp-panel kp-gallery-wrap">
+      <p class="kp-tag kp-tag-dark kp-gallery-title">Flujo 2</p>
+      <ul class="kp-gallery kp-gallery-3" aria-label="Flujo 2, 6 pantallas">
+        {FLUJO2.map((s) => (
+          <li><KpImg file={s.file} alt={s.alt} class="kp-screen" /></li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="kp-block">
+      <h3 class="kp-h3">Prototipo embebido</h3>
+      <p>3 flujos: configurar, invitación y alerta.</p>
+    </div>
+    <div class="kp-proto">
+      <iframe
+        class="kp-proto-frame"
+        title="Prototipo navegable de KuyraPet"
+        style="border:0;width:100%;height:800px"
+        src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2Fy2L5fAMVyP4dOU1IuPO1PM%3Fnode-id%3D32-173%26starting-point-node-id%3D32%253A173"
+        loading="lazy"
+        allowfullscreen
+      ></iframe>
+      <a class="btn-pill kp-btn-solid kp-proto-btn" href={PROTO} target="_blank" rel="noopener">Abrir prototipo<span class="kp-sr"> (se abre en una pestaña nueva)</span> ↗</a>
+    </div>
+  </section>
+
+  <!-- 5 · SISTEMA DE DISEÑO -->
+  <section class="kp-section" id="sistema" aria-labelledby="h-sistema">
+    <div class="kp-intro">
+      <div>
+        <p class="kp-eyebrow">05</p>
+        <h2 class="kp-h2" id="h-sistema">Sistema de diseño</h2>
+      </div>
+      <p class="kp-lead">El sistema es lo que mantiene consistente la regla más importante del caso: cada estado se entiende con ícono, texto y color.</p>
+    </div>
+
+    <div class="kp-block">
+      <h3 class="kp-h3">Fundamentos</h3>
+      <ul class="kp-list">
+        <li>3 colecciones de variables (primitivos, color semántico, espaciado y radios).</li>
+        <li>9 estilos de texto: Baloo 2 para títulos y datos, Inter para texto.</li>
+        <li>2 sombras e íconos Lucide.</li>
+        <li>Componentes con variantes y estados (default, presionado, foco, deshabilitado, cargando, error). Entre ellos: botón, campo, chip, aviso, tarjeta del collar, tarjeta de mapa, navegación inferior y estado vacío.</li>
+      </ul>
+    </div>
+
+    <div class="kp-panel kp-wide">
+      <KpImg file="tokens.png" alt="Fundamentos del sistema: colecciones de variables de color, espaciado y radios, estilos de texto y sombras" />
+    </div>
+
+    <div class="kp-stack">
+      {COMPONENTES.map((c) => (
+        <div class="kp-panel kp-wide"><KpImg file={c.file} alt={c.alt} /></div>
+      ))}
+    </div>
+
+    <div class="kp-block kp-with-aside">
+      <div>
+        <h3 class="kp-h3">Reglas de uso</h3>
+        <ol class="kp-findings">
+          <li>Un solo botón principal por pantalla, negro.</li>
+          <li>Un solo botón rojo por pantalla, y solo para emergencias ("Encontrar a Isha").</li>
+          <li>El rojo es acento (progreso, volver, pestaña activa, íconos destacados, enlaces), nunca en íconos de estado como la batería, porque ahí rojo significa problema.</li>
+          <li>Todo estado lleva ícono + texto + color.</li>
+          <li>Toda alerta dice qué pasó, cuándo y qué hacer.</li>
+        </ol>
+      </div>
+      <div class="kp-panel kp-aside-img">
+        <KpImg file="ui-permisos.png" alt="Pantalla de permisos donde el rojo se usa como acento en el progreso y el botón volver" class="kp-screen" />
+      </div>
+    </div>
+
+    <div class="kp-block">
+      <h3 class="kp-h3">Gobernanza y handoff</h3>
+      <ul class="kp-list">
+        <li>Una sola fuente de verdad: design.md más la página del sistema.</li>
+        <li>Niveles atómicos: fundamentos, átomos, moléculas, organismos y pantallas.</li>
+        <li>Un proceso de 5 pasos para sumar componentes.</li>
+        <li>Un historial de versiones de v1.0 a v1.3.</li>
+        <li>Anotaciones en Dev Mode en las pantallas clave: comportamiento, orden de foco y tokens.</li>
+      </ul>
+    </div>
+
+    <div class="kp-panel kp-wide">
+      <KpImg file="gobernanza.png" alt="Página de gobernanza del sistema: niveles atómicos, proceso para sumar componentes e historial de versiones" />
+    </div>
+  </section>
+
+  <!-- 6 · VALIDACIÓN -->
+  <section class="kp-section" id="validacion" aria-labelledby="h-validacion">
+    <div class="kp-intro">
+      <div>
+        <p class="kp-eyebrow">06</p>
+        <h2 class="kp-h2" id="h-validacion">Validación</h2>
+      </div>
+      <p class="kp-lead">Una hipótesis se validó y otra se refutó. La refutada es la que más enseñó.</p>
+    </div>
+
+    <div class="kp-block">
+      <h3 class="kp-h3">Piloto</h3>
+      <p>Antes de lanzar, hice el test yo mismo y encontré 3 problemas del estudio:</p>
+      <ul class="kp-list">
+        <li>una pregunta medía memoria y no diseño;</li>
+        <li>la bienvenida enumeraba limitaciones;</li>
+        <li>los permisos no se leían como pasos.</li>
+      </ul>
+      <p>Los corregí antes de mandar el link.</p>
+    </div>
+
+    <div class="kp-block">
+      <h3 class="kp-h3">Test en Maze</h3>
+      <p>No moderado, 7 participantes (más el piloto, que no se cuenta), en celular o computadora.</p>
+    </div>
+
+    <div class="kp-stats kp-stats-2">
+      <div class="kp-stat">
+        <p class="kp-num">100%</p>
+        <p class="kp-stat-label">KPI 1 · Configuración sin ayuda · Validada</p>
+      </div>
+      <div class="kp-stat">
+        <p class="kp-num">40%</p>
+        <p class="kp-stat-label">KPI 2 · Comprensión de roles · Refutada</p>
+      </div>
+    </div>
+
+    <div class="kp-panel kp-table-wrap" role="region" aria-labelledby="t-maze" tabindex="0">
+      <table class="kp-table">
+        <caption id="t-maze" class="kp-sr">Resultados del test en Maze</caption>
+        <thead><tr><th scope="col">KPI</th><th scope="col">Meta</th><th scope="col">Resultado</th><th scope="col">Veredicto</th></tr></thead>
+        <tbody>
+          <tr><td>1 · Configuración sin ayuda</td><td>≥80%</td><td>7 de 7 (100%) · 0% de abandono · 6 de 7 por el camino directo</td><td><span class="kp-verdict is-ok">Validada</span></td></tr>
+          <tr><td>2 · Comprensión de roles</td><td>≥80%</td><td>2 de 5 (40%) identificaron todo bien</td><td><span class="kp-verdict is-ko">Refutada</span></td></tr>
+          <tr><td>Facilidad percibida</td><td>—</td><td>5.4 de 7</td><td>Referencia</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="kp-block">
+      <h3 class="kp-h3">Hallazgos</h3>
+      <ol class="kp-findings">
+        <li><strong>Grave: la invitación se acepta sin leer.</strong> Mediana de 4.6 segundos en la pantalla y 20% de clics fuera de lugar.</li>
+        <li><strong>Menor: "la familia" es ambiguo.</strong> 2 de 5 creyeron que el familiar puede invitar o quitar personas. Todos entendieron que no puede cambiar el collar ni las zonas.</li>
+        <li><strong>Menor, del método:</strong> la misión terminaba al llegar a Inicio, y una persona dijo <q>No vi el home</q>.</li>
+      </ol>
+    </div>
+
+    <figure class="kp-board">
+      <button type="button" class="kp-zoom kp-panel" aria-label="Ampliar imagen: tablero de validación">
+        <KpImg file="validacion.png" alt="Tablero de validación con los resultados del test en Maze por KPI y los hallazgos" />
+      </button>
+      <figcaption>
+        <a href={figjamNode("62:1211")} target="_blank" rel="noopener">Ver en FigJam<span class="kp-sr"> (se abre en una pestaña nueva)</span> ↗</a>
+      </figcaption>
+    </figure>
+
+    <div class="kp-block">
+      <h3 class="kp-h3">Iteración v1 → v2</h3>
+      <p>No se le pide al familiar que memorice; el rol se explica cuando importa:</p>
+      <ul class="kp-list">
+        <li><strong>En la invitación:</strong> una línea que se lee en 3 segundos: <q>Como familiar podrás ver dónde está Isha y recibir sus avisos. Sebastián administra el collar, las zonas y quién tiene acceso.</q></li>
+        <li><strong>En "No podrás":</strong> se dice explícitamente "ni invitar o quitar personas".</li>
+        <li><strong>En el primer Inicio del familiar:</strong> un aviso que se cierra con "Entendido".</li>
+      </ul>
+    </div>
+
+    <div class="kp-panel kp-iter">
+      <figure>
+        <span class="kp-tag kp-tag-dark">v1 testeada</span>
+        <KpImg file="invitacion-v1.png" alt="Versión 1 de la invitación al familiar, la que se testeó en Maze" class="kp-screen" />
+      </figure>
+      <span class="kp-pair-arrow" aria-hidden="true">→</span>
+      <figure>
+        <span class="kp-tag kp-tag-red">v2</span>
+        <KpImg file="invitacion-v2.png" alt="Versión 2 de la invitación, con la línea que explica qué puede hacer el familiar y quién administra el collar" class="kp-screen" />
+      </figure>
+      <figure>
+        <span class="kp-tag kp-tag-red">v2</span>
+        <KpImg file="inicio-familiar-v2.png" alt="Versión 2 del primer Inicio del familiar, con un aviso sobre su rol que se cierra con Entendido" class="kp-screen" />
+      </figure>
+    </div>
+    <p class="kp-block">La v2 se medirá con 5 personas más y la misma pregunta.</p>
+  </section>
+
+  <!-- 7 · ACCESIBILIDAD -->
+  <section class="kp-section" id="accesibilidad" aria-labelledby="h-accesibilidad">
+    <div class="kp-intro">
+      <div>
+        <p class="kp-eyebrow">07</p>
+        <h2 class="kp-h2" id="h-accesibilidad">Accesibilidad</h2>
+      </div>
+      <p class="kp-lead">La accesibilidad no fue un anexo: la regla "nunca solo color" nació de un hallazgo de la app actual.</p>
+    </div>
+
+    <div class="kp-panel kp-table-wrap" role="region" aria-labelledby="t-a11y" tabindex="0">
+      <table class="kp-table">
+        <caption id="t-a11y" class="kp-sr">Problemas de la app actual y mejoras aplicadas</caption>
+        <thead><tr><th scope="col">Problema en la app actual</th><th scope="col">Mejora aplicada</th></tr></thead>
+        <tbody>
+          <tr><td>Un mismo estado con varios colores (H7)</td><td>Un significado por color, y además ícono + texto</td></tr>
+          <tr><td>Permiso de Bluetooth en inglés y sin explicar (H2)</td><td>Permisos en español, numerados, con el porqué de cada uno y la opción "Ahora no"</td></tr>
+          <tr><td>Batería prometida "hasta 7 días"; una clienta dice que le dura unos 2</td><td>Estimación real: "Unos 2 días con tu uso actual" (prometer de más es un dark pattern)</td></tr>
+          <tr><td>Registro sin requisitos de contraseña visibles</td><td>Requisitos visibles antes de escribir</td></tr>
+          <tr><td>Invitación con un correo en vez de un nombre</td><td>"Sebastián te invitó a cuidar a Isha" + qué podrás y no podrás hacer</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="kp-block">
+      <h3 class="kp-h3">Cómo se cumple WCAG 2.2 AA</h3>
+      <ul class="kp-list">
+        <li>Contraste AA medido en todos los pares de texto: 17.19:1 en el botón principal y 4.99:1 en el rojo sobre blanco.</li>
+        <li>Foco visible de 2 px y orden de foco anotado.</li>
+        <li>Áreas táctiles de 44 px o más (botones de 52 px).</li>
+        <li>Errores que dicen qué pasó y qué hacer.</li>
+        <li>Alertas que se anuncian al lector de pantalla sin mover el foco.</li>
+      </ul>
+    </div>
+
+    <div class="kp-block">
+      <h3 class="kp-h3">Herramientas</h3>
+      <p>Fórmula de luminancia de WCAG 2.x, checklist manual de WCAG 2.2 AA y anotaciones de foco y lector de pantalla en Dev Mode.</p>
+    </div>
+
+    <div class="kp-panel kp-wide">
+      <KpImg file="accesibilidad.png" alt="Anotaciones de accesibilidad: contrastes medidos, orden de foco y áreas táctiles en las pantallas clave" />
+    </div>
+  </section>
+
+  <!-- DECISION LOG -->
+  <section class="kp-section" id="decisiones" aria-labelledby="h-decisiones">
+    <div class="kp-intro">
+      <div>
+        <p class="kp-eyebrow">08</p>
+        <h2 class="kp-h2" id="h-decisiones">Decision log</h2>
+      </div>
+    </div>
+
+    <div class="kp-panel kp-table-wrap" role="region" aria-labelledby="t-decisiones" tabindex="0">
+      <table class="kp-table kp-table-wide">
+        <caption id="t-decisiones" class="kp-sr">Decision log</caption>
+        <thead><tr><th scope="col">Bifurcación</th><th scope="col">Opción descartada</th><th scope="col">Opción elegida</th><th scope="col">Por qué</th></tr></thead>
+        <tbody>
+          <tr>
+            <th scope="row">Navegación</th>
+            <td>6 pestañas, con el collar y la familia como secciones propias</td>
+            <td>4 secciones; el collar en Cuenta &gt; Mis collares y el estado del collar en Inicio</td>
+            <td>Guías de Apple y Google (3 a 5 secciones), y el collar lo compra y lo registra el dueño. El tree test lo respaldó: 93%</td>
+          </tr>
+          <tr>
+            <th scope="row">Qué esperar del collar</th>
+            <td>Quitar las limitaciones para que la bienvenida "venda", o prometer "más de 5 días"</td>
+            <td>Bienvenida con beneficios; batería calculada y cobertura en su contexto</td>
+            <td>Las consultas repetidas son la causa del KPI 3, y no había datos para prometer días: la clienta real dice unos 2</td>
+          </tr>
+          <tr>
+            <th scope="row">Color</th>
+            <td>Rojo de marca en el botón principal</td>
+            <td>Botón negro; rojo como acento y para emergencias; el peligro se reconoce por forma</td>
+            <td>El rojo se leía como peligro (H7), pero sin acento las pantallas parecían wireframes</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- CIERRE -->
+  <section class="kp-section" id="cierre" aria-labelledby="h-cierre">
+    <div class="kp-intro">
+      <div>
+        <p class="kp-eyebrow">09</p>
+        <h2 class="kp-h2" id="h-cierre">Cierre</h2>
+      </div>
+    </div>
+
+    <div class="kp-grid-2 kp-cierre">
+      <div class="kp-block">
+        <h3 class="kp-h3">Limitaciones</h3>
+        <ul class="kp-list">
+          <li>Muestras chicas y por conveniencia.</li>
+          <li>Sin analítica ni registros de soporte de Comsatel.</li>
+          <li>La pregunta de roles mide comprensión al leer, no el comportamiento posterior.</li>
+          <li>En el tree test no se registró el primer clic.</li>
+        </ul>
+      </div>
+      <div class="kp-block">
+        <h3 class="kp-h3">Próximos pasos</h3>
+        <ul class="kp-list">
+          <li>Testear la v2 de la invitación.</li>
+          <li>Agregar el atajo "Compartir con mi familia" en Cuenta.</li>
+          <li>Diseñar el permiso de ubicación "Siempre" con su porqué.</li>
+          <li>Medir el KPI 3 cuando empiece la venta en tiendas.</li>
+        </ul>
+      </div>
+      <div class="kp-block">
+        <h3 class="kp-h3">IA como copiloto</h3>
+        <p>Usé Claude para agrupar los 19 hallazgos heurísticos en patrones (el prompt está registrado en el FigJam), revisar la redacción y calcular contrastes.</p>
+        <p>Las entrevistas, los tests y las decisiones de diseño son míos, y cada afirmación cita su fuente.</p>
+      </div>
+      <div class="kp-block">
+        <h3 class="kp-h3">Agradecimientos</h3>
+        <p>Al área comercial de Comsatel, por abrir la información del producto; a las 6 personas entrevistadas, a la clienta de KuyraPet y a quienes hicieron los tests.</p>
+      </div>
+    </div>
+
+    <div class="kp-actions kp-actions-end">
+      <a class="btn-pill kp-btn-solid" href={PROTO} target="_blank" rel="noopener">Ver prototipo<span class="kp-sr"> (se abre en una pestaña nueva)</span> ↗</a>
+      <a class="btn-pill" href={FIGMA} target="_blank" rel="noopener">Ver archivo de Figma<span class="kp-sr"> (se abre en una pestaña nueva)</span> ↗</a>
+      <a class="btn-pill" href={FIGJAM} target="_blank" rel="noopener">Ver investigación en FigJam<span class="kp-sr"> (se abre en una pestaña nueva)</span> ↗</a>
+    </div>
+  </section>
+
+</main>
+
+  <dialog class="kp-lightbox" id="kpLightbox" aria-label="Imagen ampliada">
+    <button type="button" class="kp-lightbox-close" aria-label="Cerrar imagen ampliada">✕</button>
+    <div class="kp-lightbox-body"></div>
+  </dialog>
+
+  <a class="next-project" id="next-link" href="/">
+    <p class="next-label" data-i18n="next.project">Siguiente proyecto</p>
+    <h2 class="next-title" id="next-title">—</h2>
+    <span class="next-arrow">→</span>
+  </a>
+
+<script is:inline>
+  (function () {
+    if (window.matchMedia('(hover: none) and (pointer: coarse)').matches) return;
+    const ring = document.getElementById('cursorRing');
+    const next = document.getElementById('next-link');
+    let mx=0,my=0,cx=0,cy=0;
+    document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; }, { passive: true });
+    (function loop(){ cx+=(mx-cx)*0.14; cy+=(my-cy)*0.14; ring.style.left=cx+'px'; ring.style.top=cy+'px'; requestAnimationFrame(loop); })();
+    next.addEventListener('mouseenter', () => ring.classList.add('is-active'));
+    next.addEventListener('mouseleave', () => ring.classList.remove('is-active'));
+  })();
+  (function () {
+    const visible = PROJECTS.filter(function(p){ return p.published; });
+    const idx = visible.findIndex(function(p){ return p.id === 'kuyrapet-coderhouse'; });
+    const next = visible[(idx + 1) % visible.length];
+    document.getElementById('next-link').href = next.url;
+    function setNextTitle() {
+      const title = (window.TRANSLATIONS || {})['project.' + next.id + '.title'];
+      if (title) document.getElementById('next-title').textContent = title;
+    }
+    setNextTitle();
+    setTimeout(setNextTitle, 500);
+  })();
+
+  // Índice: marca la sección visible; en celular funciona como desplegable
+  (function () {
+    const toc = document.querySelector('.kp-toc');
+    const toggle = toc.querySelector('.kp-toc-toggle');
+    const current = toc.querySelector('.kp-toc-current');
+    function setOpen(open) {
+      toc.classList.toggle('is-open', open);
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+    toggle.addEventListener('click', function () { setOpen(!toc.classList.contains('is-open')); });
+    toc.addEventListener('keydown', function (e) { if (e.key === 'Escape' && toc.classList.contains('is-open')) { setOpen(false); toggle.focus(); } });
+    document.addEventListener('click', function (e) { if (!toc.contains(e.target)) setOpen(false); });
+
+    const links = document.querySelectorAll('.kp-toc a');
+    links.forEach(function (a) { a.addEventListener('click', function () { setOpen(false); }); });
+    const map = {};
+    links.forEach(function (a) { map[a.getAttribute('href').slice(1)] = a; });
+    const obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        links.forEach(function (a) { a.removeAttribute('aria-current'); });
+        const a = map[e.target.id];
+        if (!a) return;
+        a.setAttribute('aria-current', 'true');
+        current.textContent = a.textContent.trim().replace(/^(\d+)\s+/, '$1 · ');
+        // Desplaza solo la barra del índice, nunca la página
+        const ol = a.closest('ol');
+        const left = a.offsetLeft - ol.offsetLeft;
+        if (left < ol.scrollLeft || left + a.offsetWidth > ol.scrollLeft + ol.clientWidth) {
+          ol.scrollTo({ left: left - 16, behavior: 'smooth' });
+        }
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    Object.keys(map).forEach(function (id) { const s = document.getElementById(id); if (s) obs.observe(s); });
+  })();
+
+  // Lightbox de tableros: <dialog> nativo (Esc cierra y el foco vuelve al botón)
+  (function () {
+    const dlg = document.getElementById('kpLightbox');
+    const body = dlg.querySelector('.kp-lightbox-body');
+    let opener = null;
+    document.querySelectorAll('.kp-zoom').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        const img = btn.querySelector('img');
+        if (!img) return;
+        opener = btn;
+        body.innerHTML = '';
+        const big = document.createElement('img');
+        big.src = img.currentSrc || img.src;
+        big.alt = img.alt;
+        body.appendChild(big);
+        dlg.showModal();
+        document.body.style.overflow = 'hidden';
+      });
+    });
+    dlg.querySelector('.kp-lightbox-close').addEventListener('click', function () { dlg.close(); });
+    dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
+    dlg.addEventListener('close', function () {
+      document.body.style.overflow = '';
+      if (opener) opener.focus();
+    });
+  })();
+</script>
+</ProjectLayout>

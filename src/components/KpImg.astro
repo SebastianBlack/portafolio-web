@@ -1,0 +1,38 @@
+---
+// Imagen del case study KuyraPet. Si el PNG todavía no está en
+// public/images/kuyrapet-coderhouse/, muestra un marcador con el nombre del archivo.
+import { existsSync, openSync, readSync, closeSync } from "node:fs";
+
+const { file, alt, eager = false, class: className = "" } = Astro.props;
+
+const DIR = "/images/kuyrapet-coderhouse/";
+const diskPath = new URL(`../../public${DIR}${file}`, import.meta.url);
+const exists = existsSync(diskPath);
+
+// Lee ancho y alto del encabezado PNG (IHDR) para reservar el espacio y evitar saltos.
+let width, height;
+if (exists && file.endsWith(".png")) {
+  const fd = openSync(diskPath, "r");
+  const buf = Buffer.alloc(24);
+  readSync(fd, buf, 0, 24, 0);
+  closeSync(fd);
+  width = buf.readUInt32BE(16);
+  height = buf.readUInt32BE(20);
+}
+---
+{exists ? (
+  <img
+    class={className}
+    src={DIR + file}
+    alt={alt}
+    width={width}
+    height={height}
+    loading={eager ? "eager" : "lazy"}
+    fetchpriority={eager ? "high" : undefined}
+    decoding="async"
+  />
+) : (
+  <div class:list={["kp-placeholder", className]} role="img" aria-label={alt}>
+    <span>{file}</span>
+  </div>
+)}
