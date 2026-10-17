@@ -6,6 +6,8 @@
 
 .kp {
   --kp-red: #e00714;
+  /* Rojo más claro solo para texto chico sobre fondo negro (5.92:1, AA) */
+  --kp-red-text: #ff4d57;
   --kp-ink: #1c1b1b;
   --kp-soft: #f1f6fc;
   --kp-line: rgba(255,255,255,0.1);
@@ -55,7 +57,7 @@ body:has(.kp) .nav { background: var(--bg); }
 .kp-toc a { display: block; white-space: nowrap; padding: 16px 12px; font-size: 12px; font-weight: 500; letter-spacing: 0.24px; text-transform: uppercase; color: var(--white-50); border-bottom: 2px solid transparent; transition: color 0.2s, border-color 0.2s; }
 .kp-toc a:hover { color: var(--white); }
 .kp-toc a[aria-current] { color: var(--white); border-bottom-color: var(--kp-red); }
-.kp-toc-n { color: var(--kp-red); margin-right: 4px; }
+.kp-toc-n { color: var(--kp-red-text); margin-right: 4px; }
 .kp-toc-toggle { display: none; }
 
 /* ── Secciones ──────────────────── */
@@ -80,12 +82,12 @@ body:has(.kp) .nav { background: var(--bg); }
 .kp-list-cols { grid-template-columns: 1fr 1fr; column-gap: 32px; }
 .kp-findings { list-style: none; counter-reset: kp; display: grid; gap: 18px; margin-top: 8px; }
 .kp-findings li { counter-increment: kp; position: relative; padding-left: 44px; font-size: 16px; line-height: 1.6; color: var(--white-50); }
-.kp-findings li::before { content: counter(kp, decimal-leading-zero); position: absolute; left: 0; top: 1px; font-size: 13px; font-weight: 500; color: var(--kp-red); }
+.kp-findings li::before { content: counter(kp, decimal-leading-zero); position: absolute; left: 0; top: 1px; font-size: 13px; font-weight: 500; color: var(--kp-red-text); }
 .kp-findings strong { color: var(--white); font-weight: 500; }
 
 .kp-cards { list-style: none; display: grid; gap: 16px; }
 .kp-card { border: 1px solid var(--kp-line); padding: 24px; }
-.kp-card-tag { font-size: 11px !important; font-weight: 500; letter-spacing: 0.44px; text-transform: uppercase; color: var(--kp-red) !important; }
+.kp-card-tag { font-size: 11px !important; font-weight: 500; letter-spacing: 0.44px; text-transform: uppercase; color: var(--kp-red-text) !important; }
 .kp-card-title { color: var(--white) !important; font-size: 18px !important; font-weight: 500; margin-top: 8px !important; }
 .kp-hmw { list-style: none; display: grid; gap: 12px; }
 .kp-hmw li { font-size: 22px; font-weight: 500; letter-spacing: -0.4px; line-height: 1.3; }
