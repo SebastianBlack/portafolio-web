@@ -1,0 +1,30 @@
+---
+const GA_ID = 'G-8B50J8PMQ0';
+const GA_HOSTS = ['www.sebasblack.com', 'www.sebastian-black.com'];
+---
+<script is:inline define:vars={{ GA_ID, GA_HOSTS }}>
+  // Corre antes de gtag: ?notrack=1 excluye este navegador y ?notrack=0 lo vuelve a incluir.
+  (function () {
+    var KEY = 'ga-notrack';
+    var url = new URL(location.href);
+    var notrack = url.searchParams.get('notrack');
+    var off = notrack === '1';
+    try {
+      if (notrack === '1') localStorage.setItem(KEY, '1');
+      else if (notrack === '0') localStorage.removeItem(KEY);
+      else off = localStorage.getItem(KEY) === '1';
+    } catch (e) {}
+    if (off || GA_HOSTS.indexOf(location.hostname) === -1) window['ga-disable-' + GA_ID] = true;
+    if (url.searchParams.has('notrack')) {
+      url.searchParams.delete('notrack');
+      history.replaceState(history.state, '', url);
+    }
+  })();
+</script>
+<script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}></script>
+<script is:inline define:vars={{ GA_ID }}>
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function(){dataLayer.push(arguments);};
+  gtag('js', new Date());
+  gtag('config', GA_ID);
+</script>
