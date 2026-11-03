@@ -37,7 +37,6 @@ window.TRANSLATIONS = {
   "about.tools-label":    "Herramientas",
   "about.tools-list":     "Figma<br>Claude<br>Miro<br>After Effects<br>Illustrator<br>Photoshop",
   "about.body":     "Con más de 5 años de experiencia en diseño, trabajo en la intersección del branding y el producto digital. Me especializo en crear identidades visuales memorables y experiencias de usuario coherentes que conectan marcas con sus audiencias.",
-  "about.cta":      "Descargar CV",
 
   /* ── HOME — SERVICES ── */
   "services.title":        "Servicios",

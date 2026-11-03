@@ -1,6 +1,6 @@
 ---
 const GA_ID = 'G-8B50J8PMQ0';
-const GA_HOSTS = ['www.sebasblack.com', 'www.sebastian-black.com'];
+const GA_HOSTS = ['www.sebasblack.com'];
 const { caseName = null } = Astro.props;
 ---
 <script is:inline define:vars={{ GA_ID, GA_HOSTS }}>
@@ -30,12 +30,11 @@ const { caseName = null } = Astro.props;
   gtag('config', GA_ID);
   if (caseName) gtag('event', 'case_study_view', { case_name: caseName });
 
-  // Clics de contacto (data-cta, lo llena contact.js) y descarga del CV (data-cv).
+  // Clics de contacto (data-cta, lo llena contact.js).
   document.addEventListener('click', function (e) {
     var link = e.target.closest('a');
     if (!link) return;
     var method = link.dataset.cta;
     if (method === 'email' || method === 'whatsapp' || method === 'linkedin') gtag('event', 'contact_click', { method: method });
-    if ('cv' in link.dataset) gtag('event', 'cv_download');
   });
 </script>
