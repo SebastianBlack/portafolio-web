@@ -3,9 +3,11 @@
   const DEFAULT   = 'es';
 
   function getLang() {
-    const stored = localStorage.getItem('lang');
-    if (stored && SUPPORTED.includes(stored)) return stored;
-    return DEFAULT;
+    try {
+      const stored = localStorage.getItem('lang');
+      if (stored && SUPPORTED.includes(stored)) return stored;
+    } catch (e) {}
+    return document.documentElement.lang === 'en' ? 'en' : DEFAULT;
   }
 
   function applyTranslations(translations) {
@@ -44,7 +46,7 @@
 
   function setLang(lang) {
     if (!SUPPORTED.includes(lang)) return;
-    localStorage.setItem('lang', lang);
+    try { localStorage.setItem('lang', lang); } catch (e) {}
     document.documentElement.lang = lang;
     loadLang(lang, applyTranslations);
 
