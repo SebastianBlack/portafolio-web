@@ -21,11 +21,14 @@ if (exists && file.endsWith(".png")) {
   width = buf.readUInt32BE(16);
   height = buf.readUInt32BE(20);
 }
+// Si hay una versión WebP del PNG, se sirve esa porque pesa menos.
+const webp = file.replace(/\.png$/, ".webp");
+const src = DIR + (existsSync(join(process.cwd(), "public", DIR, webp)) ? webp : file);
 ---
 {exists ? (
   <img
     class={className}
-    src={DIR + file}
+    src={src}
     alt={alt}
     width={width}
     height={height}
