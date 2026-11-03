@@ -323,7 +323,8 @@
 }
 .contact-socials {
   display: flex;
-  gap: 24px;
+  flex-wrap: wrap;
+  gap: 12px 24px;
 }
 .contact-social-link {
   font-size: 13px;
@@ -416,6 +417,8 @@
   .contact-inner { padding: 48px 32px; gap: 36px; }
   .contact-title { font-size: 40px; line-height: 38px; letter-spacing: -1.2px; }
   .contact-bottom-row { flex-direction: column; align-items: flex-start; gap: 24px; }
+  .contact-socials { max-width: 100%; }
+  .contact-social-link { white-space: nowrap; }
 }
 
 /* ── TOUCH DEVICES ────────────────── */
@@ -425,3 +428,5 @@
   .hero-trail { z-index: 3 !important; }
   .hero-logo-wrap { z-index: 5; }
 }
+
+.contact-email { text-transform: none; }

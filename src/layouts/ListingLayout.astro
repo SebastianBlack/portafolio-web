@@ -3,12 +3,12 @@ import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
 import "../styles/listing.css";
 
-const { title, tag } = Astro.props;
+const { title, tag, description } = Astro.props;
 
 const SITE = 'https://www.sebasblack.com';
 const OG_IMAGE = `${SITE}/images/ui/og-image.jpg`;
 const PAGE_TITLE = `${title} — Sebastian Black`;
-const DESCRIPTION = `Proyectos de ${title.toLowerCase()} — Sebastian Black, diseñador e ilustrador con base en Perú.`;
+const DESCRIPTION = description ?? `Proyectos de ${title.toLowerCase()} — Sebastian Black, diseñador e ilustrador con base en Perú.`;
 const URL = `${SITE}${Astro.url.pathname}`;
 ---
 <!DOCTYPE html>
@@ -70,8 +70,8 @@ const URL = `${SITE}${Astro.url.pathname}`;
   <script is:inline define:vars={{ tag }}>
   (function () {
     const TAG  = tag;
-    const list = PROJECTS.filter(function(p){ return p.tags.includes(TAG) && !p.hidden; });
-    const grid = document.getElementById('projects-grid');
+    const visible = PROJECTS.filter(function(p){ return !p.hidden; });
+    const list = TAG === 'all' ? visible : visible.filter(function(p){ return p.tags.includes(TAG); });
     const t    = window.TRANSLATIONS || {};
 
     function setCount() {
@@ -81,26 +81,34 @@ const URL = `${SITE}${Astro.url.pathname}`;
     setCount();
     setTimeout(setCount, 500);
 
-    list.forEach(function (p, i) {
-      const delay = (i % 2) * 80;
-      const title = t['project.' + p.id + '.title'] || p.id;
-      const cat   = t['project.' + p.id + '.category'] || '';
-      const card  = document.createElement(p.comingSoon ? 'div' : 'a');
-      if (!p.comingSoon) card.href = p.url;
-      card.className = 'project-card' + (p.comingSoon ? ' is-coming-soon' : '');
-      card.setAttribute('data-reveal', '');
-      card.style.setProperty('--reveal-delay', delay + 'ms');
-      const media = p.videoThumb
-        ? '<video src="' + p.videoThumb + '" autoplay muted loop playsinline></video>'
-        : '<img src="' + p.thumb + '" alt="' + title + '" loading="lazy">';
-      var badge = p.comingSoon ? '<span class="coming-soon-badge" data-i18n="project.coming-soon">Próximamente</span>' : '';
-      card.innerHTML =
-        '<div class="project-img-wrap">' + media + badge + '</div>' +
-        '<div class="project-meta">' +
-          '<div class="project-title" data-i18n="project.' + p.id + '.title">' + title + '</div>' +
-          '<div class="project-category" data-i18n="project.' + p.id + '.category">' + cat + '</div>' +
-        '</div>';
-      grid.appendChild(card);
+    // En /projects/ hay una grilla por categoría (data-tag); en los listados, una sola.
+    document.querySelectorAll('.projects-grid').forEach(function (grid) {
+      const gridTag  = grid.dataset.tag || TAG;
+      const gridList = visible.filter(function(p){ return p.tags.includes(gridTag); });
+      const count    = grid.parentElement.querySelector('.section-count');
+      if (count) count.textContent = '(' + gridList.length + ')';
+
+      gridList.forEach(function (p, i) {
+        const delay = (i % 2) * 80;
+        const title = t['project.' + p.id + '.title'] || p.id;
+        const cat   = t['project.' + p.id + '.category'] || '';
+        const card  = document.createElement(p.comingSoon ? 'div' : 'a');
+        if (!p.comingSoon) card.href = p.url;
+        card.className = 'project-card' + (p.comingSoon ? ' is-coming-soon' : '');
+        card.setAttribute('data-reveal', '');
+        card.style.setProperty('--reveal-delay', delay + 'ms');
+        const media = p.videoThumb
+          ? '<video src="' + p.videoThumb + '" autoplay muted loop playsinline></video>'
+          : '<img src="' + p.thumb + '" alt="' + title + '" loading="lazy">';
+        var badge = p.comingSoon ? '<span class="coming-soon-badge" data-i18n="project.coming-soon">Próximamente</span>' : '';
+        card.innerHTML =
+          '<div class="project-img-wrap">' + media + badge + '</div>' +
+          '<div class="project-meta">' +
+            '<div class="project-title" data-i18n="project.' + p.id + '.title">' + title + '</div>' +
+            '<div class="project-category" data-i18n="project.' + p.id + '.category">' + cat + '</div>' +
+          '</div>';
+        grid.appendChild(card);
+      });
     });
 
     if (!window.matchMedia('(hover: none) and (pointer: coarse)').matches) {

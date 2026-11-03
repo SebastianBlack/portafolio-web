@@ -11,6 +11,7 @@ window.CONTACT = Object.freeze({
   whatsappMessage: 'Hola Sebastian, me gustaría conversar sobre un proyecto.',
   instagram:       'https://www.instagram.com/sebasblack.pe/',
   linkedin:        'https://www.linkedin.com/in/sebastianblack/',
+  email:           'hola.sebastianblack@gmail.com',
 });
 
 (function () {
@@ -19,6 +20,7 @@ window.CONTACT = Object.freeze({
     whatsapp:  `https://wa.me/${C.whatsapp}?text=${encodeURIComponent(C.whatsappMessage)}`,
     instagram: C.instagram,
     linkedin:  C.linkedin,
+    email:     `mailto:${C.email}`,
   };
 
   function apply() {
@@ -26,7 +28,7 @@ window.CONTACT = Object.freeze({
       const key = el.dataset.cta;
       if (!HREFS[key]) return;
       el.href = HREFS[key];
-      if (!el.hasAttribute('target')) el.target = '_blank';
+      if (!el.hasAttribute('target') && key !== 'email') el.target = '_blank';
       if (!el.hasAttribute('rel'))    el.rel    = 'noopener';
     });
   }
