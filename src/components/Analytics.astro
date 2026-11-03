@@ -1,6 +1,7 @@
 ---
 const GA_ID = 'G-8B50J8PMQ0';
 const GA_HOSTS = ['www.sebasblack.com', 'www.sebastian-black.com'];
+const { caseName = null } = Astro.props;
 ---
 <script is:inline define:vars={{ GA_ID, GA_HOSTS }}>
   // Corre antes de gtag: ?notrack=1 excluye este navegador y ?notrack=0 lo vuelve a incluir.
@@ -22,9 +23,19 @@ const GA_HOSTS = ['www.sebasblack.com', 'www.sebastian-black.com'];
   })();
 </script>
 <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}></script>
-<script is:inline define:vars={{ GA_ID }}>
+<script is:inline define:vars={{ GA_ID, caseName }}>
   window.dataLayer = window.dataLayer || [];
   window.gtag = function(){dataLayer.push(arguments);};
   gtag('js', new Date());
   gtag('config', GA_ID);
+  if (caseName) gtag('event', 'case_study_view', { case_name: caseName });
+
+  // Clics de contacto (data-cta, lo llena contact.js) y descarga del CV (data-cv).
+  document.addEventListener('click', function (e) {
+    var link = e.target.closest('a');
+    if (!link) return;
+    var method = link.dataset.cta;
+    if (method === 'email' || method === 'whatsapp' || method === 'linkedin') gtag('event', 'contact_click', { method: method });
+    if ('cv' in link.dataset) gtag('event', 'cv_download');
+  });
 </script>

@@ -11,6 +11,7 @@ const OG_IMAGE = `${SITE}/images/ui/og-image.jpg`;
 const PAGE_TITLE = `${title} — Sebastian Black`;
 const DESCRIPTION = description || `Caso de estudio: ${title}. Portafolio de Sebastian Black, diseñador e ilustrador con base en Perú.`;
 const URL = `${SITE}${Astro.url.pathname}`;
+const CASE_NAME = Astro.url.pathname.split('/').filter(Boolean).pop();
 ---
 <!DOCTYPE html>
 <html lang="es">
@@ -48,7 +49,7 @@ const URL = `${SITE}${Astro.url.pathname}`;
   <script is:inline src="/js/projects.js"></script>
   <script is:inline src="/js/i18n.js"></script>
   <script is:inline src="/js/contact.js"></script>
-  <Analytics />
+  <Analytics caseName={CASE_NAME} />
 </head>
 <body>
   <div class="cursor-ring" id="cursorRing" aria-hidden="true">
