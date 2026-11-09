@@ -32,8 +32,8 @@ card:
 hero:
   src: hero.webp
   alt:
-    es: "Gastro App"
-    en: "Gastro App"
+    es: "Mano sosteniendo un celular con la ficha de un restaurante en Gastro, sobre fondo naranja"
+    en: "Hand holding a phone showing a restaurant page in Gastro, on an orange background"
 
 blocks:
   - type: text
@@ -87,8 +87,8 @@ blocks:
     item:
       src: wide-01.webp
       alt:
-        es: "Gastro app en uso"
-        en: "Gastro app in use"
+        es: "Celular con la lista de restaurantes filtrada por cocina peruana, junto al logo de Gastro"
+        en: "Phone showing the restaurant list filtered by Peruvian cuisine, next to the Gastro logo"
 
   - type: text
     eyebrow: { es: "Resultados", en: "Results" }

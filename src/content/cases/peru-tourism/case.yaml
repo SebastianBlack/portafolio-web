@@ -32,8 +32,8 @@ card:
 hero:
   src: hero.webp
   alt:
-    es: "Peru Tourism"
-    en: "Peru Tourism"
+    es: "Laptop con la nueva portada de Peru Tourism, junto al logo de la marca"
+    en: "Laptop showing the new Peru Tourism home page, next to the brand logo"
 
 blocks:
   - type: text
@@ -87,8 +87,8 @@ blocks:
     item:
       src: wide-01.webp
       alt:
-        es: "Peru Tourism"
-        en: "Peru Tourism"
+        es: "Celular con el primer paso del nuevo formulario: nombre y correo"
+        en: "Phone showing the first step of the new form: name and email"
 
   - type: text
     eyebrow: { es: "Resultados", en: "Results" }

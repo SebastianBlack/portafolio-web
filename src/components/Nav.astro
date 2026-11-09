@@ -11,9 +11,9 @@ const { activeLink } = Astro.props;
       <a href="/#contact" data-i18n="nav.contact">Contacto</a>
     </nav>
     <div class="nav-right">
-      <button class="nav-lang" data-lang-btn aria-label="Switch to English">EN</button>
+      <button class="nav-lang" data-lang-btn aria-label="Switch to English" lang="en">EN</button>
       <span class="nav-year" data-i18n="nav.year">®2026</span>
-      <button class="nav-hamburger" id="navHamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+      <button class="nav-hamburger" id="navHamburger" aria-label="Menú" data-i18n-aria="a11y.menu"><span></span><span></span><span></span></button>
     </div>
   </header>
   <div class="nav-mobile" id="navMobile" aria-hidden="true">
@@ -24,7 +24,7 @@ const { activeLink } = Astro.props;
       <a href="/#contact" data-i18n="nav.contact">Contacto</a>
     </div>
     <div class="nav-mobile-footer">
-      <button class="nav-mobile-footer-lang" data-lang-btn aria-label="Switch to English">EN</button>
+      <button class="nav-mobile-footer-lang" data-lang-btn aria-label="Switch to English" lang="en">EN</button>
       <span class="nav-mobile-footer-year" data-i18n="nav.year">®2026</span>
     </div>
   </div>

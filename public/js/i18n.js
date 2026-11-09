@@ -67,15 +67,21 @@
     });
   }
 
+  // El botón muestra el idioma al que cambia y lo anuncia en ese idioma.
+  function labelLangBtn(btn, current) {
+    const target = current === 'es' ? 'en' : 'es';
+    btn.textContent = target.toUpperCase();
+    btn.lang = target;
+    btn.setAttribute('aria-label', target === 'en' ? 'Switch to English' : 'Cambiar a español');
+  }
+
   function wireLangToggle(lang) {
     document.querySelectorAll('[data-lang-btn]').forEach(function (btn) {
-      btn.textContent = lang === 'es' ? 'EN' : 'ES';
+      labelLangBtn(btn, lang);
       btn.onclick = function () {
         const next = getLang() === 'es' ? 'en' : 'es';
         setLang(next);
-        document.querySelectorAll('[data-lang-btn]').forEach(function (b) {
-          b.textContent = next === 'es' ? 'EN' : 'ES';
-        });
+        document.querySelectorAll('[data-lang-btn]').forEach(function (b) { labelLangBtn(b, next); });
       };
     });
   }

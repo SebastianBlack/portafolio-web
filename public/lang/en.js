@@ -34,6 +34,7 @@ window.TRANSLATIONS = {
   "about.intro": "Product and brand designer based in Lima. I solve real problems: understanding people first and turning that into brands and products that feel clear, human and considered. I work between strategy and detail — where an idea becomes something people actually use.",
   "about.services-label": "Services",
   "about.services-list":  "Brand &amp; Identity<br>Art Direction<br>Motion Graphics<br>Product Design<br>UX/UI Design",
+  "about.photo-alt":      "Sebastian Black, designer based in Lima",
   "about.tools-label":    "Tools",
   "about.tools-list":     "Figma<br>Claude<br>Miro<br>After Effects<br>Illustrator<br>Photoshop",
   "about.body":  "With over 5 years of design experience, I work at the intersection of branding and digital product. I specialize in crafting memorable visual identities and coherent user experiences that connect brands with their audiences.",
@@ -43,6 +44,16 @@ window.TRANSLATIONS = {
   "services.branding":     "Branding",
   "services.product":      "Product Design",
   "services.illustration": "Illustration",
+
+  /* ── ACCESIBILIDAD ── */
+  "a11y.skip": "Skip to content",
+  "a11y.menu": "Menu",
+
+  /* ── CONTACT ── */
+  "contact.eyebrow":   "Contact",
+  "contact.available": "Available for projects",
+  "contact.title":     "Let's<br>talk",
+  "contact.cta":       "Message me on WhatsApp",
 
   /* ── FOOTER ── */
   "footer.address": "Lima, Peru",

@@ -33,6 +33,7 @@ tagline:
 
 card:
   thumb: thumb.webp          # 980 × 735
+  alt: { es: "Describe la tarjeta", en: "Describe the card" }   # opcional; si falta, se usa el título
   trail: [trail-1.webp]      # 490 × 340
 
 hero:

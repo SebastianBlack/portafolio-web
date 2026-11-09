@@ -42,6 +42,7 @@ export function cardDict(cases: Case[], dict = new Dict()) {
   for (const c of cases) {
     dict.add(`project.${c.id}.title`, c.data.title);
     dict.add(`project.${c.id}.category`, c.data.category);
+    dict.add(`project.${c.id}.card-alt`, c.data.card.alt ?? c.data.title);
   }
   return dict;
 }

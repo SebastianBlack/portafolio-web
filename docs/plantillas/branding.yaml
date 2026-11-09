@@ -31,6 +31,7 @@ tagline:
 
 card:
   thumb: thumb.webp          # 980 × 735
+  alt: { es: "Describe la tarjeta", en: "Describe the card" }   # opcional; si falta, se usa el título
   # video: thumb.mp4         # opcional: la tarjeta muestra el video en vez de la imagen
   trail: [trail-1.webp]      # 490 × 340, una o más
 

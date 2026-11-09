@@ -41,21 +41,21 @@ const listed = await getListedCases();
 
   <!-- SELECTED WORK -->
   <section class="work-section" id="work">
-    <h3 class="section-header" data-reveal data-i18n="work.section-title">Selected work</h3>
+    <h3 class="section-header" data-reveal data-i18n="work.section-title">Trabajos seleccionados</h3>
 
     <div class="projects-grid" id="projects-grid">
       {listed.map((c, i) => <ProjectCard c={c} index={i} />)}
     </div>
 
     <div class="see-all-wrap">
-      <a href="/projects/" class="btn-pill" data-i18n="work.see-all">see them all</a>
+      <a href="/projects/" class="btn-pill" data-i18n="work.see-all">ver todos</a>
     </div>
   </section>
 
   <!-- ABOUT -->
   <section class="about-section" id="about">
     <div>
-      <h2 class="about-title" data-reveal data-i18n="about.title"><span lang="en">Hello there<br>I'm Sebastian<br>Black</span></h2>
+      <h2 class="about-title" data-reveal data-i18n="about.title">Hola, soy<br>Sebastian<br>Black</h2>
 
       <p class="about-intro" data-reveal style="--reveal-delay:80ms" data-i18n="about.intro">Diseñador de producto y marca con base en Lima. Me gusta resolver problemas reales: entender a las personas primero y traducir eso en marcas y productos que se sienten claros, humanos y bien pensados. Trabajo entre la estrategia y el detalle —donde una idea se vuelve algo que la gente realmente usa.</p>
 
@@ -63,8 +63,8 @@ const listed = await getListedCases();
         <div class="about-details-group">
           <div class="about-label" data-i18n="about.services-label">Servicios</div>
           <div class="about-list" data-i18n="about.services-list">
-            Brand &amp; Identity<br>Art Direction<br>Motion Graphics<br>
-            Product Design<br>UX/UI Design
+            Identidad de marca<br>Dirección de arte<br>Motion graphics<br>
+            Diseño de producto<br>Diseño UX/UI
           </div>
         </div>
         <div class="about-details-group">
@@ -78,7 +78,7 @@ const listed = await getListedCases();
     </div>
 
     <div class="about-right" data-reveal style="--reveal-delay:80ms">
-      <img src="/images/profile.webp" alt="Sebastian Black, diseñador de Lima">
+      <img src="/images/profile.webp" alt="Sebastian Black, diseñador de Lima" data-i18n-alt="about.photo-alt">
     </div>
   </section>
 
@@ -86,20 +86,20 @@ const listed = await getListedCases();
   <section class="contact-section" id="contact">
     <div class="contact-inner" data-reveal>
       <div class="contact-top-row">
-        <div class="contact-eyebrow">Contact</div>
+        <div class="contact-eyebrow" data-i18n="contact.eyebrow">Contacto</div>
         <div class="contact-available">
           <span class="availability-dot"></span>
-          Available for projects
+          <span data-i18n="contact.available">Disponible para proyectos</span>
         </div>
       </div>
-      <h2 class="contact-title">Let's<br>talk</h2>
+      <h2 class="contact-title" data-i18n="contact.title">Hablemos</h2>
       <div class="contact-bottom-row">
         <div class="contact-socials">
           <a href="https://www.instagram.com/sebasblack.pe/" target="_blank" rel="noopener" class="contact-social-link" data-cta="instagram">Instagram ↗</a>
           <a href="https://www.linkedin.com/in/sebastianblack/" target="_blank" rel="noopener" class="contact-social-link" data-cta="linkedin">LinkedIn ↗</a>
           <a href="mailto:hola.sebastianblack@gmail.com" class="contact-social-link contact-email" data-cta="email">hola.sebastianblack@gmail.com</a>
         </div>
-        <a href="https://wa.me/51992325564" class="btn-pill" target="_blank" rel="noopener" aria-label="Iniciar proyecto por WhatsApp" data-cta="whatsapp">Start a project</a>
+        <a href="https://wa.me/51992325564" class="btn-pill" target="_blank" rel="noopener" data-cta="whatsapp" data-i18n="contact.cta">Escríbeme por WhatsApp</a>
       </div>
     </div>
   </section>

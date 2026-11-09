@@ -6,12 +6,14 @@ interface Props { c: Case; index: number }
 const { c, index } = Astro.props;
 const { title, category, card } = c.data;
 const delay = (index % 2) * 80;
+const alt = (card.alt ?? title).es;
+const altKey = `project.${c.id}.card-alt`;
 ---
 <a href={caseUrl(c)} class="project-card" data-reveal style={`--reveal-delay:${delay}ms`}>
   <div class="project-img-wrap">
     {card.video
-      ? <video src={mediaUrl(c, card.video)} autoplay muted loop playsinline aria-label={title.es}></video>
-      : <img src={mediaUrl(c, card.thumb)} alt={title.es} loading="lazy">}
+      ? <video src={mediaUrl(c, card.video)} autoplay muted loop playsinline aria-label={alt} data-i18n-aria={altKey}></video>
+      : <img src={mediaUrl(c, card.thumb)} alt={alt} data-i18n-alt={altKey} loading="lazy">}
   </div>
   <div class="project-meta">
     <div class="project-title" data-i18n={`project.${c.id}.title`}>{title.es}</div>

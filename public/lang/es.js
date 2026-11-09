@@ -33,7 +33,8 @@ window.TRANSLATIONS = {
   "about.title":    "Hola, soy<br>Sebastian<br>Black",
   "about.intro":    "Diseñador de producto y marca con base en Lima. Me gusta resolver problemas reales: entender a las personas primero y traducir eso en marcas y productos que se sienten claros, humanos y bien pensados. Trabajo entre la estrategia y el detalle —donde una idea se vuelve algo que la gente realmente usa.",
   "about.services-label": "Servicios",
-  "about.services-list":  "Brand &amp; Identity<br>Art Direction<br>Motion Graphics<br>Product Design<br>UX/UI Design",
+  "about.services-list":  "Identidad de marca<br>Dirección de arte<br>Motion graphics<br>Diseño de producto<br>Diseño UX/UI",
+  "about.photo-alt":      "Sebastian Black, diseñador de Lima",
   "about.tools-label":    "Herramientas",
   "about.tools-list":     "Figma<br>Claude<br>Miro<br>After Effects<br>Illustrator<br>Photoshop",
   "about.body":     "Con más de 5 años de experiencia en diseño, trabajo en la intersección del branding y el producto digital. Me especializo en crear identidades visuales memorables y experiencias de usuario coherentes que conectan marcas con sus audiencias.",
@@ -43,6 +44,16 @@ window.TRANSLATIONS = {
   "services.branding":     "Branding",
   "services.product":      "Product Design",
   "services.illustration": "Ilustración",
+
+  /* ── ACCESIBILIDAD ── */
+  "a11y.skip": "Saltar al contenido",
+  "a11y.menu": "Menú",
+
+  /* ── CONTACT ── */
+  "contact.eyebrow":   "Contacto",
+  "contact.available": "Disponible para proyectos",
+  "contact.title":     "Hablemos",
+  "contact.cta":       "Escríbeme por WhatsApp",
 
   /* ── FOOTER ── */
   "footer.address": "Lima, Perú",

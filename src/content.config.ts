@@ -53,6 +53,7 @@ const cases = defineCollection({
     tagline: t,
     card: z.object({
       thumb: z.string(),
+      alt: t.optional(), // alt de la tarjeta; si falta, se usa el título
       video: z.string().endsWith('.mp4').optional(),
       trail: z.array(z.string()).min(1),
     }),
