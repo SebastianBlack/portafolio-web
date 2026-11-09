@@ -9,10 +9,23 @@ interface Props {
   delay?: number;
   reveal?: boolean;
   eager?: boolean;
+  caption?: string;
+  captionKey?: string;
 }
-const { src, alt, altKey, delay = 0, reveal = true, eager = false } = Astro.props;
+const { src, alt, altKey, delay = 0, reveal = true, eager = false, caption, captionKey } = Astro.props;
+// Con pie de foto, la animación de entrada pasa al <figure> para que imagen y pie entren juntos.
+const revealMedia = reveal && !caption;
 const style = delay ? `--reveal-delay:${delay}ms` : undefined;
 ---
-{isVideo(src)
-  ? <video src={src} autoplay muted loop playsinline aria-label={alt} data-i18n-aria={altKey} data-reveal={reveal ? '' : undefined} style={style}></video>
-  : <img src={src} alt={alt} data-i18n-alt={altKey} loading={eager ? undefined : 'lazy'} data-reveal={reveal ? '' : undefined} style={style}>}
+{caption
+  ? (
+    <figure class="case-figure" data-reveal={reveal ? '' : undefined} style={style}>
+      {isVideo(src)
+        ? <video src={src} autoplay muted loop playsinline aria-label={alt} data-i18n-aria={altKey}></video>
+        : <img src={src} alt={alt} data-i18n-alt={altKey} loading={eager ? undefined : 'lazy'}>}
+      <figcaption class="case-caption" data-i18n={captionKey}>{caption}</figcaption>
+    </figure>
+  )
+  : isVideo(src)
+    ? <video src={src} autoplay muted loop playsinline aria-label={alt} data-i18n-aria={altKey} data-reveal={revealMedia ? '' : undefined} style={style}></video>
+    : <img src={src} alt={alt} data-i18n-alt={altKey} loading={eager ? undefined : 'lazy'} data-reveal={revealMedia ? '' : undefined} style={style}>}

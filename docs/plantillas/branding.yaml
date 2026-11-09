@@ -49,9 +49,11 @@ blocks:
   - type: grid-2              # 980 × 735 cada una. Ej.: antes / después
     items:
       - src: 01.webp
-        alt: { es: "El logo anterior", en: "The previous logo" }
+        alt: { es: "Describe el logo anterior", en: "Describe the previous logo" }
+        caption: { es: "El logo anterior", en: "The previous logo" }   # pie visible, opcional
       - src: 02.webp
-        alt: { es: "El logo nuevo", en: "The new logo" }
+        alt: { es: "Describe el logo nuevo", en: "Describe the new logo" }
+        caption: { es: "El nuevo", en: "The new one" }
 
   - type: text
     eyebrow: { es: "Estrategia", en: "Strategy" }
@@ -68,9 +70,13 @@ blocks:
   - type: text
     eyebrow: { es: "Identidad", en: "Identity" }
     heading: { es: "Sistema visual", en: "Visual system" }
-    body:
-      es: "Símbolo, logotipo, color, tipografía y recursos gráficos."
-      en: "Symbol, logotype, color, typography and graphic elements."
+    body:                      # varios párrafos, con palabra destacada opcional
+      - lead: { es: "Logo", en: "Logo" }
+        text: { es: "Cómo se construye el símbolo y el logotipo.", en: "How the symbol and wordmark are built." }
+      - lead: { es: "Color", en: "Color" }
+        text: { es: "La paleta y el rol de cada color.", en: "The palette and each color's role." }
+      - lead: { es: "Tipografía", en: "Typography" }
+        text: { es: "Las familias y para qué se usa cada una.", en: "The typefaces and what each is used for." }
 
   - type: grid-3              # 700 × 933 cada una
     items:

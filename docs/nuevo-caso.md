@@ -17,7 +17,7 @@ Cada caso es una carpeta con un archivo `case.yaml`. La web arma sola la página
 | `status` | Página | Portada y listados | Google |
 |---|---|---|---|
 | `draft` | No se genera | No | No |
-| `hidden` | Se genera (link oculto) | No | `noindex` |
+| `hidden` | Se genera (link oculto) | No | `noindex`, fuera del sitemap |
 | `published` | Se genera | Sí | Sí |
 
 ## Bloques del cuerpo
@@ -41,6 +41,34 @@ Fuera de los bloques:
 | `card.trail` (estela de la portada) | 490 × 340 |
 
 Cualquier imagen puede ser un video `.mp4`: el bloque lo detecta por la extensión.
+
+### Pie de foto (opcional)
+
+Cada imagen puede llevar un `caption`, que se ve debajo en mayúsculas pequeñas. No reemplaza al `alt`:
+
+- `alt` (obligatorio): describe lo que se ve. Ej.: "Logo nuevo de La Mastermind: símbolo de dos M y logotipo".
+- `caption` (opcional): da contexto. Ej.: "El nuevo".
+
+```yaml
+- src: 02.webp
+  alt: { es: "Logo nuevo de …", en: "New … logo" }
+  caption: { es: "El nuevo", en: "The new one" }
+```
+
+### Texto con varios párrafos
+
+`body` puede ser un solo párrafo o una lista. En la lista, `lead` es una palabra destacada en blanco al inicio (opcional). `body` también se puede omitir, y el bloque queda solo con etiqueta y titular.
+
+```yaml
+- type: text
+  eyebrow: { es: "Identidad", en: "Identity" }
+  heading: { es: "Una estructura de pensamiento…", en: "A structure of thought…" }
+  body:
+    - lead: { es: "Logo", en: "Logo" }
+      text: { es: "El símbolo…", en: "The symbol…" }
+    - lead: { es: "Color", en: "Color" }
+      text: { es: "El magenta…", en: "Magenta…" }
+```
 
 ## Reglas que revisa el build
 

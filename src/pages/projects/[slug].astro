@@ -29,16 +29,28 @@ const header = {
 
 const blocks = d.blocks.map((b, i) => {
   const p = `b${i}`;
-  const item = (m: { src: string; alt: { es: string; en: string } }, j: number) => ({
+  type T = { es: string; en: string };
+  const item = (m: { src: string; alt: T; caption?: T }, j: number) => ({
     src: mediaUrl(c, m.src),
     alt: m.alt.es,
     altKey: k(`${p}.${j}.alt`, m.alt),
+    caption: m.caption?.es,
+    captionKey: m.caption ? k(`${p}.${j}.caption`, m.caption) : undefined,
   });
   switch (b.type) {
-    case 'text':
+    case 'text': {
+      // Un párrafo simple conserva la clave de siempre (bN.body); una lista usa bN.pM.
+      const paras = !b.body ? [] : 'es' in b.body
+        ? [{ text: b.body.es, textKey: k(`${p}.body`, b.body) }]
+        : b.body.map((para, m) => ({
+            lead: para.lead?.es,
+            leadKey: para.lead ? k(`${p}.p${m}.lead`, para.lead) : undefined,
+            text: para.text.es,
+            textKey: k(`${p}.p${m}.text`, para.text),
+          }));
       return { type: b.type, eyebrow: b.eyebrow.es, eyebrowKey: k(`${p}.eyebrow`, b.eyebrow),
-        heading: b.heading.es, headingKey: k(`${p}.heading`, b.heading),
-        body: b.body.es, bodyKey: k(`${p}.body`, b.body) };
+        heading: b.heading.es, headingKey: k(`${p}.heading`, b.heading), paras };
+    }
     case 'grid-2':
     case 'grid-3':
       return { type: b.type, items: b.items.map(item) };
@@ -94,9 +106,13 @@ const blocks = d.blocks.map((b, i) => {
             <p class="content-eyebrow" data-i18n={b.eyebrowKey}>{b.eyebrow}</p>
             <h2 class="content-heading" data-i18n={b.headingKey}>{b.heading}</h2>
           </div>
-          <div class="content-body">
-            <p data-i18n={b.bodyKey}>{b.body}</p>
-          </div>
+          {b.paras.length > 0 && (
+            <div class="content-body">
+              {b.paras.map((para) => para.lead
+                ? <p><strong data-i18n={para.leadKey}>{para.lead}</strong> <span data-i18n={para.textKey}>{para.text}</span></p>
+                : <p data-i18n={para.textKey}>{para.text}</p>)}
+            </div>
+          )}
         </div>
       </div>
     );

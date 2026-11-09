@@ -6,15 +6,22 @@ import { z } from 'astro/zod';
 const t = z.object({ es: z.string().min(1), en: z.string().min(1) });
 
 // Imagen o video. El tipo se deduce de la extensión (.mp4 = video).
-// alt: describe la imagen para lectores de pantalla y Google.
+// alt (obligatorio): describe lo que se ve, para lectores de pantalla y Google.
+// caption (opcional): pie de foto visible debajo de la imagen.
 const media = z.object({
   src: z.string().regex(/\.(webp|jpg|jpeg|png|avif|gif|mp4)$/i, 'Usa .webp, .jpg, .png, .avif, .gif o .mp4'),
   alt: t,
+  caption: t.optional(),
 });
+
+// Cuerpo de un bloque de texto: un párrafo, o una lista de párrafos
+// con una palabra destacada opcional al inicio (lead).
+const paragraph = z.object({ lead: t.optional(), text: t });
+const body = z.union([t, z.array(paragraph).min(1)]);
 
 // Bloques del cuerpo del caso. Cada bloque tiene una proporción fija definida en project.css.
 const block = z.discriminatedUnion('type', [
-  z.object({ type: z.literal('text'), eyebrow: t, heading: t, body: t }),
+  z.object({ type: z.literal('text'), eyebrow: t, heading: t, body: body.optional() }),
   z.object({ type: z.literal('grid-2'), items: z.array(media).length(2) }), // 4:3 · 980×735
   z.object({ type: z.literal('grid-3'), items: z.array(media).length(3) }), // 3:4 · 700×933
   z.object({ type: z.literal('wide'), item: media }),                      // libre · 2360×1032
