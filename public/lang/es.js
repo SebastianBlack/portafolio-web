@@ -52,7 +52,7 @@ window.TRANSLATIONS = {
   /* ── CONTACT ── */
   "contact.eyebrow":   "Contacto",
   "contact.available": "Disponible para proyectos",
-  "contact.title":     "Hablemos de tu proyecto",
+  "contact.title":     "Hablemos de<br>tu proyecto",
   "contact.cta":       "Escríbeme por WhatsApp",
 
   /* ── FOOTER ── */
