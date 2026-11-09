@@ -59,7 +59,7 @@ window.TRANSLATIONS = {
   "footer.address": "Lima, Perú",
   "footer.cta":     "¿Te gusta<br>lo que ves?",
   "footer.connect": "Hablemos",
-  "footer.connect-aria": "Iniciar proyecto por WhatsApp",
+  "footer.connect-aria": "Escríbeme por WhatsApp",
   "footer.copy":    "2026 ® Sebastian Black",
   "footer.back":    "↑ Volver arriba",
 
@@ -70,13 +70,13 @@ window.TRANSLATIONS = {
   "projects.count":         "Proyectos",
 
   /* ── SEO (título y descripción de cada página; los casos los traen en su case.yaml) ── */
-  "seo.home.title":           "Sebastian Black — Diseñador UX/UI y de producto en Lima",
-  "seo.home.description":     "Diseñador UX/UI y de producto en Lima, Perú. Diseño apps y productos digitales de la investigación a la interfaz, con branding e ilustración propios.",
+  "seo.home.title":           "Sebastian Black — Diseñador de marca y producto en Lima",
+  "seo.home.description":     "Diseñador de marca y de producto en Lima, Perú. Creo identidades de marca y diseño apps y productos digitales UX/UI, de la estrategia a la interfaz.",
   "seo.projects.title":       "Proyectos",
-  "seo.projects.description": "Proyectos de producto, UX/UI y branding — Sebastian Black, diseñador UX/UI y de producto en Lima, Perú.",
+  "seo.projects.description": "Proyectos de producto, UX/UI y branding — Sebastian Black, diseñador de marca y de producto en Lima, Perú.",
   "seo.branding.title":       "Branding",
-  "seo.branding.description": "Proyectos de branding e identidad de marca — Sebastian Black, diseñador UX/UI y de producto en Lima, Perú.",
+  "seo.branding.description": "Proyectos de branding e identidad de marca — Sebastian Black, diseñador de marca y de producto en Lima, Perú.",
   "seo.product.title":        "Diseño de producto UX/UI",
-  "seo.product.description":  "Proyectos de diseño de producto y UX/UI — Sebastian Black, diseñador UX/UI y de producto en Lima, Perú.",
+  "seo.product.description":  "Proyectos de diseño de producto y UX/UI — Sebastian Black, diseñador de marca y de producto en Lima, Perú.",
 
 };

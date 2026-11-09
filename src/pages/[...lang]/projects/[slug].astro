@@ -79,15 +79,13 @@ const blocks = d.blocks.map((b) => {
     </div>
   </div>
 
-  <div class="project-hero" id="hero" data-section>
+  <div class="project-hero">
     <CaseMedia src={mediaUrl(c, d.hero.src)} alt={tx(d.hero.alt)} reveal={false} eager />
   </div>
 
-  {blocks.map((b, i) => {
-    // Mismo id en los dos idiomas: el botón ES/EN vuelve a esta sección.
-    const sid = `b${i + 1}`;
+  {blocks.map((b) => {
     if (b.type === 'text') return (
-      <div class="content-section" id={sid} data-section data-reveal>
+      <div class="content-section" data-reveal>
         <div class="content-text">
           <div>
             <p class="content-eyebrow">{b.eyebrow}</p>
@@ -105,7 +103,7 @@ const blocks = d.blocks.map((b) => {
     );
     const wrap = { 'grid-2': 'img-grid-2', 'grid-3': 'img-grid-3', wide: 'img-padded', full: 'img-full' }[b.type];
     return (
-      <div class="content-section" id={sid} data-section>
+      <div class="content-section">
         <div class={wrap}>
           {b.items.map((m, j) => <CaseMedia {...m} delay={j * 80} />)}
         </div>
@@ -114,7 +112,7 @@ const blocks = d.blocks.map((b) => {
   })}
 
   {next && (
-    <a class="next-project" id="next-link" data-section href={caseUrl(next, lang)}>
+    <a class="next-project" id="next-link" href={caseUrl(next, lang)}>
       <p class="next-label">{t(lang, 'next.project')}</p>
       <h2 class="next-title">{tx(next.data.title)}</h2>
       <span class="next-arrow">→</span>

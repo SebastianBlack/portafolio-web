@@ -59,7 +59,7 @@ window.TRANSLATIONS = {
   "footer.address": "Lima, Peru",
   "footer.cta":     "Do you like<br>what you see?",
   "footer.connect": "Let's connect",
-  "footer.connect-aria": "Start a project on WhatsApp",
+  "footer.connect-aria": "Message me on WhatsApp",
   "footer.copy":    "2026 ® Sebastian Black",
   "footer.back":    "↑ Back to top",
 
@@ -70,13 +70,13 @@ window.TRANSLATIONS = {
   "projects.count":          "Projects",
 
   /* ── SEO (page title and description; case studies take theirs from case.yaml) ── */
-  "seo.home.title":           "Sebastian Black — UX/UI and product designer in Lima",
-  "seo.home.description":     "UX/UI and product designer in Lima, Peru. I design apps and digital products from research to interface, with my own branding and illustration.",
+  "seo.home.title":           "Sebastian Black — Brand & Product Designer in Lima",
+  "seo.home.description":     "Brand and product designer in Lima, Peru. I create brand identities and design UX/UI for apps and digital products, from strategy to interface.",
   "seo.projects.title":       "Projects",
-  "seo.projects.description": "Product, UX/UI and branding projects — Sebastian Black, UX/UI and product designer in Lima, Peru.",
+  "seo.projects.description": "Product, UX/UI and branding projects — Sebastian Black, brand and product designer in Lima, Peru.",
   "seo.branding.title":       "Branding",
-  "seo.branding.description": "Branding and brand identity projects — Sebastian Black, UX/UI and product designer in Lima, Peru.",
+  "seo.branding.description": "Branding and brand identity projects — Sebastian Black, brand and product designer in Lima, Peru.",
   "seo.product.title":        "UX/UI product design",
-  "seo.product.description":  "Product design and UX/UI projects — Sebastian Black, UX/UI and product designer in Lima, Peru.",
+  "seo.product.description":  "Product design and UX/UI projects — Sebastian Black, brand and product designer in Lima, Peru.",
 
 };

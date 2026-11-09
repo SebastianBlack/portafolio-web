@@ -26,6 +26,7 @@ const CASE_NAME = PATH.split('/').filter(Boolean).pop();
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {!clientI18n && <LangSwitch />}
   <SeoHead lang={lang} title={`${title} — Sebastian Black`} description={description} path={PATH} type="article" noindex={noindex} alternates={!clientI18n} />
 
   <link rel="icon" type="image/x-icon" href="/favicon.ico?v=3">
@@ -72,6 +73,5 @@ const CASE_NAME = PATH.split('/').filter(Boolean).pop();
     });
   })();
   </script>
-  {!clientI18n && <LangSwitch />}
 </body>
 </html>

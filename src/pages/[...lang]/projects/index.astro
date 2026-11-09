@@ -12,11 +12,11 @@ const { lang } = Astro.props as { lang: Lang };
     <h1 class="page-title" set:html={t(lang, 'projects.title')} />
     <CaseCount tag="all" lang={lang} />
   </div>
-  <section class="projects-section" id="product" data-section>
+  <section class="projects-section">
     <h2 class="section-title"><span>{t(lang, 'nav.product')}</span> <CaseCount tag="product" lang={lang} variant="paren" /></h2>
     <CaseGrid tag="product" lang={lang} />
   </section>
-  <section class="projects-section" id="branding" data-section>
+  <section class="projects-section">
     <h2 class="section-title"><span>{t(lang, 'nav.branding')}</span> <CaseCount tag="branding" lang={lang} variant="paren" /></h2>
     <CaseGrid tag="branding" lang={lang} />
   </section>

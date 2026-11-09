@@ -1,79 +1,108 @@
 ---
-// Al tocar ES/EN, la página en el otro idioma se abre en la misma sección.
-// Se guarda el id de la sección visible (no los píxeles: cada idioma mide distinto)
-// y al cargar se salta directo a ella, sin animación de scroll ni de aparición.
-// Las secciones se marcan con data-section e id iguales en los dos idiomas.
+// Al tocar ES/EN, la página en el otro idioma se abre en el mismo lugar exacto.
+//
+// Al salir se guarda el elemento que está en el borde superior de la pantalla (título,
+// párrafo, imagen…) por su posición en la lista de elementos de la página, que es la
+// misma en los dos idiomas, y qué fracción de ese elemento ya pasó. No se guardan píxeles
+// de página: cada idioma mide distinto.
+//
+// Al llegar, la página se mantiene oculta hasta que la fuente está lista, se coloca ese
+// elemento en la misma posición y recién entonces se muestra: no se ve arriba y luego saltar.
+// Para que el cálculo sea exacto, todas las imágenes tienen proporción fija en el CSS.
+//
+// Va en el <head> para poder ocultar la página antes del primer pintado.
 ---
 <script is:inline>
   (function () {
     var KEY = 'lang-switch';
+    var SEL = 'h1, h2, h3, p, li, img, video, figcaption, .meta-value, .about-list, .btn-pill, .contact-social-link';
+    // Fuera de la lista: menú, elementos fijos o pegajosos, y la estela decorativa.
+    var SKIP = '.nav, .nav-mobile, .skip-link, .cursor-ring, .hero-trail, .about-right, .hero-logo-wrap, .hero-logo-mobile';
+    var root = document.documentElement;
 
-    // 1. Al salir: guarda la sección que está a la vista.
-    function currentSection() {
-      var line = window.innerHeight * 0.3;
-      var found = null;
-      document.querySelectorAll('[data-section][id]').forEach(function (el) {
-        if (el.getBoundingClientRect().top <= line) found = el;
+    function anchors() {
+      return Array.prototype.filter.call(document.body.querySelectorAll(SEL), function (el) {
+        return !el.closest(SKIP);
       });
-      // Arriba del todo no hace falta guardar nada.
-      return found && window.scrollY > 0 ? found.id : null;
     }
-    document.querySelectorAll('a.nav-lang, a.nav-mobile-footer-lang').forEach(function (a) {
-      a.addEventListener('click', function () {
-        var id = currentSection();
-        try {
-          if (id) sessionStorage.setItem(KEY, JSON.stringify({ path: new URL(a.href, location.href).pathname, id: id }));
-          else sessionStorage.removeItem(KEY);
-        } catch (e) {}
-      });
-    });
 
-    // 2. Al llegar: si venimos del botón de idioma, salta a esa sección.
+    // ¿Volvemos del botón de idioma a esta misma página?
     var saved = null;
     try {
       saved = JSON.parse(sessionStorage.getItem(KEY) || 'null');
       sessionStorage.removeItem(KEY);
     } catch (e) {}
-    if (!saved || saved.path !== location.pathname || location.hash) return;
-    var target = document.getElementById(saved.id);
-    if (!target || !target.hasAttribute('data-section')) return;
-
-    var root = document.documentElement;
-    root.classList.add('lang-jump');
-    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
-
-    function jump() {
-      window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY, behavior: 'instant' });
+    var restore = saved && saved.path === location.pathname && !location.hash;
+    if (restore) {
+      root.classList.add('lang-restore', 'lang-jump');
+      if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+      // Red de seguridad: pase lo que pase, la página se muestra.
+      setTimeout(function () { root.classList.remove('lang-restore', 'lang-jump'); }, 1500);
     }
-    function reveal() {
-      // Lo que ya está a la vista (o arriba) aparece de una vez, sin animación.
-      document.querySelectorAll('[data-reveal]:not(.is-visible)').forEach(function (el) {
-        if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('is-visible');
+
+    // Posición sin el desplazamiento de la animación de aparición (translateY de [data-reveal]),
+    // por si se toca ES/EN mientras un elemento todavía está entrando.
+    function rect(el) {
+      var r = el.getBoundingClientRect(), shift = 0;
+      for (var x = el.closest('[data-reveal]'); x; x = x.parentElement && x.parentElement.closest('[data-reveal]')) {
+        var t = getComputedStyle(x).transform;
+        if (t && t !== 'none' && window.DOMMatrix) shift += new DOMMatrix(t).m42;
+      }
+      return { top: r.top - shift, bottom: r.bottom - shift, height: r.height };
+    }
+
+    function save(href) {
+      var list = anchors(), best = null, below = null;
+      if (window.scrollY > 0) {
+        list.forEach(function (el, i) {
+          var r = rect(el);
+          if (!r.height) return;
+          // El elemento que cruza el borde superior; si hay varios anidados, el más chico.
+          if (r.top <= 0 && r.bottom > 0 && (!best || r.height < best.h)) best = { i: i, h: r.height, f: -r.top / r.height };
+          if (r.top > 0 && !below) below = { i: i, px: r.top };
+        });
+      }
+      try {
+        var data = best ? { i: best.i, f: best.f } : below ? { i: below.i, px: below.px } : null;
+        if (data) {
+          data.n = list.length;
+          data.path = new URL(href, location.href).pathname;
+          sessionStorage.setItem(KEY, JSON.stringify(data));
+        } else sessionStorage.removeItem(KEY);
+      } catch (e) {}
+    }
+
+    function place() {
+      var list = anchors();
+      var el = list.length === saved.n ? list[saved.i] : null;
+      if (el) {
+        var r = el.getBoundingClientRect();
+        // Elemento cruzando el borde: misma fracción. Si no, mismo espacio hasta el borde.
+        var top = r.top + window.scrollY + (saved.f != null ? saved.f * r.height : -saved.px);
+        window.scrollTo({ top: Math.round(top), behavior: 'instant' });
+      }
+      // Lo que está a la vista (o arriba) aparece de una vez, sin animación de entrada.
+      document.querySelectorAll('[data-reveal]').forEach(function (r) {
+        if (r.getBoundingClientRect().top < window.innerHeight) r.classList.add('is-visible');
+      });
+      root.classList.remove('lang-restore');
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () { root.classList.remove('lang-jump'); });
       });
     }
 
-    // Las imágenes de arriba sin alto fijo (bloques wide/full) se cargan ya, para que
-    // no empujen la sección cuando la persona vuelva a subir.
-    document.querySelectorAll('img[loading="lazy"]').forEach(function (img) {
-      if (target.compareDocumentPosition(img) & Node.DOCUMENT_POSITION_PRECEDING) img.loading = 'eager';
+    document.addEventListener('DOMContentLoaded', function () {
+      document.querySelectorAll('a.nav-lang, a.nav-mobile-footer-lang').forEach(function (a) {
+        a.addEventListener('click', function () { save(a.href); });
+      });
+      if (!restore) return;
+      // Se espera la fuente (desde caché suele estar lista al instante) para medir el texto
+      // con su alto final. Si tarda, se coloca igual a los 500 ms.
+      var fonts = document.fonts && document.fonts.load
+        ? Promise.all(['400', '500', '700'].map(function (w) { return document.fonts.load(w + ' 16px Switzer'); }))
+        : Promise.resolve();
+      var timeout = new Promise(function (ok) { setTimeout(ok, 500); });
+      Promise.race([fonts, timeout]).then(place, place);
     });
-
-    jump();
-    reveal();
-    requestAnimationFrame(function () {
-      requestAnimationFrame(function () { root.classList.remove('lang-jump'); });
-    });
-
-    // Mientras terminan de cargar, si la página cambia de alto, se vuelve a alinear.
-    // Se detiene en cuanto la persona se mueve, o a los 3 segundos.
-    if (!('ResizeObserver' in window)) return;
-    var ro = new ResizeObserver(function () { jump(); reveal(); });
-    ro.observe(document.body);
-    function stop() {
-      ro.disconnect();
-      ['wheel', 'touchstart', 'keydown', 'mousedown'].forEach(function (ev) { window.removeEventListener(ev, stop); });
-    }
-    ['wheel', 'touchstart', 'keydown', 'mousedown'].forEach(function (ev) { window.addEventListener(ev, stop, { passive: true }); });
-    setTimeout(stop, 3000);
   })();
 </script>

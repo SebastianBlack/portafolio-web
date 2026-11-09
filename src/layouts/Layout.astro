@@ -16,6 +16,7 @@ const { lang } = Astro.props;
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="google-site-verification" content="X0t242R3Z2I9SCUPX2stPGmoAlkf49DCih9QMWR_94A" />
+  <LangSwitch />
   <SeoHead lang={lang} title={t(lang, 'seo.home.title')} description={t(lang, 'seo.home.description')} path="/" />
 
   <link rel="icon" type="image/x-icon" href="/favicon.ico?v=3">
@@ -29,6 +30,5 @@ const { lang } = Astro.props;
 </head>
 <body>
   <slot />
-  <LangSwitch />
 </body>
 </html>

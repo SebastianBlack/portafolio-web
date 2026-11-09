@@ -22,8 +22,8 @@
 .img-grid-2 img, .img-grid-2 video { width: 100%; display: block; object-fit: cover; aspect-ratio: 4/3; }
 .img-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 25px; }
 .img-grid-3 img, .img-grid-3 video { width: 100%; display: block; object-fit: cover; aspect-ratio: 3/4; }
-.img-padded img, .img-padded video { width: 100%; display: block; object-fit: cover; }
-.img-full img, .img-full video { width: 100%; display: block; object-fit: cover; }
+.img-padded img, .img-padded video { width: 100%; display: block; object-fit: cover; aspect-ratio: 2360/1032; }
+.img-full img, .img-full video { width: 100%; display: block; object-fit: cover; aspect-ratio: 2360/1032; }
 .next-project { display: block; padding: 120px 40px; border-top: 1px solid rgba(255,255,255,0.1); text-align: center; transition: opacity 0.3s; cursor: none; }
 .next-project:hover { opacity: 0.75; }
 .next-label { font-size: 13px; font-weight: 500; letter-spacing: -0.13px; text-transform: uppercase; color: var(--white-50); margin-bottom: 24px; }
