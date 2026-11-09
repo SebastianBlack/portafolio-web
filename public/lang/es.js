@@ -23,7 +23,7 @@ window.TRANSLATIONS = {
   "meta.services": "Servicios",
 
   /* ── HOME — HERO ── */
-  "hero.tagline": "Diseñador UX/UI y de producto con base en Lima, Perú.<br>También diseño marcas e ilustro.",
+  "hero.tagline": "Diseñador de marca y de producto <br class=\"br-sm\">con base en Lima, Perú.",
 
   /* ── HOME — WORK ── */
   "work.section-title": "Trabajos seleccionados",
