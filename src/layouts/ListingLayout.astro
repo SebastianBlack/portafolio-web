@@ -2,6 +2,7 @@
 import Analytics from "../components/Analytics.astro";
 import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
+import SiteData from "../components/SiteData.astro";
 import "../styles/listing.css";
 
 const { title, tag, description } = Astro.props;
@@ -44,7 +45,7 @@ const URL = `${SITE}${Astro.url.pathname}`;
   <link rel="icon" type="image/png" sizes="64x64" href="/images/ui/favicon.png?v=3">
   <link rel="preconnect" href="https://api.fontshare.com">
   <link href="https://api.fontshare.com/v2/css?f[]=switzer@400,500,700&display=swap" rel="stylesheet">
-  <script is:inline src="/js/projects.js"></script>
+  <SiteData />
   <script is:inline src="/js/i18n.js"></script>
   <script is:inline src="/js/contact.js"></script>
   <Analytics />
@@ -62,50 +63,9 @@ const URL = `${SITE}${Astro.url.pathname}`;
 
   <Footer />
 
-  <script is:inline define:vars={{ tag }}>
+  <script is:inline>
   (function () {
-    const TAG  = tag;
-    const visible = PROJECTS.filter(function(p){ return !p.hidden; });
-    const list = TAG === 'all' ? visible : visible.filter(function(p){ return p.tags.includes(TAG); });
-    const t    = window.TRANSLATIONS || {};
-
-    function setCount() {
-      var label = (window.TRANSLATIONS || {})['projects.count'] || 'Proyectos';
-      document.getElementById('project-count').textContent = String(list.length).padStart(2,'0') + ' ' + label;
-    }
-    setCount();
-    setTimeout(setCount, 500);
-
-    // En /projects/ hay una grilla por categoría (data-tag); en los listados, una sola.
-    document.querySelectorAll('.projects-grid').forEach(function (grid) {
-      const gridTag  = grid.dataset.tag || TAG;
-      const gridList = visible.filter(function(p){ return p.tags.includes(gridTag); });
-      const count    = grid.parentElement.querySelector('.section-count');
-      if (count) count.textContent = '(' + gridList.length + ')';
-
-      gridList.forEach(function (p, i) {
-        const delay = (i % 2) * 80;
-        const title = t['project.' + p.id + '.title'] || p.id;
-        const cat   = t['project.' + p.id + '.category'] || '';
-        const card  = document.createElement(p.comingSoon ? 'div' : 'a');
-        if (!p.comingSoon) card.href = p.url;
-        card.className = 'project-card' + (p.comingSoon ? ' is-coming-soon' : '');
-        card.setAttribute('data-reveal', '');
-        card.style.setProperty('--reveal-delay', delay + 'ms');
-        const media = p.videoThumb
-          ? '<video src="' + p.videoThumb + '" autoplay muted loop playsinline></video>'
-          : '<img src="' + p.thumb + '" alt="' + title + '" loading="lazy">';
-        var badge = p.comingSoon ? '<span class="coming-soon-badge" data-i18n="project.coming-soon">Próximamente</span>' : '';
-        card.innerHTML =
-          '<div class="project-img-wrap">' + media + badge + '</div>' +
-          '<div class="project-meta">' +
-            '<div class="project-title" data-i18n="project.' + p.id + '.title">' + title + '</div>' +
-            '<div class="project-category" data-i18n="project.' + p.id + '.category">' + cat + '</div>' +
-          '</div>';
-        grid.appendChild(card);
-      });
-    });
-
+    // Las tarjetas se generan en el HTML (CaseGrid.astro). Aquí solo van el cursor y las animaciones.
     if (!window.matchMedia('(hover: none) and (pointer: coarse)').matches) {
       const ring  = document.getElementById('cursorRing');
       let mx=0,my=0,cx=0,cy=0;

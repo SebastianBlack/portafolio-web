@@ -1,0 +1,94 @@
+# Plantilla de caso de BRANDING
+# Copia este archivo a src/content/cases/<nombre-del-caso>/case.yaml y reemplaza los textos.
+# Orden sugerido: mucha imagen, poco texto. Agrega, quita o repite bloques según el proyecto.
+
+type: branding
+status: draft            # draft → hidden → published
+order: 10                # posición en la portada (1 = primero)
+year: 2026
+client: "Nombre del cliente"
+images: /images/nombre-del-caso/
+
+title:
+  es: "Cliente: Identidad de Marca"
+  en: "Client: Brand Identity"
+seo:
+  title:
+    es: "Cliente: Identidad de marca"
+    en: "Client: Brand identity"
+  description:
+    es: "Qué es la marca, qué hiciste y el resultado, en una o dos frases (50 a 160 caracteres)."
+    en: "What the brand is, what you did and the outcome, in one or two sentences (50 to 160 characters)."
+category:
+  es: Branding
+  en: Branding
+services:
+  es: "Estrategia · Identidad visual · Manual de marca"
+  en: "Strategy · Visual identity · Brand guidelines"
+tagline:
+  es: "Intro de 2 o 3 frases: qué es el cliente, qué hiciste y la idea central de la marca."
+  en: "2–3 sentence intro: who the client is, what you did and the core brand idea."
+
+card:
+  thumb: thumb.webp          # 980 × 735
+  # video: thumb.mp4         # opcional: la tarjeta muestra el video en vez de la imagen
+  trail: [trail-1.webp]      # 490 × 340, una o más
+
+hero:
+  src: hero.webp             # 2360 × 1080 (o hero.mp4)
+  alt: { es: "Logo de la marca sobre su color principal", en: "Brand logo on its main color" }
+
+blocks:
+  - type: text
+    eyebrow: { es: "Desafío", en: "Challenge" }
+    heading: { es: "Contexto y desafío", en: "Context & challenge" }
+    body:
+      es: "De dónde venía la marca y qué problema había que resolver."
+      en: "Where the brand came from and what problem needed solving."
+
+  - type: grid-2              # 980 × 735 cada una. Ej.: antes / después
+    items:
+      - src: 01.webp
+        alt: { es: "El logo anterior", en: "The previous logo" }
+      - src: 02.webp
+        alt: { es: "El logo nuevo", en: "The new logo" }
+
+  - type: text
+    eyebrow: { es: "Estrategia", en: "Strategy" }
+    heading: { es: "Posicionamiento", en: "Positioning" }
+    body:
+      es: "Cómo se definió el rumbo: investigación, atributos, idea central."
+      en: "How the direction was set: research, attributes, core idea."
+
+  - type: wide                # 2360 × 1032
+    item:
+      src: wide-01.webp
+      alt: { es: "Describe la imagen", en: "Describe the image" }
+
+  - type: text
+    eyebrow: { es: "Identidad", en: "Identity" }
+    heading: { es: "Sistema visual", en: "Visual system" }
+    body:
+      es: "Símbolo, logotipo, color, tipografía y recursos gráficos."
+      en: "Symbol, logotype, color, typography and graphic elements."
+
+  - type: grid-3              # 700 × 933 cada una
+    items:
+      - src: 01v.webp
+        alt: { es: "Paleta de color", en: "Color palette" }
+      - src: 02v.webp
+        alt: { es: "Tipografías", en: "Typefaces" }
+      - src: 03v.webp
+        alt: { es: "Logo en negativo", en: "Logo in negative" }
+
+  - type: text
+    eyebrow: { es: "Aplicaciones", en: "Applications" }
+    heading: { es: "La marca en uso", en: "The brand in use" }
+    body:
+      es: "Dónde vive la marca: digital, impresos, señalética, redes."
+      en: "Where the brand lives: digital, print, signage, social."
+
+  - type: full                # borde a borde, proporción libre
+    item:
+      src: full-01.webp
+      alt: { es: "Describe la imagen", en: "Describe the image" }

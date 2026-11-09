@@ -1,12 +1,14 @@
 ---
 import ListingLayout from "../../layouts/ListingLayout.astro";
+import CaseGrid from "../../components/CaseGrid.astro";
+import CaseCount from "../../components/CaseCount.astro";
 ---
 <ListingLayout title="Diseño de producto UX/UI" tag="product" description="Proyectos de diseño de producto y UX/UI — Sebastian Black, diseñador UX/UI y de producto en Lima, Perú.">
   <div class="page-header">
     <h1 class="page-title" data-i18n="nav.product">Producto</h1>
-    <p class="project-count" id="project-count"></p>
+    <CaseCount tag="product" />
   </div>
   <section class="projects-section">
-    <div class="projects-grid" id="projects-grid"></div>
+    <CaseGrid tag="product" />
   </section>
 </ListingLayout>

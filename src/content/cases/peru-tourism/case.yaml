@@ -1,0 +1,98 @@
+type: producto
+status: published
+order: 3
+year: 2026
+client: Peru Tourism
+images: /images/peru-tourism/
+
+title:
+  es: "Peru Tourism"
+  en: "Peru Tourism"
+seo:
+  title:
+    es: "Peru Tourism · Caso UX/UI"
+    en: "Peru Tourism · UX/UI case study"
+  description:
+    es: "Rediseño mobile-first de la experiencia digital de Peru Tourism, con una herramienta para que cada persona diseñe su viaje."
+    en: "Mobile-first redesign of Peru Tourism's digital experience, with a tool that lets each traveler design their own trip."
+category:
+  es: "Diseño de Producto"
+  en: "Product Design"
+services:
+  es: "UX/UI Design"
+  en: "UX/UI Design"
+tagline:
+  es: "Rediseño de la experiencia digital para mostrar el Perú al mundo con claridad, orgullo y atractivo visual."
+  en: "Redesign of the digital experience to showcase Peru to the world with clarity, pride and visual appeal."
+
+card:
+  thumb: thumb-1.webp
+  trail: [trail-5.webp]
+
+hero:
+  src: hero.webp
+  alt:
+    es: "Peru Tourism"
+    en: "Peru Tourism"
+
+blocks:
+  - type: text
+    eyebrow: { es: "El Problema", en: "The Problem" }
+    heading: { es: "Contexto y desafío", en: "Context & challenge" }
+    body:
+      es: "El 70% del tráfico era móvil, pero el sitio no estaba preparado. La arquitectura de información era redundante, mantenía contenido obsoleto y el formulario de contacto vertical generaba alta fricción para la captación de leads."
+      en: "70% of traffic was mobile, but the site wasn't ready for it. The information architecture was redundant, full of stale content, and a vertical contact form created high friction in the lead capture flow."
+
+  - type: grid-2
+    items:
+      - src: 01.webp
+        alt:
+          es: "Antes: formulario de contacto largo con todos los campos en una sola pantalla"
+          en: "Before: long contact form with every field on a single screen"
+      - src: 02.webp
+        alt:
+          es: "Después: formulario por pasos que pide nombre y correo en la primera pantalla"
+          en: "After: step-by-step form that asks for name and email on the first screen"
+
+  - type: text
+    eyebrow: { es: "Estrategia", en: "Strategy" }
+    heading: { es: "Enfoque mobile-first", en: "Mobile-first approach" }
+    body:
+      es: "Priorizar la experiencia mobile-first para capturar turistas. Se definió limpiar la arquitectura y enfocar la conversión en un nuevo flujo de personalización de viajes, cerrando con un formulario optimizado de baja carga cognitiva."
+      en: "We prioritized a mobile-first experience to reach travelers on the go. The plan: clean up the architecture and focus conversion on a new trip-customization flow, closing with a low-cognitive-load optimized form."
+
+  - type: grid-3
+    items:
+      - src: 01v.webp
+        alt:
+          es: "Nueva navegación simplificada: Home, Exclusive Trips, Travel Experiences, About Us y Plan My Trip"
+          en: "New simplified navigation: Home, Exclusive Trips, Travel Experiences, About Us and Plan My Trip"
+      - src: 02v.webp
+        alt:
+          es: "Portada móvil de Peru Tourism con los botones «Design your trip» y «Quick quote»"
+          en: "Peru Tourism mobile home page with the “Design your trip” and “Quick quote” buttons"
+      - src: 03v.mp4
+        alt:
+          es: "Recorrido por el flujo «Design your trip»: elegir actividades por ciudad y crear el viaje"
+          en: "Walkthrough of the “Design your trip” flow: choosing activities by city and creating the trip"
+
+  - type: text
+    eyebrow: { es: "Proceso", en: "Process" }
+    heading: { es: "Diseña tu viaje", en: "Design your trip" }
+    body:
+      es: "Diseñé el flujo \"Diseña tu viaje\", categorizando opciones por tipo de experiencia. Transformé el formulario extenso en un multi-step form guiado, mostrando máximo dos inputs por vista para facilitar la digestión de la información."
+      en: "I designed the \"Design your trip\" flow, categorizing options by experience type. I turned the lengthy form into a guided multi-step experience — showing a maximum of two inputs per view to reduce cognitive load."
+
+  - type: wide
+    item:
+      src: wide-01.webp
+      alt:
+        es: "Peru Tourism"
+        en: "Peru Tourism"
+
+  - type: text
+    eyebrow: { es: "Resultados", en: "Results" }
+    heading: { es: "Impacto", en: "Impact" }
+    body:
+      es: "El rediseño del formulario agilizó el cierre del flujo de leads. A nivel técnico, la plataforma logró una velocidad de carga 3× más rápida, garantizando una experiencia de usuario móvil fluida y sin interrupciones."
+      en: "Redesigning the form streamlined lead capture completion. On the technical side, the platform achieved a 3× faster load time, delivering a smooth, uninterrupted mobile user experience."

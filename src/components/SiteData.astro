@@ -1,0 +1,15 @@
+---
+// Inyecta en la página los datos de los casos que usan los scripts del cliente:
+// - window.PROJECTS: estela de imágenes de la portada y "siguiente proyecto" de KuyraPet.
+// - window.CASE_I18N: textos ES/EN que i18n.js suma a las traducciones del sitio.
+import { getListedCases, cardDict, projectsGlobal, Dict } from '../lib/cases';
+
+interface Props { dict?: Dict }
+const listed = await getListedCases();
+const dict = cardDict(listed, Astro.props.dict ?? new Dict());
+const data = { projects: projectsGlobal(listed), i18n: { es: dict.es, en: dict.en } };
+---
+<script is:inline define:vars={{ data }}>
+  window.PROJECTS = data.projects;
+  window.CASE_I18N = data.i18n;
+</script>

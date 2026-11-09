@@ -2,6 +2,10 @@
 import Layout from "../layouts/Layout.astro";
 import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import { getListedCases } from "../lib/cases";
+
+const listed = await getListedCases();
 ---
 <Layout>
   <div class="cursor-ring" id="cursorRing" aria-hidden="true">
@@ -39,34 +43,9 @@ import Footer from "../components/Footer.astro";
   <section class="work-section" id="work">
     <h3 class="section-header" data-reveal data-i18n="work.section-title">Selected work</h3>
 
-    <div class="projects-grid" id="projects-grid"></div>
-    <script is:inline>
-    (function () {
-      const grid = document.getElementById('projects-grid');
-      const t = window.TRANSLATIONS || {};
-      PROJECTS.filter(function (p) { return !p.hidden; }).forEach(function (p, i) {
-        const delay = (i % 2) * 80;
-        const title = t['project.' + p.id + '.title'] || p.id;
-        const cat   = t['project.' + p.id + '.category'] || '';
-        const card  = document.createElement(p.comingSoon ? 'div' : 'a');
-        if (!p.comingSoon) card.href = p.url;
-        card.className = 'project-card' + (p.comingSoon ? ' is-coming-soon' : '');
-        card.setAttribute('data-reveal', '');
-        card.style.setProperty('--reveal-delay', delay + 'ms');
-        const media = p.videoThumb
-          ? '<video src="' + p.videoThumb + '" autoplay muted loop playsinline></video>'
-          : '<img src="' + p.thumb + '" alt="' + title + '" loading="lazy">';
-        const badge = p.comingSoon ? '<span class="coming-soon-badge" data-i18n="project.coming-soon">Próximamente</span>' : '';
-        card.innerHTML =
-          '<div class="project-img-wrap">' + media + badge + '</div>' +
-          '<div class="project-meta">' +
-            '<div class="project-title" data-i18n="project.' + p.id + '.title">' + title + '</div>' +
-            '<div class="project-category" data-i18n="project.' + p.id + '.category">' + cat + '</div>' +
-          '</div>';
-        grid.appendChild(card);
-      });
-    })();
-    </script>
+    <div class="projects-grid" id="projects-grid">
+      {listed.map((c, i) => <ProjectCard c={c} index={i} />)}
+    </div>
 
     <div class="see-all-wrap">
       <a href="/projects/" class="btn-pill" data-i18n="work.see-all">see them all</a>

@@ -1,0 +1,98 @@
+type: producto
+status: published
+order: 2
+year: 2026
+client: Gastro
+images: /images/gastro-app/
+
+title:
+  es: "Gastro App"
+  en: "Gastro App"
+seo:
+  title:
+    es: "Gastro App · Caso UX/UI"
+    en: "Gastro App · UX/UI case study"
+  description:
+    es: "Diseño de producto de Gastro, una app para descubrir dónde y qué comer en Costa Rica: menús, restaurantes, reviews y puntuaciones."
+    en: "Product design for Gastro, an app to discover where and what to eat in Costa Rica: menus, restaurants, reviews and ratings."
+category:
+  es: "Diseño de Producto"
+  en: "Product Design"
+services:
+  es: "Diseño de Producto · UX/UI"
+  en: "Product Design · UX/UI"
+tagline:
+  es: "Gastro es una app móvil para descubrir dónde y qué comer en Costa Rica. Diseñé la experiencia de producto: exploración de menús, selección de restaurantes, reviews y puntuaciones. La interfaz prioriza la imagen del plato y una navegación simple, para decidir sin fricción."
+  en: "Gastro is a mobile app to discover where and what to eat in Costa Rica. I designed the product experience: menu exploration, restaurant selection, reviews and ratings. The interface prioritizes the dish image and simple navigation, to decide without friction."
+
+card:
+  thumb: thumb.webp
+  trail: [trail-1.webp, trail-2.webp]
+
+hero:
+  src: hero.webp
+  alt:
+    es: "Gastro App"
+    en: "Gastro App"
+
+blocks:
+  - type: text
+    eyebrow: { es: "El Problema", en: "The Problem" }
+    heading: { es: "Contexto y desafío", en: "Context & challenge" }
+    body:
+      es: "Las personas en Costa Rica necesitan decidir rápido dónde y qué comer cerca. El reto: resolverlo en pocos pasos —buscar por tipo de cocina y ubicación, filtrar y elegir— sin caer en una app cargada de funciones que estorben la decisión."
+      en: "People in Costa Rica need to quickly decide where and what to eat nearby. The challenge: solve it in a few steps — search by cuisine and location, filter and choose — without falling into a feature-heavy app that gets in the way of the decision."
+
+  - type: grid-2
+    items:
+      - src: 01.webp
+        alt:
+          es: "Wireframe de la lista de restaurantes con buscador y filtros"
+          en: "Wireframe of the restaurant list with search and filters"
+      - src: 02.webp
+        alt:
+          es: "Diseño final de la lista de restaurantes con fotos, puntuación, precio y distancia"
+          en: "Final design of the restaurant list with photos, rating, price and distance"
+
+  - type: text
+    eyebrow: { es: "Estrategia", en: "Strategy" }
+    heading: { es: "Definición y alcance", en: "Definition & scope" }
+    body:
+      es: "A partir de entrevistas cualitativas definí dos perfiles de usuario y, sobre ellos, un MVP enfocado: un flujo corto para validar la propuesta. La prioridad fue la decisión rápida —encontrar y elegir restaurante— por encima de cualquier función secundaria."
+      en: "From qualitative interviews I defined two user profiles and, on top of them, a focused MVP: a short flow to validate the proposition. The priority was quick decision-making — finding and choosing a restaurant — above any secondary feature."
+
+  - type: grid-3
+    items:
+      - src: 01v.webp
+        alt:
+          es: "Ficha de un restaurante con fotos, dirección, botones para ver el menú y reservar, y reseñas"
+          en: "Restaurant page with photos, address, buttons to see the menu and book, and reviews"
+      - src: 02v.webp
+        alt:
+          es: "Ícono de la app de Gastro con una notificación"
+          en: "Gastro app icon with a notification badge"
+      - src: 03v.webp
+        alt:
+          es: "Tarjetas de restaurante con puntuación, comentarios, precio y distancia"
+          en: "Restaurant cards with rating, comments, price and distance"
+
+  - type: text
+    eyebrow: { es: "Proceso", en: "Process" }
+    heading: { es: "Diseño e iteración", en: "Design & iteration" }
+    body:
+      es: "Diseñé la estructura antes que la interfaz. El flujo prioriza buscar, filtrar y decidir en pocos pasos, con la imagen del plato como protagonista y una navegación clara que sostiene la simpleza del MVP."
+      en: "I designed the structure before the interface. The flow prioritizes searching, filtering and deciding in a few steps, with the dish image as the protagonist and clear navigation that sustains the simplicity of the MVP."
+
+  - type: wide
+    item:
+      src: wide-01.webp
+      alt:
+        es: "Gastro app en uso"
+        en: "Gastro app in use"
+
+  - type: text
+    eyebrow: { es: "Resultados", en: "Results" }
+    heading: { es: "Estado y próximos pasos", en: "Status & next steps" }
+    body:
+      es: "La app entra en fase de validación con su lanzamiento este mes. Los próximos pasos son observar el uso real y iterar el flujo y la interfaz a partir del comportamiento de los primeros usuarios."
+      en: "The app enters validation with its launch this month. The next steps are to observe real usage and iterate the flow and interface based on the behavior of the first users."

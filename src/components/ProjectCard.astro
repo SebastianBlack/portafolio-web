@@ -1,0 +1,20 @@
+---
+// Tarjeta de un caso para la portada y los listados. Mismo HTML que generaba antes projects.js.
+import { caseUrl, mediaUrl, type Case } from '../lib/cases';
+
+interface Props { c: Case; index: number }
+const { c, index } = Astro.props;
+const { title, category, card } = c.data;
+const delay = (index % 2) * 80;
+---
+<a href={caseUrl(c)} class="project-card" data-reveal style={`--reveal-delay:${delay}ms`}>
+  <div class="project-img-wrap">
+    {card.video
+      ? <video src={mediaUrl(c, card.video)} autoplay muted loop playsinline aria-label={title.es}></video>
+      : <img src={mediaUrl(c, card.thumb)} alt={title.es} loading="lazy">}
+  </div>
+  <div class="project-meta">
+    <div class="project-title" data-i18n={`project.${c.id}.title`}>{title.es}</div>
+    <div class="project-category" data-i18n={`project.${c.id}.category`}>{category.es}</div>
+  </div>
+</a>

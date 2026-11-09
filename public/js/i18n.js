@@ -23,6 +23,14 @@
       const key = el.dataset.i18nTitle;
       if (translations[key] !== undefined) el.title = translations[key];
     });
+    document.querySelectorAll('[data-i18n-alt]').forEach(el => {
+      const key = el.dataset.i18nAlt;
+      if (translations[key] !== undefined) el.alt = translations[key];
+    });
+    document.querySelectorAll('[data-i18n-aria]').forEach(el => {
+      const key = el.dataset.i18nAria;
+      if (translations[key] !== undefined) el.setAttribute('aria-label', translations[key]);
+    });
   }
 
   const CACHE = {};
@@ -37,6 +45,9 @@
     script.src          = `/lang/${lang}.js`;
     script.dataset.lang = lang;
     script.onload  = () => {
+      // Suma los textos de los casos (los inyecta SiteData.astro desde src/content/cases).
+      const cases = (window.CASE_I18N || {})[lang] || {};
+      window.TRANSLATIONS = Object.assign({}, window.TRANSLATIONS, cases);
       CACHE[lang] = window.TRANSLATIONS;
       callback(CACHE[lang]);
     };

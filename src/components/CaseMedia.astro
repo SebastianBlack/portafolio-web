@@ -1,0 +1,18 @@
+---
+// Una imagen o un video de un caso. El alt cambia con el botón ES/EN (data-i18n-alt / data-i18n-aria).
+import { isVideo } from '../lib/cases';
+
+interface Props {
+  src: string;
+  alt: string;
+  altKey: string;
+  delay?: number;
+  reveal?: boolean;
+  eager?: boolean;
+}
+const { src, alt, altKey, delay = 0, reveal = true, eager = false } = Astro.props;
+const style = delay ? `--reveal-delay:${delay}ms` : undefined;
+---
+{isVideo(src)
+  ? <video src={src} autoplay muted loop playsinline aria-label={alt} data-i18n-aria={altKey} data-reveal={reveal ? '' : undefined} style={style}></video>
+  : <img src={src} alt={alt} data-i18n-alt={altKey} loading={eager ? undefined : 'lazy'} data-reveal={reveal ? '' : undefined} style={style}>}

@@ -1,0 +1,97 @@
+# Plantilla de caso de UX/UI · DISEÑO DE PRODUCTO
+# Copia este archivo a src/content/cases/<nombre-del-caso>/case.yaml y reemplaza los textos.
+# Orden sugerido para un caso senior: el reclutador entiende el caso en 30 segundos
+# (título, intro y ficha); el lead lo lee en 3 minutos (problema → decisiones → resultado).
+# Si un dato no es seguro, no lo pongas: mejor un caso corto y honesto.
+
+type: producto
+status: draft            # draft → hidden → published
+order: 10
+year: 2026
+client: "Nombre del cliente"
+images: /images/nombre-del-caso/
+
+title:
+  es: "Nombre del producto"
+  en: "Product name"
+seo:
+  title:
+    es: "Producto · Caso UX/UI"
+    en: "Product · UX/UI case study"
+  description:
+    es: "El problema, tu solución y el resultado en una o dos frases (50 a 160 caracteres)."
+    en: "The problem, your solution and the outcome in one or two sentences (50 to 160 characters)."
+category:
+  es: "Diseño de Producto"
+  en: "Product Design"
+services:
+  es: "Investigación · UX/UI · Prototipado"
+  en: "Research · UX/UI · Prototyping"
+tagline:
+  es: "En 30 segundos: el reto, qué diseñaste, el resultado y tu rol."
+  en: "In 30 seconds: the challenge, what you designed, the outcome and your role."
+
+card:
+  thumb: thumb.webp          # 980 × 735
+  trail: [trail-1.webp]      # 490 × 340
+
+hero:
+  src: hero.webp             # 2360 × 1080
+  alt: { es: "Pantallas principales del producto", en: "Main product screens" }
+
+blocks:
+  - type: text
+    eyebrow: { es: "El Problema", en: "The Problem" }
+    heading: { es: "Contexto y desafío", en: "Context & challenge" }
+    body:
+      es: "Qué pasaba, a quién afectaba y por qué le importaba al negocio. Con un dato si lo tienes."
+      en: "What was happening, who it affected and why it mattered to the business. Add a data point if you have one."
+
+  - type: grid-2              # 980 × 735. Ej.: antes / después
+    items:
+      - src: 01.webp
+        alt: { es: "Antes: describe la pantalla", en: "Before: describe the screen" }
+      - src: 02.webp
+        alt: { es: "Después: describe la pantalla", en: "After: describe the screen" }
+
+  - type: text
+    eyebrow: { es: "Investigación", en: "Research" }
+    heading: { es: "Qué descubrí", en: "What I found" }
+    body:
+      es: "2 o 3 hallazgos con su evidencia (entrevistas, analítica, tests)."
+      en: "2–3 findings with their evidence (interviews, analytics, tests)."
+
+  - type: text
+    eyebrow: { es: "Decisiones", en: "Decisions" }
+    heading: { es: "Decisiones clave", en: "Key decisions" }
+    body:
+      es: "Qué elegiste, qué descartaste y por qué. Es lo que más mira un lead."
+      en: "What you chose, what you discarded and why. This is what a lead looks at most."
+
+  - type: grid-3              # 700 × 933. Ej.: pantallas del flujo
+    items:
+      - src: 01v.webp
+        alt: { es: "Paso 1 del flujo", en: "Flow step 1" }
+      - src: 02v.webp
+        alt: { es: "Paso 2 del flujo", en: "Flow step 2" }
+      - src: 03v.webp
+        alt: { es: "Paso 3 del flujo", en: "Flow step 3" }
+
+  - type: text
+    eyebrow: { es: "Solución", en: "Solution" }
+    heading: { es: "El diseño final", en: "The final design" }
+    body:
+      es: "Cómo funciona la solución y qué resuelve de cada hallazgo."
+      en: "How the solution works and how it addresses each finding."
+
+  - type: wide                # 2360 × 1032
+    item:
+      src: wide-01.webp
+      alt: { es: "Describe la imagen", en: "Describe the image" }
+
+  - type: text
+    eyebrow: { es: "Resultados", en: "Results" }
+    heading: { es: "Impacto y aprendizajes", en: "Impact & learnings" }
+    body:
+      es: "Qué cambió (con números si los hay), qué no se pudo medir y qué harías distinto."
+      en: "What changed (with numbers if you have them), what couldn't be measured and what you'd do differently."

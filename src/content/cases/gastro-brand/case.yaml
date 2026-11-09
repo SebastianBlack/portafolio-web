@@ -1,0 +1,92 @@
+type: branding
+status: published
+order: 1
+year: 2026
+client: Gastro
+images: /images/gastro-brand/
+
+title:
+  es: "Gastro: Identidad de Marca"
+  en: "Gastro: Brand Identity"
+seo:
+  title:
+    es: "Gastro: Identidad de marca"
+    en: "Gastro: Brand identity"
+  description:
+    es: "Identidad de marca de Gastro, una app gastronómica de Costa Rica: del brand voice a las aplicaciones, para una marca cercana y confiable."
+    en: "Brand identity for Gastro, a food discovery app in Costa Rica: from brand voice to applications, for an approachable, trustworthy brand."
+category:
+  es: Branding
+  en: Branding
+services:
+  es: "Brand & Identity · Art Direction"
+  en: "Brand & Identity · Art Direction"
+tagline:
+  es: "Gastro es una app móvil para descubrir dónde y qué comer en Costa Rica. Diseñé toda la identidad de marca, del brand voice a las aplicaciones. La marca es cercana, confiable y transparente."
+  en: "Gastro is a mobile app to discover where and what to eat in Costa Rica. I designed the full brand identity — from brand voice to applications. The brand is approachable, trustworthy and transparent."
+
+card:
+  thumb: thumb.webp
+  video: thumb.mp4
+  trail: [trail-1.webp]
+
+hero:
+  src: hero.mp4
+  alt:
+    es: "Animación de la identidad de Gastro"
+    en: "Gastro identity animation"
+
+blocks:
+  - type: text
+    eyebrow: { es: "Sobre el Proyecto", en: "About the Project" }
+    heading: { es: "Contexto y desafío", en: "Context & challenge" }
+    body:
+      es: "El cliente venía de una marca que comunicaba un rango limitado de la oferta gastronómica. Gastro debía abarcar todo el rubro —de lo más alto a lo más accesible— y hablarle a comensales y restaurantes por igual."
+      en: "The client came from a brand that only spoke to a narrow slice of the gastronomic landscape. Gastro had to cover the whole category — from the highest end to the most accessible — and speak to diners and restaurants alike."
+
+  - type: grid-2
+    items:
+      - src: 01.webp
+        alt:
+          es: "Afiche de Gastro en la calle con el mensaje «Elige dónde comer feliz»"
+          en: "Gastro street poster with the line “Elige dónde comer feliz” (Choose where to eat happy)"
+      - src: 02.mp4
+        alt:
+          es: "Letrero de Gastro en la fachada de un local"
+          en: "Gastro sign on a storefront"
+
+  - type: text
+    eyebrow: { es: "Estrategia", en: "Strategy" }
+    heading: { es: "Estrategia", en: "Strategy" }
+    body:
+      es: "Un kick-off con el cliente y un benchmark del rubro definieron el rumbo. Tres atributos guían cada decisión: cercana, confiable, transparente. La transparencia es función: la app muestra precios y reviews abiertos."
+      en: "A kick-off with the client and a category benchmark set the direction. Three attributes guide every decision: approachable, trustworthy, transparent. Transparency is a function here — the app shows prices and reviews openly."
+
+  - type: grid-3
+    items:
+      - src: 01v.webp
+        alt:
+          es: "Mano sosteniendo un celular con la app de Gastro abierta en la lista de restaurantes"
+          en: "Hand holding a phone with the Gastro app open on the restaurant list"
+      - src: 02v.webp
+        alt:
+          es: "Tarjetas de presentación de Gastro en blanco y naranja"
+          en: "Gastro business cards in white and orange"
+      - src: 03v.webp
+        alt:
+          es: "Símbolo de Gastro en blanco sobre naranja"
+          en: "Gastro symbol in white on orange"
+
+  - type: text
+    eyebrow: { es: "Identidad Final", en: "Final Identity" }
+    heading: { es: "Sistema visual", en: "Visual system" }
+    body:
+      es: "Un símbolo que une comida y ubicación. Logotipo de base tipográfica ajustada, paleta con roles definidos y patrones propios. Pensado para escalar desde el favicon hasta la vía pública."
+      en: "A symbol that brings together food and location. A logotype on a custom-tuned typographic base, a palette with defined roles, and proprietary patterns. Built to scale from the favicon to out-of-home."
+
+  - type: wide
+    item:
+      src: wide-01.webp
+      alt:
+        es: "Tres publicaciones de Gastro para redes sociales"
+        en: "Three Gastro social media posts"
