@@ -5,6 +5,7 @@ import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
 import SiteData from "../components/SiteData.astro";
 import SeoHead from "../components/SeoHead.astro";
+import LangSwitch from "../components/LangSwitch.astro";
 import { basePath, type Lang } from "../lib/i18n";
 import "../styles/project.css";
 
@@ -71,5 +72,6 @@ const CASE_NAME = PATH.split('/').filter(Boolean).pop();
     });
   })();
   </script>
+  {!clientI18n && <LangSwitch />}
 </body>
 </html>

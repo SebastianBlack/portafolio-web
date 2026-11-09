@@ -68,6 +68,8 @@ footer { border-top: 1px solid rgba(255,255,255,0.1); padding: 40px 40px 48px; d
 /* ── SCROLL REVEAL ───────────────── */
 [data-reveal] { opacity: 0; transform: translateY(28px); transition: opacity 0.85s cubic-bezier(0.22,1,0.36,1), transform 0.85s cubic-bezier(0.22,1,0.36,1); transition-delay: var(--reveal-delay, 0ms); }
 [data-reveal].is-visible { opacity: 1; transform: translateY(0); }
+/* Al llegar desde el botón ES/EN, lo que ya está a la vista aparece sin animación (ver LangSwitch.astro) */
+html.lang-jump [data-reveal] { transition: none !important; }
 
 /* ── SKIP LINK ───────────────────── */
 .skip-link { position: absolute; top: -9999px; left: 0; z-index: 9999; padding: 12px 24px; background: var(--white); color: var(--bg); font-size: 13px; font-weight: 500; letter-spacing: -0.13px; text-transform: uppercase; text-decoration: none; }

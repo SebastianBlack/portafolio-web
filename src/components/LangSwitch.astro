@@ -1,0 +1,79 @@
+---
+// Al tocar ES/EN, la página en el otro idioma se abre en la misma sección.
+// Se guarda el id de la sección visible (no los píxeles: cada idioma mide distinto)
+// y al cargar se salta directo a ella, sin animación de scroll ni de aparición.
+// Las secciones se marcan con data-section e id iguales en los dos idiomas.
+---
+<script is:inline>
+  (function () {
+    var KEY = 'lang-switch';
+
+    // 1. Al salir: guarda la sección que está a la vista.
+    function currentSection() {
+      var line = window.innerHeight * 0.3;
+      var found = null;
+      document.querySelectorAll('[data-section][id]').forEach(function (el) {
+        if (el.getBoundingClientRect().top <= line) found = el;
+      });
+      // Arriba del todo no hace falta guardar nada.
+      return found && window.scrollY > 0 ? found.id : null;
+    }
+    document.querySelectorAll('a.nav-lang, a.nav-mobile-footer-lang').forEach(function (a) {
+      a.addEventListener('click', function () {
+        var id = currentSection();
+        try {
+          if (id) sessionStorage.setItem(KEY, JSON.stringify({ path: new URL(a.href, location.href).pathname, id: id }));
+          else sessionStorage.removeItem(KEY);
+        } catch (e) {}
+      });
+    });
+
+    // 2. Al llegar: si venimos del botón de idioma, salta a esa sección.
+    var saved = null;
+    try {
+      saved = JSON.parse(sessionStorage.getItem(KEY) || 'null');
+      sessionStorage.removeItem(KEY);
+    } catch (e) {}
+    if (!saved || saved.path !== location.pathname || location.hash) return;
+    var target = document.getElementById(saved.id);
+    if (!target || !target.hasAttribute('data-section')) return;
+
+    var root = document.documentElement;
+    root.classList.add('lang-jump');
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+
+    function jump() {
+      window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY, behavior: 'instant' });
+    }
+    function reveal() {
+      // Lo que ya está a la vista (o arriba) aparece de una vez, sin animación.
+      document.querySelectorAll('[data-reveal]:not(.is-visible)').forEach(function (el) {
+        if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('is-visible');
+      });
+    }
+
+    // Las imágenes de arriba sin alto fijo (bloques wide/full) se cargan ya, para que
+    // no empujen la sección cuando la persona vuelva a subir.
+    document.querySelectorAll('img[loading="lazy"]').forEach(function (img) {
+      if (target.compareDocumentPosition(img) & Node.DOCUMENT_POSITION_PRECEDING) img.loading = 'eager';
+    });
+
+    jump();
+    reveal();
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () { root.classList.remove('lang-jump'); });
+    });
+
+    // Mientras terminan de cargar, si la página cambia de alto, se vuelve a alinear.
+    // Se detiene en cuanto la persona se mueve, o a los 3 segundos.
+    if (!('ResizeObserver' in window)) return;
+    var ro = new ResizeObserver(function () { jump(); reveal(); });
+    ro.observe(document.body);
+    function stop() {
+      ro.disconnect();
+      ['wheel', 'touchstart', 'keydown', 'mousedown'].forEach(function (ev) { window.removeEventListener(ev, stop); });
+    }
+    ['wheel', 'touchstart', 'keydown', 'mousedown'].forEach(function (ev) { window.addEventListener(ev, stop, { passive: true }); });
+    setTimeout(stop, 3000);
+  })();
+</script>

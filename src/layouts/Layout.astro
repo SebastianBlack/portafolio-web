@@ -3,6 +3,7 @@
 import Analytics from "../components/Analytics.astro";
 import SiteData from "../components/SiteData.astro";
 import SeoHead from "../components/SeoHead.astro";
+import LangSwitch from "../components/LangSwitch.astro";
 import { t, type Lang } from "../lib/i18n";
 import "../styles/global.css";
 
@@ -28,5 +29,6 @@ const { lang } = Astro.props;
 </head>
 <body>
   <slot />
+  <LangSwitch />
 </body>
 </html>

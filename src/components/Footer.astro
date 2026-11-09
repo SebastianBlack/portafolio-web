@@ -4,7 +4,7 @@ import { t, type Lang } from '../lib/i18n';
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 ---
-  <footer>
+  <footer id="footer" data-section>
     <div>
       <div class="footer-address" data-i18n="footer.address">{t(lang, 'footer.address')}</div>
       <div class="footer-social">

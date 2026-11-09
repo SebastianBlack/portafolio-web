@@ -24,7 +24,7 @@ const listed = await getListedCases();
   <Nav lang={lang} />
 
   <main id="main">
-  <section class="hero" id="hero">
+  <section class="hero" id="hero" data-section>
     <!-- trail images injected by JS -->
 
     <div class="hero-logo-wrap">
@@ -42,7 +42,7 @@ const listed = await getListedCases();
   </section>
 
   <!-- SELECTED WORK -->
-  <section class="work-section" id="work">
+  <section class="work-section" id="work" data-section>
     <h3 class="section-header" data-reveal>{T('work.section-title')}</h3>
 
     <div class="projects-grid" id="projects-grid">
@@ -55,7 +55,7 @@ const listed = await getListedCases();
   </section>
 
   <!-- ABOUT -->
-  <section class="about-section" id="about">
+  <section class="about-section" id="about" data-section>
     <div>
       <h2 class="about-title" data-reveal set:html={T('about.title')} />
 
@@ -79,7 +79,7 @@ const listed = await getListedCases();
   </section>
 
   <!-- CONTACT -->
-  <section class="contact-section" id="contact">
+  <section class="contact-section" id="contact" data-section>
     <div class="contact-inner" data-reveal>
       <div class="contact-top-row">
         <div class="contact-eyebrow">{T('contact.eyebrow')}</div>
