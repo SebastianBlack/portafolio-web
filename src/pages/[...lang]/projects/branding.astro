@@ -1,0 +1,18 @@
+---
+import ListingLayout from "../../../layouts/ListingLayout.astro";
+import CaseGrid from "../../../components/CaseGrid.astro";
+import CaseCount from "../../../components/CaseCount.astro";
+import { t, langPaths, type Lang } from "../../../lib/i18n";
+
+export const getStaticPaths = langPaths;
+const { lang } = Astro.props as { lang: Lang };
+---
+<ListingLayout lang={lang} title={t(lang, 'seo.branding.title')} tag="branding" description={t(lang, 'seo.branding.description')}>
+  <div class="page-header">
+    <h1 class="page-title">{t(lang, 'nav.branding')}</h1>
+    <CaseCount tag="branding" lang={lang} />
+  </div>
+  <section class="projects-section">
+    <CaseGrid tag="branding" lang={lang} />
+  </section>
+</ListingLayout>

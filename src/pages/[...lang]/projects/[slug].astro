@@ -1,0 +1,135 @@
+---
+// Página de cada caso de estudio, en español (/projects/<slug>/) y en inglés (/en/projects/<slug>/).
+// El contenido sale de src/content/cases/<slug>/case.yaml; cada idioma usa su propio texto.
+import ProjectLayout from '../../../layouts/ProjectLayout.astro';
+import CaseMedia from '../../../components/CaseMedia.astro';
+import { getBuiltCases, getListedCases, caseUrl, mediaUrl, type Case } from '../../../lib/cases';
+import { t, pick, langPaths, type Lang } from '../../../lib/i18n';
+
+export async function getStaticPaths() {
+  const cases = await getBuiltCases();
+  return langPaths().flatMap(({ params, props }) =>
+    cases.map((c) => ({ params: { ...params, slug: c.id }, props: { ...props, c } })));
+}
+
+const { c, lang } = Astro.props as { c: Case; lang: Lang };
+const d = c.data;
+const tx = (value: { es: string; en: string }) => pick(lang, value);
+
+// Siguiente proyecto: el que sigue en el orden de los casos visibles (vuelve al primero al final).
+const listed = await getListedCases();
+const pos = listed.findIndex((x) => x.id === c.id);
+const next = listed.length ? listed[(pos + 1) % listed.length] : undefined;
+
+type T = { es: string; en: string };
+const item = (m: { src: string; alt: T; caption?: T }) => ({
+  src: mediaUrl(c, m.src),
+  alt: tx(m.alt),
+  caption: m.caption ? tx(m.caption) : undefined,
+});
+
+const blocks = d.blocks.map((b) => {
+  switch (b.type) {
+    case 'text': {
+      const paras = !b.body ? [] : 'es' in b.body
+        ? [{ lead: undefined, text: tx(b.body) }]
+        : b.body.map((para) => ({ lead: para.lead ? tx(para.lead) : undefined, text: tx(para.text) }));
+      return { type: b.type, eyebrow: tx(b.eyebrow), heading: tx(b.heading), paras };
+    }
+    case 'grid-2':
+    case 'grid-3':
+      return { type: b.type, items: b.items.map(item) };
+    case 'wide':
+    case 'full':
+      return { type: b.type, items: [item(b.item)] };
+  }
+});
+---
+<ProjectLayout
+  lang={lang}
+  title={tx(d.seo.title)}
+  description={tx(d.seo.description)}
+  noindex={d.status === 'hidden'}
+>
+
+  <div class="project-header">
+    <div class="project-header-left">
+      <h1 class="project-title">{tx(d.title)}</h1>
+      <p class="project-tagline">{tx(d.tagline)}</p>
+    </div>
+    <div class="project-header-right">
+      <div class="project-meta-grid">
+        <div class="meta-item">
+          <div class="meta-label">{t(lang, 'meta.category')}</div>
+          <div class="meta-value">{tx(d.category)}</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">{t(lang, 'meta.year')}</div>
+          <div class="meta-value">{d.year}</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">{t(lang, 'meta.client')}</div>
+          <div class="meta-value">{d.client}</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">{t(lang, 'meta.services')}</div>
+          <div class="meta-value">{tx(d.services)}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="project-hero">
+    <CaseMedia src={mediaUrl(c, d.hero.src)} alt={tx(d.hero.alt)} reveal={false} eager />
+  </div>
+
+  {blocks.map((b) => {
+    if (b.type === 'text') return (
+      <div class="content-section" data-reveal>
+        <div class="content-text">
+          <div>
+            <p class="content-eyebrow">{b.eyebrow}</p>
+            <h2 class="content-heading">{b.heading}</h2>
+          </div>
+          {b.paras.length > 0 && (
+            <div class="content-body">
+              {b.paras.map((para) => para.lead
+                ? <p><strong>{para.lead}</strong> <span>{para.text}</span></p>
+                : <p>{para.text}</p>)}
+            </div>
+          )}
+        </div>
+      </div>
+    );
+    const wrap = { 'grid-2': 'img-grid-2', 'grid-3': 'img-grid-3', wide: 'img-padded', full: 'img-full' }[b.type];
+    return (
+      <div class="content-section">
+        <div class={wrap}>
+          {b.items.map((m, j) => <CaseMedia {...m} delay={j * 80} />)}
+        </div>
+      </div>
+    );
+  })}
+
+  {next && (
+    <a class="next-project" id="next-link" href={caseUrl(next, lang)}>
+      <p class="next-label">{t(lang, 'next.project')}</p>
+      <h2 class="next-title">{tx(next.data.title)}</h2>
+      <span class="next-arrow">→</span>
+    </a>
+  )}
+
+  <script is:inline>
+  (function () {
+    if (window.matchMedia('(hover: none) and (pointer: coarse)').matches) return;
+    const ring = document.getElementById('cursorRing');
+    const next = document.getElementById('next-link');
+    if (!ring || !next) return;
+    let mx=0,my=0,cx=0,cy=0;
+    document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; }, { passive: true });
+    (function loop(){ cx+=(mx-cx)*0.14; cy+=(my-cy)*0.14; ring.style.left=cx+'px'; ring.style.top=cy+'px'; requestAnimationFrame(loop); })();
+    next.addEventListener('mouseenter', () => ring.classList.add('is-active'));
+    next.addEventListener('mouseleave', () => ring.classList.remove('is-active'));
+  })();
+  </script>
+</ProjectLayout>

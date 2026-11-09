@@ -72,7 +72,7 @@ Cada imagen puede llevar un `caption`, que se ve debajo en mayúsculas pequeñas
 
 ## Reglas que revisa el build
 
-- Todo texto va en español (`es`) y en inglés (`en`).
+- Todo texto va en español (`es`) y en inglés (`en`). Cada caso se publica en dos páginas: `/projects/<nombre>/` en español y `/en/projects/<nombre>/` en inglés, cada una con su propio texto.
 - Cada imagen y video lleva `alt` en los dos idiomas: describe qué se ve, no "imagen 1".
 - `seo.description`: entre 50 y 160 caracteres por idioma.
 - `seo.title` es el título de la pestaña y de Google; se le agrega " — Sebastian Black".

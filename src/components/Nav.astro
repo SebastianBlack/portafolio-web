@@ -1,30 +1,44 @@
 ---
-const { activeLink } = Astro.props;
+// Menú. En las páginas con versión en ambos idiomas, ES/EN es un enlace a la misma página
+// en el otro idioma. En KuyraPet (solo español) sigue siendo el botón que cambia los textos.
+import { t, localePath, basePath, otherLang, LOCALE, type Lang } from '../lib/i18n';
+
+interface Props { lang: Lang; activeLink?: string; clientI18n?: boolean }
+const { lang, activeLink, clientI18n = false } = Astro.props;
+const L = (path: string) => localePath(lang, path);
+const to = otherLang(lang);
+const switchHref = localePath(to, basePath(Astro.url.pathname));
+const switchLabel = to === 'en' ? 'Switch to English' : 'Cambiar a español';
+const cls = (name: string) => (activeLink === name ? 'active' : '');
 ---
-  <a href="#main" class="skip-link" data-i18n="a11y.skip">Saltar al contenido</a>
+  <a href="#main" class="skip-link" data-i18n="a11y.skip">{t(lang, 'a11y.skip')}</a>
   <header class="nav">
-    <a href="/" class="nav-logo">Sebastian Black</a>
+    <a href={L('/')} class="nav-logo">Sebastian Black</a>
     <nav class="nav-links">
-      <a href="/projects/branding/" class={activeLink === 'branding' ? 'active' : ''} data-i18n="nav.branding">Branding</a>
-      <a href="/projects/product/" class={activeLink === 'product' ? 'active' : ''} data-i18n="nav.product">Producto</a>
-      <a href="/#about" data-i18n="nav.about">Sobre mí</a>
-      <a href="/#contact" data-i18n="nav.contact">Contacto</a>
+      <a href={L('/projects/branding/')} class={cls('branding')} data-i18n="nav.branding">{t(lang, 'nav.branding')}</a>
+      <a href={L('/projects/product/')} class={cls('product')} data-i18n="nav.product">{t(lang, 'nav.product')}</a>
+      <a href={L('/#about')} data-i18n="nav.about">{t(lang, 'nav.about')}</a>
+      <a href={L('/#contact')} data-i18n="nav.contact">{t(lang, 'nav.contact')}</a>
     </nav>
     <div class="nav-right">
-      <button class="nav-lang" data-lang-btn aria-label="Switch to English" lang="en">EN</button>
-      <span class="nav-year" data-i18n="nav.year">®2026</span>
-      <button class="nav-hamburger" id="navHamburger" aria-label="Menú" data-i18n-aria="a11y.menu"><span></span><span></span><span></span></button>
+      {clientI18n
+        ? <button class="nav-lang" data-lang-btn aria-label="Switch to English" lang="en">EN</button>
+        : <a class="nav-lang" href={switchHref} hreflang={LOCALE[to].hreflang} lang={to} aria-label={switchLabel}>{to.toUpperCase()}</a>}
+      <span class="nav-year" data-i18n="nav.year">{t(lang, 'nav.year')}</span>
+      <button class="nav-hamburger" id="navHamburger" aria-label={t(lang, 'a11y.menu')} data-i18n-aria="a11y.menu"><span></span><span></span><span></span></button>
     </div>
   </header>
   <div class="nav-mobile" id="navMobile" aria-hidden="true">
     <div class="nav-mobile-links">
-      <a href="/projects/branding/" class={activeLink === 'branding' ? 'active' : ''} data-i18n="nav.branding">Branding</a>
-      <a href="/projects/product/" class={activeLink === 'product' ? 'active' : ''} data-i18n="nav.product">Producto</a>
-      <a href="/#about" data-i18n="nav.about">Sobre mí</a>
-      <a href="/#contact" data-i18n="nav.contact">Contacto</a>
+      <a href={L('/projects/branding/')} class={cls('branding')} data-i18n="nav.branding">{t(lang, 'nav.branding')}</a>
+      <a href={L('/projects/product/')} class={cls('product')} data-i18n="nav.product">{t(lang, 'nav.product')}</a>
+      <a href={L('/#about')} data-i18n="nav.about">{t(lang, 'nav.about')}</a>
+      <a href={L('/#contact')} data-i18n="nav.contact">{t(lang, 'nav.contact')}</a>
     </div>
     <div class="nav-mobile-footer">
-      <button class="nav-mobile-footer-lang" data-lang-btn aria-label="Switch to English" lang="en">EN</button>
-      <span class="nav-mobile-footer-year" data-i18n="nav.year">®2026</span>
+      {clientI18n
+        ? <button class="nav-mobile-footer-lang" data-lang-btn aria-label="Switch to English" lang="en">EN</button>
+        : <a class="nav-mobile-footer-lang" href={switchHref} hreflang={LOCALE[to].hreflang} lang={to} aria-label={switchLabel}>{to.toUpperCase()}</a>}
+      <span class="nav-mobile-footer-year" data-i18n="nav.year">{t(lang, 'nav.year')}</span>
     </div>
   </div>

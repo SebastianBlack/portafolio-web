@@ -1,7 +1,8 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
+import { localePath, type Lang } from './i18n';
 
 export type Case = CollectionEntry<'cases'>;
-export type Lang = 'es' | 'en';
+export type { Lang };
 type T = { es: string; en: string };
 
 const byOrder = (a: Case, b: Case) => a.data.order - b.data.order;
@@ -16,7 +17,7 @@ export async function getListedCases() {
   return (await getCollection('cases', (c) => c.data.status === 'published')).sort(byOrder);
 }
 
-export const caseUrl = (c: Case) => `/projects/${c.id}/`;
+export const caseUrl = (c: Case, lang: Lang = 'es') => localePath(lang, `/projects/${c.id}/`);
 export const mediaUrl = (c: Case, file: string) => c.data.images + file;
 export const isVideo = (src: string) => /\.mp4$/i.test(src);
 
@@ -24,8 +25,8 @@ export const isVideo = (src: string) => /\.mp4$/i.test(src);
 export const caseTag = (c: Case) => (c.data.type === 'producto' ? 'product' : 'branding');
 
 /**
- * Diccionario de traducciones de un caso. La página se genera en español y el
- * botón ES/EN cambia los textos con estas claves (ver public/js/i18n.js).
+ * Textos ES/EN para el botón que cambia el idioma en el navegador (public/js/i18n.js).
+ * Hoy solo lo usa KuyraPet, que no tiene versión en inglés.
  */
 export class Dict {
   es: Record<string, string> = {};
@@ -37,7 +38,7 @@ export class Dict {
   }
 }
 
-/** Título y categoría de todos los casos listados, para tarjetas y "siguiente proyecto". */
+/** Título y categoría de los casos listados, para el "siguiente proyecto" de KuyraPet. */
 export function cardDict(cases: Case[], dict = new Dict()) {
   for (const c of cases) {
     dict.add(`project.${c.id}.title`, c.data.title);

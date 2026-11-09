@@ -1,18 +1,16 @@
 ---
-// Una imagen o un video de un caso. El alt cambia con el botón ES/EN (data-i18n-alt / data-i18n-aria).
+// Una imagen o un video de un caso, con pie de foto opcional.
 import { isVideo } from '../lib/cases';
 
 interface Props {
   src: string;
   alt: string;
-  altKey: string;
   delay?: number;
   reveal?: boolean;
   eager?: boolean;
   caption?: string;
-  captionKey?: string;
 }
-const { src, alt, altKey, delay = 0, reveal = true, eager = false, caption, captionKey } = Astro.props;
+const { src, alt, delay = 0, reveal = true, eager = false, caption } = Astro.props;
 // Con pie de foto, la animación de entrada pasa al <figure> para que imagen y pie entren juntos.
 const revealMedia = reveal && !caption;
 const style = delay ? `--reveal-delay:${delay}ms` : undefined;
@@ -21,11 +19,11 @@ const style = delay ? `--reveal-delay:${delay}ms` : undefined;
   ? (
     <figure class="case-figure" data-reveal={reveal ? '' : undefined} style={style}>
       {isVideo(src)
-        ? <video src={src} autoplay muted loop playsinline aria-label={alt} data-i18n-aria={altKey}></video>
-        : <img src={src} alt={alt} data-i18n-alt={altKey} loading={eager ? undefined : 'lazy'}>}
-      <figcaption class="case-caption" data-i18n={captionKey}>{caption}</figcaption>
+        ? <video src={src} autoplay muted loop playsinline aria-label={alt}></video>
+        : <img src={src} alt={alt} loading={eager ? undefined : 'lazy'}>}
+      <figcaption class="case-caption">{caption}</figcaption>
     </figure>
   )
   : isVideo(src)
-    ? <video src={src} autoplay muted loop playsinline aria-label={alt} data-i18n-aria={altKey} data-reveal={revealMedia ? '' : undefined} style={style}></video>
-    : <img src={src} alt={alt} data-i18n-alt={altKey} loading={eager ? undefined : 'lazy'} data-reveal={revealMedia ? '' : undefined} style={style}>}
+    ? <video src={src} autoplay muted loop playsinline aria-label={alt} data-reveal={revealMedia ? '' : undefined} style={style}></video>
+    : <img src={src} alt={alt} loading={eager ? undefined : 'lazy'} data-reveal={revealMedia ? '' : undefined} style={style}>}

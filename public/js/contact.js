@@ -8,7 +8,11 @@
 
 window.CONTACT = Object.freeze({
   whatsapp:        '51992325564',
-  whatsappMessage: 'Hola Sebastian, me gustaría conversar sobre un proyecto.',
+  // Mensaje que aparece escrito al abrir WhatsApp, según el idioma de la página.
+  whatsappMessage: {
+    es: 'Hola Sebastian, me gustaría conversar sobre un proyecto.',
+    en: "Hi Sebastian, I'd like to talk about a project.",
+  },
   instagram:       'https://www.instagram.com/sebasblack.pe/',
   linkedin:        'https://www.linkedin.com/in/sebastianblack/',
   email:           'hola.sebastianblack@gmail.com',
@@ -17,7 +21,7 @@ window.CONTACT = Object.freeze({
 (function () {
   const C = window.CONTACT;
   const HREFS = {
-    whatsapp:  `https://wa.me/${C.whatsapp}?text=${encodeURIComponent(C.whatsappMessage)}`,
+    whatsapp:  `https://wa.me/${C.whatsapp}?text=${encodeURIComponent(C.whatsappMessage[document.documentElement.lang === 'en' ? 'en' : 'es'])}`,
     instagram: C.instagram,
     linkedin:  C.linkedin,
     email:     `mailto:${C.email}`,

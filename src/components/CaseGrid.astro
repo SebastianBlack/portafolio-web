@@ -2,11 +2,12 @@
 // Grilla de casos filtrada por categoría (product | branding | all).
 import ProjectCard from './ProjectCard.astro';
 import { getListedCases, caseTag } from '../lib/cases';
+import type { Lang } from '../lib/i18n';
 
-interface Props { tag: 'product' | 'branding' | 'all' }
-const { tag } = Astro.props;
+interface Props { tag: 'product' | 'branding' | 'all'; lang: Lang }
+const { tag, lang } = Astro.props;
 const list = (await getListedCases()).filter((c) => tag === 'all' || caseTag(c) === tag);
 ---
 <div class="projects-grid" data-tag={tag}>
-  {list.map((c, i) => <ProjectCard c={c} index={i} />)}
+  {list.map((c, i) => <ProjectCard c={c} index={i} lang={lang} />)}
 </div>

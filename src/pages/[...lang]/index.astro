@@ -1,13 +1,18 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import Nav from "../components/Nav.astro";
-import Footer from "../components/Footer.astro";
-import ProjectCard from "../components/ProjectCard.astro";
-import { getListedCases } from "../lib/cases";
+// Portada en español (/) y en inglés (/en/).
+import Layout from "../../layouts/Layout.astro";
+import Nav from "../../components/Nav.astro";
+import Footer from "../../components/Footer.astro";
+import ProjectCard from "../../components/ProjectCard.astro";
+import { getListedCases } from "../../lib/cases";
+import { t, localePath, langPaths, type Lang } from "../../lib/i18n";
 
+export const getStaticPaths = langPaths;
+const { lang } = Astro.props as { lang: Lang };
+const T = (key: string) => t(lang, key);
 const listed = await getListedCases();
 ---
-<Layout>
+<Layout lang={lang}>
   <div class="cursor-ring" id="cursorRing" aria-hidden="true">
     <!-- Arrow ↗ inline SVG — black on white circle -->
     <svg viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -16,7 +21,7 @@ const listed = await getListedCases();
     </svg>
   </div>
 
-  <Nav />
+  <Nav lang={lang} />
 
   <main id="main">
   <section class="hero" id="hero">
@@ -33,52 +38,43 @@ const listed = await getListedCases();
       <img class="hero-logo-bottom" src="/images/ui/logo-black.png" alt="BLACK" draggable="false">
     </div>
 
-    <h1 class="hero-tagline" data-i18n="hero.tagline">
-      Diseñador UX/UI y de producto con base en Lima, Perú.<br>
-      También diseño marcas e ilustro.
-    </h1>
+    <h1 class="hero-tagline" set:html={T('hero.tagline')} />
   </section>
 
   <!-- SELECTED WORK -->
   <section class="work-section" id="work">
-    <h3 class="section-header" data-reveal data-i18n="work.section-title">Trabajos seleccionados</h3>
+    <h3 class="section-header" data-reveal>{T('work.section-title')}</h3>
 
     <div class="projects-grid" id="projects-grid">
-      {listed.map((c, i) => <ProjectCard c={c} index={i} />)}
+      {listed.map((c, i) => <ProjectCard c={c} index={i} lang={lang} />)}
     </div>
 
     <div class="see-all-wrap">
-      <a href="/projects/" class="btn-pill" data-i18n="work.see-all">ver todos</a>
+      <a href={localePath(lang, '/projects/')} class="btn-pill">{T('work.see-all')}</a>
     </div>
   </section>
 
   <!-- ABOUT -->
   <section class="about-section" id="about">
     <div>
-      <h2 class="about-title" data-reveal data-i18n="about.title">Hola, soy<br>Sebastian<br>Black</h2>
+      <h2 class="about-title" data-reveal set:html={T('about.title')} />
 
-      <p class="about-intro" data-reveal style="--reveal-delay:80ms" data-i18n="about.intro">Diseñador de producto y marca con base en Lima. Me gusta resolver problemas reales: entender a las personas primero y traducir eso en marcas y productos que se sienten claros, humanos y bien pensados. Trabajo entre la estrategia y el detalle —donde una idea se vuelve algo que la gente realmente usa.</p>
+      <p class="about-intro" data-reveal style="--reveal-delay:80ms" set:html={T('about.intro')} />
 
       <div class="about-details-grid" data-reveal style="--reveal-delay:160ms">
         <div class="about-details-group">
-          <div class="about-label" data-i18n="about.services-label">Servicios</div>
-          <div class="about-list" data-i18n="about.services-list">
-            Identidad de marca<br>Dirección de arte<br>Motion graphics<br>
-            Diseño de producto<br>Diseño UX/UI
-          </div>
+          <div class="about-label">{T('about.services-label')}</div>
+          <div class="about-list" set:html={T('about.services-list')} />
         </div>
         <div class="about-details-group">
-          <div class="about-label" data-i18n="about.tools-label">Herramientas</div>
-          <div class="about-list" data-i18n="about.tools-list">
-            Figma<br>Claude<br>Miro<br>After Effects<br>
-            Illustrator<br>Photoshop
-          </div>
+          <div class="about-label">{T('about.tools-label')}</div>
+          <div class="about-list" set:html={T('about.tools-list')} />
         </div>
       </div>
     </div>
 
     <div class="about-right" data-reveal style="--reveal-delay:80ms">
-      <img src="/images/profile.webp" alt="Sebastian Black, diseñador de Lima" data-i18n-alt="about.photo-alt">
+      <img src="/images/profile.webp" alt={T('about.photo-alt')}>
     </div>
   </section>
 
@@ -86,27 +82,27 @@ const listed = await getListedCases();
   <section class="contact-section" id="contact">
     <div class="contact-inner" data-reveal>
       <div class="contact-top-row">
-        <div class="contact-eyebrow" data-i18n="contact.eyebrow">Contacto</div>
+        <div class="contact-eyebrow">{T('contact.eyebrow')}</div>
         <div class="contact-available">
           <span class="availability-dot"></span>
-          <span data-i18n="contact.available">Disponible para proyectos</span>
+          <span>{T('contact.available')}</span>
         </div>
       </div>
-      <h2 class="contact-title" data-i18n="contact.title">Hablemos</h2>
+      <h2 class="contact-title" set:html={T('contact.title')} />
       <div class="contact-bottom-row">
         <div class="contact-socials">
           <a href="https://www.instagram.com/sebasblack.pe/" target="_blank" rel="noopener" class="contact-social-link" data-cta="instagram">Instagram ↗</a>
           <a href="https://www.linkedin.com/in/sebastianblack/" target="_blank" rel="noopener" class="contact-social-link" data-cta="linkedin">LinkedIn ↗</a>
           <a href="mailto:hola.sebastianblack@gmail.com" class="contact-social-link contact-email" data-cta="email">hola.sebastianblack@gmail.com</a>
         </div>
-        <a href="https://wa.me/51992325564" class="btn-pill" target="_blank" rel="noopener" data-cta="whatsapp" data-i18n="contact.cta">Escríbeme por WhatsApp</a>
+        <a href="https://wa.me/51992325564" class="btn-pill" target="_blank" rel="noopener" data-cta="whatsapp">{T('contact.cta')}</a>
       </div>
     </div>
   </section>
 
   </main>
 
-  <Footer />
+  <Footer lang={lang} />
   <script is:inline>
   // ─────────────────────────────────────────────────────────────
   //  HERO IMAGE TRAIL  (DOM pool · double-rAF · cached rect)

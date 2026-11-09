@@ -1,54 +1,39 @@
 ---
+// Layout de los casos de estudio (y de KuyraPet, que solo existe en español).
 import Analytics from "../components/Analytics.astro";
 import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
 import SiteData from "../components/SiteData.astro";
+import SeoHead from "../components/SeoHead.astro";
+import { basePath, type Lang } from "../lib/i18n";
 import "../styles/project.css";
 
-const { title, description, noindex = false, dict } = Astro.props;
-
-const SITE = 'https://www.sebasblack.com';
-const OG_IMAGE = `${SITE}/images/ui/og-image.jpg`;
-const PAGE_TITLE = `${title} — Sebastian Black`;
-const DESCRIPTION = description || `Caso de estudio: ${title}. Portafolio de Sebastian Black, diseñador UX/UI y de producto en Lima, Perú.`;
-const URL = `${SITE}${Astro.url.pathname}`;
-const CASE_NAME = Astro.url.pathname.split('/').filter(Boolean).pop();
+interface Props {
+  lang: Lang;
+  title: string;
+  description: string;
+  noindex?: boolean;
+  /** Página solo en español: el botón ES/EN cambia los textos en el navegador (i18n.js). */
+  clientI18n?: boolean;
+}
+const { lang, title, description, noindex = false, clientI18n = false } = Astro.props;
+const PATH = basePath(Astro.url.pathname);
+const CASE_NAME = PATH.split('/').filter(Boolean).pop();
 ---
 <!DOCTYPE html>
-<html lang="es">
+<html lang={lang}>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{PAGE_TITLE}</title>
-  <meta name="description" content={DESCRIPTION}>
-  <link rel="canonical" href={URL}>
-  {noindex && <meta name="robots" content="noindex, nofollow">}
-
-  <meta property="og:type" content="article">
-  <meta property="og:url" content={URL}>
-  <meta property="og:site_name" content="Sebastian Black">
-  <meta property="og:title" content={PAGE_TITLE}>
-  <meta property="og:description" content={DESCRIPTION}>
-  <meta property="og:image" content={OG_IMAGE}>
-  <meta property="og:image:type" content="image/jpeg">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Sebastian Black — Portfolio">
-  <meta property="og:locale" content="es_PE">
-
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:url" content={URL}>
-  <meta name="twitter:title" content={PAGE_TITLE}>
-  <meta name="twitter:description" content={DESCRIPTION}>
-  <meta name="twitter:image" content={OG_IMAGE}>
+  <SeoHead lang={lang} title={`${title} — Sebastian Black`} description={description} path={PATH} type="article" noindex={noindex} alternates={!clientI18n} />
 
   <link rel="icon" type="image/x-icon" href="/favicon.ico?v=3">
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=3">
   <link rel="icon" type="image/png" sizes="64x64" href="/images/ui/favicon.png?v=3">
   <link rel="preconnect" href="https://api.fontshare.com">
   <link href="https://api.fontshare.com/v2/css?f[]=switzer@400,500,700&display=swap" rel="stylesheet">
-  <SiteData dict={dict} />
-  <script is:inline src="/js/i18n.js"></script>
+  <SiteData />
+  {clientI18n && <script is:inline src="/js/i18n.js"></script>}
   <script is:inline src="/js/contact.js"></script>
   <Analytics caseName={CASE_NAME} />
 </head>
@@ -58,9 +43,9 @@ const CASE_NAME = Astro.url.pathname.split('/').filter(Boolean).pop();
       <path d="M10 28 L28 10 M28 10 H14 M28 10 V24" stroke="#0f0e0e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
   </div>
-  <Nav />
+  <Nav lang={lang} clientI18n={clientI18n} />
   <slot />
-  <Footer />
+  <Footer lang={lang} />
   <script is:inline>
   (function () {
     const obs = new IntersectionObserver(function(entries) {

@@ -1,0 +1,44 @@
+---
+// Título, descripción, canonical, versiones en otro idioma (hreflang) y tarjetas para redes.
+import { SITE, LANGS, LOCALE, DEFAULT_LANG, localePath, otherLang, type Lang } from '../lib/i18n';
+
+interface Props {
+  lang: Lang;
+  title: string;
+  description: string;
+  /** Ruta sin el prefijo de idioma, p. ej. /projects/gastro-app/ */
+  path: string;
+  type?: 'website' | 'article';
+  noindex?: boolean;
+  /** false en páginas que solo existen en un idioma (KuyraPet). */
+  alternates?: boolean;
+}
+const { lang, title, description, path, type = 'website', noindex = false, alternates = true } = Astro.props;
+const OG_IMAGE = `${SITE}/images/ui/og-image.jpg`;
+const URL = SITE + localePath(lang, path);
+---
+<title>{title}</title>
+<meta name="description" content={description}>
+<link rel="canonical" href={URL}>
+{noindex && <meta name="robots" content="noindex, nofollow">}
+{alternates && LANGS.map((l) => <link rel="alternate" hreflang={LOCALE[l].hreflang} href={SITE + localePath(l, path)}>)}
+{alternates && <link rel="alternate" hreflang="x-default" href={SITE + localePath(DEFAULT_LANG, path)}>}
+
+<meta property="og:type" content={type}>
+<meta property="og:url" content={URL}>
+<meta property="og:site_name" content="Sebastian Black">
+<meta property="og:title" content={title}>
+<meta property="og:description" content={description}>
+<meta property="og:image" content={OG_IMAGE}>
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Sebastian Black — Portfolio">
+<meta property="og:locale" content={LOCALE[lang].og}>
+{alternates && <meta property="og:locale:alternate" content={LOCALE[otherLang(lang)].og}>}
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content={URL}>
+<meta name="twitter:title" content={title}>
+<meta name="twitter:description" content={description}>
+<meta name="twitter:image" content={OG_IMAGE}>

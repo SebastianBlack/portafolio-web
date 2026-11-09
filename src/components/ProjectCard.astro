@@ -1,22 +1,22 @@
 ---
-// Tarjeta de un caso para la portada y los listados. Mismo HTML que generaba antes projects.js.
+// Tarjeta de un caso para la portada y los listados.
 import { caseUrl, mediaUrl, type Case } from '../lib/cases';
+import { pick, type Lang } from '../lib/i18n';
 
-interface Props { c: Case; index: number }
-const { c, index } = Astro.props;
+interface Props { c: Case; index: number; lang: Lang }
+const { c, index, lang } = Astro.props;
 const { title, category, card } = c.data;
 const delay = (index % 2) * 80;
-const alt = (card.alt ?? title).es;
-const altKey = `project.${c.id}.card-alt`;
+const alt = pick(lang, card.alt ?? title);
 ---
-<a href={caseUrl(c)} class="project-card" data-reveal style={`--reveal-delay:${delay}ms`}>
+<a href={caseUrl(c, lang)} class="project-card" data-reveal style={`--reveal-delay:${delay}ms`}>
   <div class="project-img-wrap">
     {card.video
-      ? <video src={mediaUrl(c, card.video)} autoplay muted loop playsinline aria-label={alt} data-i18n-aria={altKey}></video>
-      : <img src={mediaUrl(c, card.thumb)} alt={alt} data-i18n-alt={altKey} loading="lazy">}
+      ? <video src={mediaUrl(c, card.video)} autoplay muted loop playsinline aria-label={alt}></video>
+      : <img src={mediaUrl(c, card.thumb)} alt={alt} loading="lazy">}
   </div>
   <div class="project-meta">
-    <div class="project-title" data-i18n={`project.${c.id}.title`}>{title.es}</div>
-    <div class="project-category" data-i18n={`project.${c.id}.category`}>{category.es}</div>
+    <div class="project-title">{pick(lang, title)}</div>
+    <div class="project-category">{pick(lang, category)}</div>
   </div>
 </a>

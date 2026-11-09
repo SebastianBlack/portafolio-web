@@ -1,11 +1,12 @@
 ---
 // Número de casos de una categoría: "03 Proyectos" o "(3)".
 import { getListedCases, caseTag } from '../lib/cases';
+import { t, type Lang } from '../lib/i18n';
 
-interface Props { tag: 'product' | 'branding' | 'all'; variant?: 'label' | 'paren' }
-const { tag, variant = 'label' } = Astro.props;
+interface Props { tag: 'product' | 'branding' | 'all'; lang: Lang; variant?: 'label' | 'paren' }
+const { tag, lang, variant = 'label' } = Astro.props;
 const n = (await getListedCases()).filter((c) => tag === 'all' || caseTag(c) === tag).length;
 ---
 {variant === 'paren'
   ? <span class="section-count">({n})</span>
-  : <p class="project-count">{String(n).padStart(2, '0')} <span data-i18n="projects.count">Proyectos</span></p>}
+  : <p class="project-count">{String(n).padStart(2, '0')} <span>{t(lang, 'projects.count')}</span></p>}

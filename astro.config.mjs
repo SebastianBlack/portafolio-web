@@ -20,6 +20,8 @@ export default defineConfig({
   site: 'https://www.sebasblack.com',
   integrations: [
     sitemap({
+      // Cada URL lista su versión en el otro idioma (/en/...) para Google.
+      i18n: { defaultLocale: 'es', locales: { es: 'es', en: 'en' } },
       filter: (page) =>
         // El case study de KuyraPet es un link oculto: no va en el sitemap
         !page.includes('kuyrapet-coderhouse') &&
